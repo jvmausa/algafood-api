@@ -33,5 +33,6 @@ public class Restaurante {
 	@ManyToOne
 	private Cozinha cozinha;
 	
+	
 
 }
