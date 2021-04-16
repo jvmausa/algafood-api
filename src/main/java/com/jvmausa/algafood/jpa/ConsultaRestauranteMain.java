@@ -23,8 +23,10 @@ public class ConsultaRestauranteMain {
 		
 		List<Restaurante> restaurantes = restauranteRepository.listar();
 		
-		for(Restaurante restaunte : restaurantes) {
-			System.out.println(restaunte.getNome());
+		for(Restaurante restaurante : restaurantes) {
+			System.out.println("Restaurante: " + restaurante.getNome() + "\nCozinha: " 
+								+ restaurante.getCozinha().getNome()
+								+ "\nTaxa de frete: " + restaurante.getTaxaFrete() + "\n");
 			
 		}
 		
