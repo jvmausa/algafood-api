@@ -9,17 +9,17 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import com.jvmausa.algafood.domain.model.FormaPagamento;
-import com.jvmausa.algafood.domain.repository.FormaPagamentoRespository;
+import com.jvmausa.algafood.domain.repository.FormaPagamentoRepository;
 
 @Component
-public class FormaPagamentoImpl implements FormaPagamentoRespository {
+public class FormaPagamentoImpl implements FormaPagamentoRepository {
 
 	@PersistenceContext
 	private EntityManager manager;
 
 	@Override
 	public List<FormaPagamento> listar() {
-		return manager.createQuery("from forma_pagamento", FormaPagamento.class).getResultList();
+		return manager.createQuery("from FormaPagamento", FormaPagamento.class).getResultList();
 	}
 
 	@Override
