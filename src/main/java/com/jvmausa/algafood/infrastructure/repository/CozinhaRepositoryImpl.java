@@ -19,7 +19,7 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 
 	public List<Cozinha> listar() {
 
-		return manager.createQuery("from Cozinha", Cozinha.class).getResultList();
+		return manager.createQuery("from Cozinha", Cozinha.class).getResultList(); // from "<classe Java>", e não tabela SQL
 
 	}
 
