@@ -12,7 +12,7 @@ import com.jvmausa.algafood.domain.model.Permissao;
 import com.jvmausa.algafood.domain.repository.PermissaoRepository;
 
 @Component
-public class PermissaoImpl implements PermissaoRepository {
+public class PermissaoRepositoryImpl implements PermissaoRepository {
 
 	@PersistenceContext
 	EntityManager manager;

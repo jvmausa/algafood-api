@@ -13,7 +13,7 @@ import com.jvmausa.algafood.domain.repository.CidadeRepository;
 
 
 @Component
-public class CidadeImpl implements CidadeRepository{
+public class CidadeRepositoryImpl implements CidadeRepository{
 
 	@PersistenceContext
 	EntityManager manager;

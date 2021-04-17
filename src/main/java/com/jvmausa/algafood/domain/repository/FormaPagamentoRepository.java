@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.jvmausa.algafood.domain.model.FormaPagamento;
 
-public interface FormaPagamentoRespository {
+public interface FormaPagamentoRepository {
 
 	List<FormaPagamento> listar();
 	FormaPagamento buscar(Long id);
