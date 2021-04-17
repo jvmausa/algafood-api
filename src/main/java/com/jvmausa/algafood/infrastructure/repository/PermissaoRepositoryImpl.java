@@ -19,7 +19,7 @@ public class PermissaoRepositoryImpl implements PermissaoRepository {
 
 	@Override
 	public List<Permissao> listar() {
-		return manager.createQuery("from permissao", Permissao.class).getResultList();
+		return manager.createQuery("from Permissao", Permissao.class).getResultList();
 	}
 
 	@Override
