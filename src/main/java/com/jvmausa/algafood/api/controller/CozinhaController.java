@@ -83,7 +83,7 @@ public class CozinhaController {
 		if (cozinhaAtual != null) {
 			BeanUtils.copyProperties(cozinha, cozinhaAtual, "id"); // entre "" é o parâmetro que deve ser ignorado na
 																	// cópia
-			cozinhaRepository.salvar(cozinhaAtual);
+			cadastroCozinha.salvar(cozinhaAtual);
 			return ResponseEntity.ok(cozinhaAtual);
 		}
 
