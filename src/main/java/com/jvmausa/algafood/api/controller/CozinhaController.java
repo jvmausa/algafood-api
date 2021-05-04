@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.model.CozinhasXmlWrapper;
@@ -68,18 +67,19 @@ public class CozinhaController {
 	}
 
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Cozinha adicionar(@RequestBody Cozinha cozinha) {
+	public ResponseEntity<?> adicionar(@RequestBody Cozinha cozinha) {
 
-		return cadastroCozinha.salvar(cozinha);
+		cozinha = cadastroCozinha.salvar(cozinha);
+		return ResponseEntity.status(HttpStatus.CREATED).body(cozinha);
 
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Cozinha> atualizar(@PathVariable Long id, @RequestBody Cozinha cozinha) {
 
-		Cozinha cozinhaAtual = cozinhaRepository.buscar(id);
-
+		Cozinha cozinhaAtual = cozinhaRepository.buscar(id); // usado para consultar
+		
+		//verificação se cozinha existe
 		if (cozinhaAtual != null) {
 			BeanUtils.copyProperties(cozinha, cozinhaAtual, "id"); // entre "" é o parâmetro que deve ser ignorado na
 																	// cópia
