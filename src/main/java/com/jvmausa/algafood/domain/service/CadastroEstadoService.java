@@ -18,7 +18,7 @@ public class CadastroEstadoService {
 
 	public Estado salvar(Estado estado) {
 
-		return estadoRepository.salvar(estado);
+		return estadoRepository.save(estado);
 
 	}
 
@@ -26,7 +26,7 @@ public class CadastroEstadoService {
 
 		try {
 
-			estadoRepository.remover(id);
+			estadoRepository.deleteById(id);
 
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(
