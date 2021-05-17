@@ -1,11 +1,11 @@
 package com.jvmausa.algafood.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jvmausa.algafood.api.model.CozinhasXmlWrapper;
 import com.jvmausa.algafood.domain.exception.EntidadeEmUsoException;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.model.Cozinha;
@@ -33,23 +32,18 @@ public class CozinhaController {
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Cozinha> listarJson() {
+	@GetMapping
+	public List<Cozinha> listar() {
 
-		return cozinhaRepository.listar();
+		return cozinhaRepository.findAll();
 
 	}
 
-	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-	public CozinhasXmlWrapper listarXml() {
-
-		return new CozinhasXmlWrapper(cozinhaRepository.listar());
-	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Cozinha> buscar(@PathVariable Long id) {
 
-		Cozinha cozinha = cozinhaRepository.buscar(id);
+		Optional<Cozinha> cozinha = cozinhaRepository.findById(id);
 		// return ResponseEntity.status(HttpStatus.OK).body(cozinha); << MAIS USADO
 		// QUANDO HÁ CONDICIONAIS QUE RETORNAM HttpStatus
 		// return ResponseEntity.ok(cozinha);
@@ -58,8 +52,8 @@ public class CozinhaController {
 		// headers.add(HttpHeaders.LOCATION, "http://api.algafood.local:8080/cozinhas");
 		// return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build();
 
-		if (cozinha != null) {
-			return ResponseEntity.ok(cozinha);
+		if (cozinha.isPresent()) {
+			return ResponseEntity.ok(cozinha.get());
 		}
 
 		return ResponseEntity.notFound().build();
@@ -77,14 +71,14 @@ public class CozinhaController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Cozinha> atualizar(@PathVariable Long id, @RequestBody Cozinha cozinha) {
 
-		Cozinha cozinhaAtual = cozinhaRepository.buscar(id); // usado para consultar
+		Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(id); // usado para consultar
 		
 		//verificação se cozinha existe
-		if (cozinhaAtual != null) {
-			BeanUtils.copyProperties(cozinha, cozinhaAtual, "id"); // entre "" é o parâmetro que deve ser ignorado na
+		if (cozinhaAtual.isPresent()) {
+			BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id"); // entre "" é o parâmetro que deve ser ignorado na
 																	// cópia
-			cadastroCozinha.salvar(cozinhaAtual);
-			return ResponseEntity.ok(cozinhaAtual);
+			Cozinha cozinhaSalva = cadastroCozinha.salvar(cozinhaAtual.get());
+			return ResponseEntity.ok(cozinhaSalva);
 		}
 
 		return ResponseEntity.notFound().build();

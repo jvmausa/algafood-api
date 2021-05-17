@@ -20,14 +20,14 @@ public class CadastroCozinhaService {
 
 		// aqui que são colocadas regras/lógicas de negócio
 
-		return cozinhaRepository.salvar(cozinha);
+		return cozinhaRepository.save(cozinha);
 
 	}
 
 	public void excluir(Long id) {
 
 		try {
-			cozinhaRepository.remover(id);
+			cozinhaRepository.deleteById(id);
 
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(
@@ -39,7 +39,5 @@ public class CadastroCozinhaService {
 		}
 
 	}
-	
-	
 
 }
