@@ -2,13 +2,12 @@ package com.jvmausa.algafood.domain.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.jvmausa.algafood.domain.model.Cozinha;
 
 @Repository
-public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
+public interface CozinhaRepository extends CustomJpaRepository<Cozinha, Long> {
 
 	List<Cozinha> findTodosByNome(String nome); // pesquisa todas por nome exato
 	
