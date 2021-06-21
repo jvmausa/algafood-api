@@ -85,7 +85,8 @@ public class RestauranteController {
 
 			if (restauranteAtual.isPresent()) {
 
-				BeanUtils.copyProperties(restaurante, restauranteAtual.get(), "id", "formasPagamento");
+				BeanUtils.copyProperties(restaurante, restauranteAtual.get(), "id", "formasPagamento", 
+										 "endereco", "dataCadastro");
 				Restaurante restauranteSalva = cadastroRestaurante.salvar(restauranteAtual.get());
 				return ResponseEntity.ok(restauranteSalva);
 				
@@ -102,7 +103,7 @@ public class RestauranteController {
 	/*
 	 * @Map(K,V) k = atributo, campo de Restaurante. V = valor
 	 */
-
+ 
 	@PatchMapping("/{id}")
 	public ResponseEntity<?> atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> campos) {
 
