@@ -41,8 +41,9 @@ public class Restaurante {
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 	
+	@JsonIgnore
+	@ManyToOne //(fetch = FetchType.LAZY) //padrão do ToOne é eager
 	@JoinColumn(name = "cozinha_codigo", nullable = false)
-	@ManyToOne
 	private Cozinha cozinha;
 	
 	@JsonIgnore
@@ -67,7 +68,7 @@ public class Restaurante {
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
 	
 	@JsonIgnore
-	@OneToMany
+	@OneToMany(mappedBy = "restaurante")
 	private List<Produto> produtos = new ArrayList<>();
 
 }
