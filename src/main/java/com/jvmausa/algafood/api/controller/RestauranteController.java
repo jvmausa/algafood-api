@@ -40,22 +40,21 @@ public class RestauranteController {
 	public List<Restaurante> listar() {
 
 		return restauranteRepository.findAll();
+		
+		
 
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Restaurante> buscar(@PathVariable Long id) {
-
 		Optional<Restaurante> restaurante = restauranteRepository.findById(id);
 
 		if (restaurante != null) {
-
 			return ResponseEntity.ok(restaurante.get());
-
+			
 		}
-
 		return ResponseEntity.notFound().build();
-
+		
 	}
 
 	/*
