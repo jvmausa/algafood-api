@@ -34,7 +34,7 @@ public class Cozinha {
 	@Column(nullable = false)
 	private String nome;
 	
-	// @JsonIgnore para ignorar na representação, caso contrário fica em looping(neste caso)
+	// @JsonIgnore para ignorar na representação, caso contrário fica em looping
 	@JsonIgnore
 	@OneToMany(mappedBy = "cozinha")
 	private List<Restaurante> restaurantes = new ArrayList<>(); 
