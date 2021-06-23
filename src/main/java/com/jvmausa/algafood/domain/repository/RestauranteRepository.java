@@ -16,7 +16,7 @@ public interface RestauranteRepository extends CustomJpaRepository<Restaurante, 
 	public List<Restaurante> findByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
 	
 	
-	@Query("from Restaurante r join fetch r.cozinha left join fetch r.formasPagamento")
+	@Query("from Restaurante r join fetch r.cozinha left join fetch r.formasPagamento") //resolve o problema de eager loading
 	List<Restaurante> findAll();
 
 	
