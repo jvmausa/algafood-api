@@ -28,7 +28,6 @@ public class Cozinha {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	//@Column(name = "nom_cozinha")
 	//@JsonIgnore remove da representação este atributo
 	//@JsonProperty("titulo") altera o nome deste atributo na representação
 	@Column(nullable = false)
