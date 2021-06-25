@@ -67,8 +67,6 @@ public class CidadeController {
 			
 		}
 		
-		
-		
 	}
 
 	@DeleteMapping("/{id}")
