@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jvmausa.algafood.domain.exception.EntidadeEmUsoException;
-import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.model.Cozinha;
 import com.jvmausa.algafood.domain.repository.CozinhaRepository;
 import com.jvmausa.algafood.domain.service.CadastroCozinhaService;
@@ -38,7 +37,6 @@ public class CozinhaController {
 		return cozinhaRepository.findAll();
 
 	}
-
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Cozinha> buscar(@PathVariable Long id) {
@@ -72,11 +70,12 @@ public class CozinhaController {
 	public ResponseEntity<Cozinha> atualizar(@PathVariable Long id, @RequestBody Cozinha cozinha) {
 
 		Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(id); // usado para consultar
-		
-		//verificação se cozinha existe
+
+		// verificação se cozinha existe
 		if (cozinhaAtual.isPresent()) {
-			BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id"); // entre "" é o parâmetro que deve ser ignorado na
-																	// cópia
+			BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id"); // entre "" é o parâmetro que deve ser ignorado
+																			// na
+			// cópia
 			Cozinha cozinhaSalva = cadastroCozinha.salvar(cozinhaAtual.get());
 			return ResponseEntity.ok(cozinhaSalva);
 		}
@@ -86,21 +85,9 @@ public class CozinhaController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Cozinha> remover(@PathVariable Long id) {
-
-		try {
-
-			cadastroCozinha.excluir(id);
-			return ResponseEntity.noContent().build();
-
-		} catch (EntidadeNaoEncontradaException e) {
-
-			return ResponseEntity.notFound().build();
-
-		} catch (EntidadeEmUsoException e) { // exception usada quando esta cozinha tem um restaurante vinculado
-			return ResponseEntity.status(HttpStatus.CONFLICT).build();
-		}
-
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void remover(@PathVariable Long id) {
+		cadastroCozinha.excluir(id);
 	}
 
 }
