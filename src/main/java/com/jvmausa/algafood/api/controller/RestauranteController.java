@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.Restaurante;
 import com.jvmausa.algafood.domain.repository.RestauranteRepository;
 import com.jvmausa.algafood.domain.service.CadastroRestauranteService;
@@ -48,7 +50,14 @@ public class RestauranteController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Restaurante adicionar(@RequestBody Restaurante restaurante) {
-		return cadastroRestaurante.salvar(restaurante);		
+
+		try {
+			return cadastroRestaurante.salvar(restaurante);
+
+		} catch (EntidadeNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage()); // exception para http 409 bad request
+
+		}
 
 	}
 
@@ -59,7 +68,14 @@ public class RestauranteController {
 		BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento", "endereco", "dataCadastro",
 				"produtos");
 
-		return cadastroRestaurante.salvar(restauranteAtual);
+		try {
+			return cadastroRestaurante.salvar(restauranteAtual);
+
+		} catch (EntidadeNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage()); // exception para http 409 bad request
+
+		}
+
 	}
 
 	@PatchMapping("/{id}")
@@ -88,20 +104,22 @@ public class RestauranteController {
 
 			Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
 
-			//System.out.println(nomePropriedade + " = " + valorPropriedade + " = " + novoValor);
+			// System.out.println(nomePropriedade + " = " + valorPropriedade + " = " +
+			// novoValor);
 
 			ReflectionUtils.setField(field, restauranteDestino, novoValor);
 
 		});
 	}
-	
+
 	/*
-	@DeleteMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	private void remover(@PathVariable Long id) {
-
-		cadastroRestaurante.remover(id);
-
-	}
-	*/
+	 * @DeleteMapping("/{id}")
+	 * 
+	 * @ResponseStatus(HttpStatus.NO_CONTENT) private void remover(@PathVariable
+	 * Long id) {
+	 * 
+	 * cadastroRestaurante.remover(id);
+	 * 
+	 * }
+	 */
 }
