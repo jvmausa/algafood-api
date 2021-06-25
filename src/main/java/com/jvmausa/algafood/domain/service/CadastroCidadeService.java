@@ -32,6 +32,7 @@ public class CadastroCidadeService {
 						String.format(MSG_NAO_EXISTE_CIDADE, id)));
 	}
 	
+	
 	public Cidade salvar(Cidade cidade) {
 		Long estadoId = cidade.getEstado().getId();
 		
@@ -42,6 +43,7 @@ public class CadastroCidadeService {
 		return cidadeRepository.save(cidade);
 	}
 
+	
 	public void excluir(Long id) {
 
 		try {
