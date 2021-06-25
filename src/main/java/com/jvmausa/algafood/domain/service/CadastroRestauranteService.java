@@ -13,31 +13,37 @@ import com.jvmausa.algafood.domain.repository.RestauranteRepository;
 @Service
 public class CadastroRestauranteService {
 
+	private static final String MSG_NÃO_EXISTE_RESTAURANTE = "Não existe restaurante cadastraço com id %d";
+
 	@Autowired
 	RestauranteRepository restauranteRepository;
 
 	@Autowired
 	CozinhaRepository cozinhaRepository;
+	
+	@Autowired
+	CadastroCozinhaService cadastroCozinha;
 
 	public Restaurante salvar(Restaurante restaurante) {
-
 		Long cozinhaId = restaurante.getCozinha().getId();
-		Cozinha cozinha = cozinhaRepository.findById(cozinhaId)
-				.orElseThrow(() -> new EntidadeNaoEncontradaException(
-				String.format("Nâo existe cadastro de cozinha com o código %d.", cozinhaId)));
+		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
 
 		restaurante.setCozinha(cozinha);
-
 		return restauranteRepository.save(restaurante);
 
 	}
+	
+	public Restaurante buscarOuFalhar(Long id) {
+		return restauranteRepository.findById(id)
+				.orElseThrow(() -> new EntidadeNaoEncontradaException(
+						String.format(MSG_NÃO_EXISTE_RESTAURANTE, id)));
+	}
 
 	public void remover(Long id) {
-
 		try {
 			restauranteRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException(String.format("Não existe restaurante cadastraço com id %d", id));
+			throw new EntidadeNaoEncontradaException(String.format(MSG_NÃO_EXISTE_RESTAURANTE, id));
 		}
 
 	}

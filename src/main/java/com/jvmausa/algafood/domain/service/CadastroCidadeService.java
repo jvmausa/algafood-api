@@ -10,41 +10,49 @@ import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.model.Cidade;
 import com.jvmausa.algafood.domain.model.Estado;
 import com.jvmausa.algafood.domain.repository.CidadeRepository;
-import com.jvmausa.algafood.domain.repository.EstadoRepository;
 
 @Service
 public class CadastroCidadeService {
 
+	private static final String MSG_EM_USO_CIDADE = "Cidade de código %d não pode ser removida, pois está em uso";
+
+	private static final String MSG_NAO_EXISTE_CIDADE = "Não existe cidade cadastrada com Id %d";
+
+
 	@Autowired
 	private CidadeRepository cidadeRepository;
-
+	
 	@Autowired
-	private EstadoRepository estadoRepository;
+	private CadastroEstadoService cadastroEstado;
 
-	public Cidade salvar(Cidade cidade) {
-
-		Long estadoId = cidade.getEstado().getId();
-		Estado estado = estadoRepository.findById(estadoId)
+	
+	public Cidade buscarOuFalhar(Long id) {
+		return cidadeRepository.findById(id)
 				.orElseThrow(() -> new EntidadeNaoEncontradaException(
-				String.format("Não existe cadastro de estado com o código %d", estadoId)));
+						String.format(MSG_NAO_EXISTE_CIDADE, id)));
+	}
+	
+	public Cidade salvar(Cidade cidade) {
+		Long estadoId = cidade.getEstado().getId();
+		
+		Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
 
 		cidade.setEstado(estado);
 
 		return cidadeRepository.save(cidade);
-
 	}
 
-	public void remover(Long id) {
+	public void excluir(Long id) {
 
 		try {
-
 			cidadeRepository.deleteById(id);
 
 		} catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException(String.format("Não existe cidade cadastrada com Id %d", id));
+			throw new EntidadeNaoEncontradaException(
+					String.format(MSG_NAO_EXISTE_CIDADE, id));
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
-					String.format("Cidade de código %d não pode ser removida, pois está em uso", id));
+					String.format(MSG_EM_USO_CIDADE, id));
 		}
 
 	}
