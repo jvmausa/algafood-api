@@ -14,7 +14,7 @@ import com.jvmausa.algafood.domain.repository.EstadoRepository;
 public class CadastroEstadoService {
 
 	private static final String MSG_NÃO_PODE_SER_REMOVIDO_ESTADO = "Estado de código %d não pode ser removido pois está em uso";
-	private static final String MSG_NÂO_EXISTE_ESTADO = "Não existe cadastro de Estado com esse %d";
+	private static final String MSG_NÂO_EXISTE_ESTADO = "Não existe cadastro de Estado com esse id %d";
 	@Autowired
 	EstadoRepository estadoRepository;
 	
