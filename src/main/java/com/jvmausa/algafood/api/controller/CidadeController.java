@@ -47,27 +47,27 @@ public class CidadeController {
 	public Cidade adicionar(@RequestBody Cidade cidade) {
 		try {
 			return cadastroCidade.salvar(cidade);
-			
+
 		} catch (EntidadeNaoEncontradaException e) {
-			throw new NegocioException(e.getMessage(), e); //exception para http 409 bad request
-		
+			throw new NegocioException(e.getMessage(), e); // exception para http 409 bad request
+
 		}
 
 	}
 
 	@PutMapping("/{id}")
-	public Cidade atualizar(@PathVariable Long id, @RequestBody Cidade cidade) {		
+	public Cidade atualizar(@PathVariable Long id, @RequestBody Cidade cidade) {
 		try {
 			Cidade cidadeAtual = cadastroCidade.buscarOuFalhar(id);
 
 			BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-			
+
 			return cadastroCidade.salvar(cidadeAtual);
 		} catch (EntidadeNaoEncontradaException e) {
-			throw new NegocioException(e.getMessage(), e); //exception para http bad request
-			
+			throw new NegocioException(e.getMessage(), e); // exception para http bad request
+
 		}
-		
+
 	}
 
 	@DeleteMapping("/{id}")
