@@ -35,7 +35,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	        return handlePropertyBindingException((PropertyBindingException) rootCause, headers, status, request); 
 	    }
 		
-		ProblemType problemType = ProblemType.MENSAGEM_INCONPREENSIVEL;
+		ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
 		String detail = "O corpo da requisição está inválido. Verifique erro de sintaxe.";
 
 		Problem problem = createProblemBuilder(status, problemType, detail).build();
@@ -49,7 +49,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		String path = joinPath(ex.getPath());
 		
-		ProblemType problemType = ProblemType.MENSAGEM_INCONPREENSIVEL;
+		ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
 		String detail = String.format("A propriedade '%s' recebeu o valor '%s'"
 							+ " que é de um tipo inválido. Corrija e informe um valor compatível com o tipo %s"
 							, path, ex.getValue(), ex.getTargetType().getSimpleName());
@@ -65,7 +65,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		String path = joinPath(ex.getPath());
 		
-		ProblemType problemType = ProblemType.MENSAGEM_INCONPREENSIVEL;
+		ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
 		String detail = String.format("A propriedade '%s' não existe. "
 	            + "Corrija ou remova essa propriedade e tente novamente.", path);
 		
