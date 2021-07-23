@@ -16,13 +16,18 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jvmausa.algafood.Groups;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -50,6 +55,9 @@ public class Restaurante {
 	
 	//(fetch = FetchType.LAZY) //padrão do ToOne é eager loading
 	//@JsonIgnore
+	@Valid
+	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
+	@NotNull
 	@ManyToOne 
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
