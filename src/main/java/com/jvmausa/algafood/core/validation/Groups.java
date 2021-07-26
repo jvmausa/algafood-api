@@ -1,4 +1,4 @@
-package com.jvmausa.algafood;
+package com.jvmausa.algafood.core.validation;
 
 public interface Groups {
 
