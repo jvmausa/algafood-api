@@ -30,3 +30,10 @@ public @interface TaxaFrete {
 	Class<? extends Payload>[] payload() default { };
 	
 }
+
+
+/*
+ * classe criada como constraint de validação customizada. Customza mensagem de erro de validação
+ * 
+ * 
+ */

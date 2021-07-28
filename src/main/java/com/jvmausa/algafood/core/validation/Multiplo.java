@@ -28,3 +28,9 @@ public @interface Multiplo {
 	int numero();
 
 }
+
+/*
+ * classe de exemplo de criação de validador de dados customizado. Regra está no MultiploValidator.java
+ * 
+ * 
+ */
