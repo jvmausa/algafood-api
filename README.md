@@ -1,8 +1,8 @@
 # AlgaFood API
-### API RESTful clone de IFood
-Desenvolvimento de uma API com intuito acadêmico. 
 
-![Development Status](https://img.shields.io/badge/development-loading-25brightgreen)
+
+## 💡 Visão Geral
+Desenvolvimento de uma API RESTful similar ao IFood com o intuito de aprendizado de novas tecnologias e boas práticas. 
 
 ## 🛠 Tecnologias
 - Java 11
