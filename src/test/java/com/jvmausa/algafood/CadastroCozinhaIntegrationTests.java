@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.jvmausa.algafood.domain.exception.EntidadeEmUsoException;
+import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.model.Cozinha;
 import com.jvmausa.algafood.domain.service.CadastroCozinhaService;
 
@@ -48,5 +50,29 @@ class CadastroCozinhaIntegrationTests {
 
 		assertThat(erroEspero).isNotNull();
 	}
+	
+	@Test
+	public void deveFalhar_ExcluirCozinhaEmUso() {
+		EntidadeEmUsoException erroEsperado = 
+				Assertions.assertThrows(EntidadeEmUsoException.class, () -> {
+					cadastroCozinha.excluir(1L);
+				});
+			
+		assertThat(erroEsperado).isNotNull();
+		System.out.println(erroEsperado);
+	}
+	
+	@Test
+	public void deveFalhar_ExcluirCozinhaInexistente() {
+		EntidadeNaoEncontradaException erroEsperado = 
+				Assertions.assertThrows(EntidadeNaoEncontradaException.class, () -> {
+					cadastroCozinha.excluir(10L);
+				});
+		
+		assertThat(erroEsperado).isNotNull();
+		System.out.println(erroEsperado);
+		
+	}
+	
 
 }
