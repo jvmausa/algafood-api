@@ -18,7 +18,7 @@ import com.jvmausa.algafood.domain.service.CadastroCozinhaService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class CadastroCozinhaIntegrationTests {
+class CadastroCozinhaIntegrationIT {
 
 	@Autowired
 	CadastroCozinhaService cadastroCozinha;
@@ -59,7 +59,7 @@ class CadastroCozinhaIntegrationTests {
 				});
 			
 		assertThat(erroEsperado).isNotNull();
-		System.out.println(erroEsperado);
+		//System.out.println(erroEsperado);
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ class CadastroCozinhaIntegrationTests {
 				});
 		
 		assertThat(erroEsperado).isNotNull();
-		System.out.println(erroEsperado);
+		//System.out.println(erroEsperado);
 		
 	}
 	
