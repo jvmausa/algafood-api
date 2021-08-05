@@ -11,7 +11,7 @@ import com.jvmausa.algafood.domain.model.Endereco;
 import com.jvmausa.algafood.domain.model.FormaPagamento;
 import com.jvmausa.algafood.domain.model.Produto;
 
-public class RestauranteMixin {
+public abstract class RestauranteMixin {
 
 	@JsonIgnoreProperties(value = "nome", allowGetters = true)
 	private Cozinha cozinha;
