@@ -25,8 +25,6 @@ import javax.validation.groups.Default;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jvmausa.algafood.core.validation.Groups;
 import com.jvmausa.algafood.core.validation.TaxaFrete;
 import com.jvmausa.algafood.core.validation.ValorZeroIncluiDescricao;
@@ -34,63 +32,56 @@ import com.jvmausa.algafood.core.validation.ValorZeroIncluiDescricao;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@ValorZeroIncluiDescricao(valorField = "taxaFrete", descricaoField = "nome"
-, descricaoObrigatoria = "Frete Grátis")
+@ValorZeroIncluiDescricao(valorField = "taxaFrete", descricaoField = "nome", descricaoObrigatoria = "Frete Grátis")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Restaurante {
-	
+
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
 	private Long id;
-	
-	//@NotNull
-	//@NotEmpty
+
+	// @NotNull
+	// @NotEmpty
 	@NotBlank
 	@Column(nullable = false)
 	private String nome;
 
-	//@PositiveOrZero (message = "{TaxaFrete.Invalida}")
-	//@DecimalMin("0")
-	//@Multiplo(numero = 5)
+	// @PositiveOrZero (message = "{TaxaFrete.Invalida}")
+	// @DecimalMin("0")
+	// @Multiplo(numero = 5)
 	@TaxaFrete
 	@NotNull
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
-	
-	//(fetch = FetchType.LAZY) //padrão do ToOne é eager loading
-	@JsonIgnoreProperties(value = "nome", allowGetters = true)
+
+	// (fetch = FetchType.LAZY) //padrão do ToOne é eager loading
 	@Valid
 	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
 	@NotNull
-	@ManyToOne 
+	@ManyToOne
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
-	
-	@JsonIgnore
+
 	@Embedded
 	private Endereco endereco;
-	
-	
+
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime dataCadastro;
-	
+
 	@UpdateTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime dataAtualizacao;
-	
-	
-	@JsonIgnore
+
 	@ManyToMany
-	@JoinTable(name = "restaurante_forma_pagamento",
-			joinColumns = @JoinColumn(name = "restaurante_id"), 
-			inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
+	@JoinTable(name = "restaurante_forma_pagamento", 
+	joinColumns = @JoinColumn(name = "restaurante_id"), 
+	inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
-	
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "restaurante")
 	private List<Produto> produtos = new ArrayList<>();
 
