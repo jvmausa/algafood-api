@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jvmausa.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.EntidadeEmUsoException;
@@ -18,6 +19,7 @@ public class CadastroCozinhaService {
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
 
+	@Transactional
 	public Cozinha salvar(Cozinha cozinha) {
 
 		// aqui que são colocadas regras/lógicas de negócio
@@ -26,6 +28,7 @@ public class CadastroCozinhaService {
 
 	}
 
+	@Transactional
 	public void excluir(Long id) {
 
 		try {

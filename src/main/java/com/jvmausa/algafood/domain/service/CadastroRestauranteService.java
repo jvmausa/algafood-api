@@ -3,6 +3,7 @@ package com.jvmausa.algafood.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jvmausa.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.jvmausa.algafood.domain.model.Cozinha;
@@ -23,6 +24,7 @@ public class CadastroRestauranteService {
 	@Autowired
 	CadastroCozinhaService cadastroCozinha;
 
+	@Transactional
 	public Restaurante salvar(Restaurante restaurante) {
 		Long cozinhaId = restaurante.getCozinha().getId();
 		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
@@ -37,6 +39,7 @@ public class CadastroRestauranteService {
 				.orElseThrow(() -> new RestauranteNaoEncontradoException(id));
 	}
 
+	@Transactional
 	public void remover(Long id) {
 		try {
 			restauranteRepository.deleteById(id);
