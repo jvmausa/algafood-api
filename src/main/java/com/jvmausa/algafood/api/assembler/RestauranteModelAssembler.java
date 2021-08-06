@@ -15,7 +15,7 @@ public class RestauranteModelAssembler {
 
 	/*
 	 * classe responsável por fazer as conversões
-	 * de DTO para entity
+	 * de ENTITY para DTO
 	 * 
 	 */
 
