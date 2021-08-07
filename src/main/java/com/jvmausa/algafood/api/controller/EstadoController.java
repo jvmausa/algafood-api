@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jvmausa.algafood.api.assembler.EstadoModelAssembler;
+import com.jvmausa.algafood.api.model.EstadoModel;
 import com.jvmausa.algafood.domain.model.Estado;
 import com.jvmausa.algafood.domain.repository.EstadoRepository;
 import com.jvmausa.algafood.domain.service.CadastroEstadoService;
@@ -31,15 +33,19 @@ public class EstadoController {
 
 	@Autowired
 	private CadastroEstadoService cadastroEstado;
+	
+	@Autowired
+	private EstadoModelAssembler estadoModelAssembler;
 
 	@GetMapping()
-	public List<Estado> listar() {
-		return estadoRepository.findAll();
+	public List<EstadoModel> listar() {
+		return estadoModelAssembler.toColletionModel(estadoRepository.findAll());
 	}
 
 	@GetMapping("/{id}")
-	public Estado buscar(@PathVariable Long id) {
-		return cadastroEstado.buscarOuFalhar(id);
+	public EstadoModel buscar(@PathVariable Long id) {
+		Estado estado = cadastroEstado.buscarOuFalhar(id);
+		return estadoModelAssembler.toModel(estado);
 		
 	}
 
