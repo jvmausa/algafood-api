@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jvmausa.algafood.api.assembler.CozinhaModelAssembler;
+import com.jvmausa.algafood.api.model.CozinhaModel;
 import com.jvmausa.algafood.domain.model.Cozinha;
 import com.jvmausa.algafood.domain.repository.CozinhaRepository;
 import com.jvmausa.algafood.domain.service.CadastroCozinhaService;
@@ -31,16 +33,20 @@ public class CozinhaController {
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
 
+	@Autowired
+	private CozinhaModelAssembler cozinhaModelAssembler;
+	
 	@GetMapping
-	public List<Cozinha> listar() {
-		return cozinhaRepository.findAll();
+	public List<CozinhaModel> listar() {
+		return cozinhaModelAssembler.toColletionModel(cozinhaRepository.findAll());
 
 	}
 
 	@GetMapping("/{id}")
-	public Cozinha buscar(@PathVariable Long id) {
-		return cadastroCozinha.buscarOuFalhar(id);
-
+	public CozinhaModel buscar(@PathVariable Long id) {
+		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(id);
+		
+		return cozinhaModelAssembler.toModel(cozinha);
 	}
 
 	@PostMapping
