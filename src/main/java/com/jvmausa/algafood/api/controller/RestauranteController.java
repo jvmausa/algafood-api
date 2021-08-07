@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.assembler.RestauranteModelAssembler;
-import com.jvmausa.algafood.api.assembler.RestauranteModelDisassembler;
+import com.jvmausa.algafood.api.assembler.RestauranteInputDisassembler;
 import com.jvmausa.algafood.api.model.RestauranteModel;
 import com.jvmausa.algafood.api.model.input.RestauranteInput;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
@@ -40,7 +40,7 @@ public class RestauranteController {
 	private RestauranteModelAssembler restauranteModelAssembler;
 	
 	@Autowired
-	private RestauranteModelDisassembler restauranteModelDisasembler;
+	private RestauranteInputDisassembler restauranteModelDisasembler;
 
 	@GetMapping
 	public List<RestauranteModel> listar() {

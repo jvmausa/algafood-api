@@ -8,7 +8,7 @@ import com.jvmausa.algafood.api.model.input.RestauranteInput;
 import com.jvmausa.algafood.domain.model.Restaurante;
 
 @Component
-public class RestauranteModelDisassembler {
+public class RestauranteInputDisassembler {
 
 	
 	/*
