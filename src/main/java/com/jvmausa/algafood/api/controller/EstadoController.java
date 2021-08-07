@@ -4,10 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jvmausa.algafood.api.assembler.EstadoInputDisassembler;
 import com.jvmausa.algafood.api.assembler.EstadoModelAssembler;
 import com.jvmausa.algafood.api.model.EstadoModel;
+import com.jvmausa.algafood.api.model.input.EstadoInput;
 import com.jvmausa.algafood.domain.model.Estado;
 import com.jvmausa.algafood.domain.repository.EstadoRepository;
 import com.jvmausa.algafood.domain.service.CadastroEstadoService;
@@ -33,9 +33,12 @@ public class EstadoController {
 
 	@Autowired
 	private CadastroEstadoService cadastroEstado;
-	
+
 	@Autowired
 	private EstadoModelAssembler estadoModelAssembler;
+
+	@Autowired
+	private EstadoInputDisassembler estadoInputDisassembler;
 
 	@GetMapping()
 	public List<EstadoModel> listar() {
@@ -46,23 +49,26 @@ public class EstadoController {
 	public EstadoModel buscar(@PathVariable Long id) {
 		Estado estado = cadastroEstado.buscarOuFalhar(id);
 		return estadoModelAssembler.toModel(estado);
-		
+
 	}
 
 	@PostMapping
-	public ResponseEntity<?> adicionar(@RequestBody @Valid Estado estado) {
-		estado = cadastroEstado.salvar(estado);
-		return ResponseEntity.status(HttpStatus.CREATED).body(estado);
+	@ResponseStatus(HttpStatus.CREATED)
+	public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
+
+		Estado estado = estadoInputDisassembler.toDomainObject(estadoInput);
+		return estadoModelAssembler.toModel(cadastroEstado.salvar(estado));
 
 	}
 
 	@PutMapping("/{id}")
-	public Estado atualizar(@PathVariable Long id, @RequestBody @Valid Estado estado) {
+	public EstadoModel atualizar(@PathVariable Long id, @RequestBody @Valid EstadoInput estadoInput) {
+
 		Estado estadoAtual = cadastroEstado.buscarOuFalhar(id);
-				
-			BeanUtils.copyProperties(estado, estadoAtual, "id");
-			
-			return cadastroEstado.salvar(estadoAtual);
+
+		estadoInputDisassembler.copyToDomainObject(estadoInput, estadoAtual);
+
+		return estadoModelAssembler.toModel(cadastroEstado.salvar(estadoAtual));
 	}
 
 	@DeleteMapping("/{id}")
