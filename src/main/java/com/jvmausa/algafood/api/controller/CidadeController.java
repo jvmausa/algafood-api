@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jvmausa.algafood.api.assembler.CidadeModelAssembler;
+import com.jvmausa.algafood.api.model.CidadeModel;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.Cidade;
@@ -32,17 +34,20 @@ public class CidadeController {
 
 	@Autowired
 	private CadastroCidadeService cadastroCidade;
+	
+	@Autowired
+	private CidadeModelAssembler cidadeModelAssembler;
 
 	@GetMapping
-	public List<Cidade> listar() {
-		return cidadeRepository.findAll();
+	public List<CidadeModel> listar() {
+		return cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
 
 	}
 
 	@GetMapping("/{id}")
-	public Cidade buscar(@PathVariable Long id) {
-		return cadastroCidade.buscarOuFalhar(id);
-
+	public CidadeModel buscar(@PathVariable Long id) {
+		Cidade cidade = cadastroCidade.buscarOuFalhar(id);
+		return cidadeModelAssembler.toModel(cidade);
 	}
 
 	@PostMapping
