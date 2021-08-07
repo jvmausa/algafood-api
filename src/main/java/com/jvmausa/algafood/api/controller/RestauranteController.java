@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jvmausa.algafood.api.assembler.RestauranteModelAssembler;
 import com.jvmausa.algafood.api.assembler.RestauranteInputDisassembler;
+import com.jvmausa.algafood.api.assembler.RestauranteModelAssembler;
 import com.jvmausa.algafood.api.model.RestauranteModel;
 import com.jvmausa.algafood.api.model.input.RestauranteInput;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
@@ -38,9 +37,9 @@ public class RestauranteController {
 
 	@Autowired
 	private RestauranteModelAssembler restauranteModelAssembler;
-	
+
 	@Autowired
-	private RestauranteInputDisassembler restauranteModelDisasembler;
+	private RestauranteInputDisassembler restauranteInputDisasembler;
 
 	@GetMapping
 	public List<RestauranteModel> listar() {
@@ -59,7 +58,7 @@ public class RestauranteController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public RestauranteModel adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
 
-		Restaurante restaurante = restauranteModelDisasembler.toDomainObject(restauranteInput);
+		Restaurante restaurante = restauranteInputDisasembler.toDomainObject(restauranteInput);
 
 		try {
 			return restauranteModelAssembler.toModel(cadastroRestaurante.salvar(restaurante));
@@ -73,12 +72,11 @@ public class RestauranteController {
 
 	@PutMapping("/{id}")
 	public RestauranteModel atualizar(@PathVariable Long id, @RequestBody @Valid RestauranteInput restauranteInput) {
-		Restaurante restaurante = restauranteModelDisasembler.toDomainObject(restauranteInput);
+		//Restaurante restaurante = restauranteInputDisasembler.toDomainObject(restauranteInput);
 
 		Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(id);
 
-		BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento", "endereco", "dataCadastro",
-				"produtos");
+		restauranteInputDisasembler.copyToDomainObject(restauranteInput, restauranteAtual);
 
 		try {
 			return restauranteModelAssembler.toModel(cadastroRestaurante.salvar(restauranteAtual));
