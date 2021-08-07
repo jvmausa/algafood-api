@@ -28,12 +28,18 @@ public class CadastroCozinhaService {
 
 	}
 
+	// aumentando o tamanho do escopo
 	@Transactional
 	public void excluir(Long id) {
 
 		try {
 			cozinhaRepository.deleteById(id);
-			// flush adicionado para correção de bug
+			/*
+			 * flush adicionado para correção de bug onde o Spring não deixava que a Exception 
+			 * DataIntegrityViolationException fosse capturada, poois a anotação @Transactional faz
+			 * com que só seja feito commit pelo JPA depois que tudo está executado dentro do escopo do método
+			 * fazendo com que não desse tempo do try/catch fizesse o handle da exception
+			 */
 			cozinhaRepository.flush();
 		} catch (EmptyResultDataAccessException e) {
 			throw new CozinhaNaoEncontradaException(id);
