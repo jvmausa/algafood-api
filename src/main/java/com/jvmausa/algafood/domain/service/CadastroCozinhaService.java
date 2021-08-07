@@ -33,7 +33,8 @@ public class CadastroCozinhaService {
 
 		try {
 			cozinhaRepository.deleteById(id);
-
+			// flush adicionado para correção de bug
+			cozinhaRepository.flush();
 		} catch (EmptyResultDataAccessException e) {
 			throw new CozinhaNaoEncontradaException(id);
 
