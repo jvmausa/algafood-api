@@ -14,6 +14,10 @@ import lombok.Setter;
 @Getter
 public class RestauranteInput {
 	
+	/*
+	 * classe do que é necessário pra ser inserido ao adicionar novo dado no endpoint
+	 * */
+	
 	@NotBlank
 	private String nome;
 	

@@ -9,6 +9,9 @@ import lombok.Setter;
 @Getter
 public class RestauranteModel {
 
+	/*
+	 * classe do que é mostrado na representação no endpoint
+	 */
 	private Long id;
 	private String nome;
 	private BigDecimal taxaFrete;
