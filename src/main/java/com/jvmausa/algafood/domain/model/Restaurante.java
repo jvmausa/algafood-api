@@ -17,8 +17,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 
@@ -27,12 +25,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.jvmausa.algafood.core.validation.Groups;
 import com.jvmausa.algafood.core.validation.TaxaFrete;
-import com.jvmausa.algafood.core.validation.ValorZeroIncluiDescricao;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@ValorZeroIncluiDescricao(valorField = "taxaFrete", descricaoField = "nome", descricaoObrigatoria = "Frete Grátis")
+//@ValorZeroIncluiDescricao(valorField = "taxaFrete", descricaoField = "nome", descricaoObrigatoria = "Frete Grátis")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -40,33 +37,26 @@ public class Restaurante {
 
 	@EqualsAndHashCode.Include
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	// @NotNull
-	// @NotEmpty
-	@NotBlank
 	@Column(nullable = false)
 	private String nome;
 
-	// @PositiveOrZero (message = "{TaxaFrete.Invalida}")
-	// @DecimalMin("0")
-	// @Multiplo(numero = 5)
 	@TaxaFrete
-	@NotNull
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 
-	// (fetch = FetchType.LAZY) //padrão do ToOne é eager loading
 	@Valid
 	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
 
 	@Embedded
 	private Endereco endereco;
+	
+	private Boolean ativo = Boolean.TRUE;
 
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
@@ -85,4 +75,14 @@ public class Restaurante {
 	@OneToMany(mappedBy = "restaurante")
 	private List<Produto> produtos = new ArrayList<>();
 
+	public void ativar() {
+		setAtivo(true);
+		
+	}
+	
+	public void inativar() {
+		setAtivo(false);
+		
+	}
+	
 }
