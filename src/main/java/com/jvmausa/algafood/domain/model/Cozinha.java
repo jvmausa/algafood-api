@@ -30,12 +30,8 @@ public class Cozinha {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	//@JsonIgnore remove da representação este atributo
-	//@JsonProperty("titulo") altera o nome deste atributo na representação
-	
 	@Column(nullable = false)
 	private String nome;
-	
 	
 	@OneToMany(mappedBy = "cozinha")
 	private List<Restaurante> restaurantes = new ArrayList<>(); 
