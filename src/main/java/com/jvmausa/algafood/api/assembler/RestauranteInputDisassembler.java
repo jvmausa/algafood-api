@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jvmausa.algafood.api.model.input.RestauranteInput;
+import com.jvmausa.algafood.domain.model.Cidade;
 import com.jvmausa.algafood.domain.model.Cozinha;
 import com.jvmausa.algafood.domain.model.Restaurante;
 
@@ -29,11 +30,23 @@ public class RestauranteInputDisassembler {
 	}
 
 	public void copyToDomainObject(RestauranteInput restauranteInput, Restaurante restaurante) {
-		//nova instancia previne que dê exception de tentativa de alteração de ID
+
+		/*
+		 * org.springframework.orm.jpa.JpaSystemException: identifier of an instance of
+		 * com.jvmausa.algafood.domain.model.Cidade was altered from 1 to 2; nested
+		 * exception is org.hibernate.HibernateException: identifier of an instance of
+		 * com.jvmausa.algafood.domain.model.Cidade was altered from 1 to 2
+		 * 
+		 * corrigido com ->
+		 */
+		if (restaurante.getEndereco() != null) {
+			restaurante.getEndereco().setCidade(new Cidade());
+		}
+
 		restaurante.setCozinha(new Cozinha());
+
 		modelMapper.map(restauranteInput, restaurante);
-		
-		
+
 	}
 
 }
