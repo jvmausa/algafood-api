@@ -19,6 +19,7 @@ import com.jvmausa.algafood.api.assembler.UsuarioInputDisassembler;
 import com.jvmausa.algafood.api.assembler.UsuarioModelAssembler;
 import com.jvmausa.algafood.api.model.UsuarioModel;
 import com.jvmausa.algafood.api.model.input.SenhaInput;
+import com.jvmausa.algafood.api.model.input.UsuarioComSenhaInput;
 import com.jvmausa.algafood.api.model.input.UsuarioInput;
 import com.jvmausa.algafood.domain.model.Usuario;
 import com.jvmausa.algafood.domain.repository.UsuarioRepository;
@@ -40,34 +41,42 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 
-	@GetMapping("/{id}")
+	@GetMapping
 	public List<UsuarioModel> listar() {
 		return usuarioModelAssembler.toCollectionModel(usuarioRepository.findAll());
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public UsuarioModel adicionar(@RequestBody @Valid UsuarioInput usuarioInput) {
+	public UsuarioModel adicionar(@RequestBody @Valid UsuarioComSenhaInput usuarioInput) {
 		Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioInput);
 		usuario = cadastroUsuario.salvar(usuario);
 
 		return usuarioModelAssembler.toModel(usuario);
 
 	}
+	
+	@GetMapping("/{id}")
+    public UsuarioModel buscar(@PathVariable Long id) {
+        Usuario usuario = cadastroUsuario.buscarOuFalhar(id);
+        
+        return usuarioModelAssembler.toModel(usuario);
+    }
+	
 
 	@PutMapping("/{id}")
-	public UsuarioModel atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioInput usuarioInput) {
-		Usuario usuarioAtual = cadastroUsuario.buscarOuFalhar(usuarioId);
+	public UsuarioModel atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioInput usuarioInput) {
+		Usuario usuarioAtual = cadastroUsuario.buscarOuFalhar(id);
 		usuarioInputDisassembler.copyToDomainObject(usuarioInput, usuarioAtual);
 		usuarioAtual = cadastroUsuario.salvar(usuarioAtual);
 
 		return usuarioModelAssembler.toModel(usuarioAtual);
 	}
 
-	@PutMapping("/{usuarioId}/senha")
+	@PutMapping("/{id}/senha")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
-		cadastroUsuario.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
+	public void alterarSenha(@PathVariable Long id, @RequestBody @Valid SenhaInput senha) {
+		cadastroUsuario.alterarSenha(id, senha.getSenhaAtual(), senha.getNovaSenha());
 	}
 
 }
