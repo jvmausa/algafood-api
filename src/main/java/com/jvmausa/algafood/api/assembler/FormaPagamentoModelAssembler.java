@@ -1,5 +1,6 @@
 package com.jvmausa.algafood.api.assembler;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,7 @@ public class FormaPagamentoModelAssembler {
 
 	}
 	
-	public List<FormaPagamentoModel> toCollectionModel(List<FormaPagamento> formasPagamento){
+	public List<FormaPagamentoModel> toCollectionModel(Collection<FormaPagamento> formasPagamento){
 		return formasPagamento.stream().map(formaPagamento -> toModel(formaPagamento)).collect(Collectors.toList());
 		
 	}
