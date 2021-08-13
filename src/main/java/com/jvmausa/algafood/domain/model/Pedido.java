@@ -9,6 +9,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,7 +49,8 @@ public class Pedido {
 	private OffsetDateTime dataCancelamento;
 	private OffsetDateTime dataEntrega;
 
-	@ManyToOne
+	// com o Fetch lazy, só fara consulta no DB se precisar da entidade. No caso, PEdidoResumoModel não precisa de formaPagamento
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
 	private FormaPagamento formaPagamento;
 
