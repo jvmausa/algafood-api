@@ -22,6 +22,7 @@ import com.jvmausa.algafood.api.model.RestauranteModel;
 import com.jvmausa.algafood.api.model.input.RestauranteInput;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
+import com.jvmausa.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.jvmausa.algafood.domain.model.Restaurante;
 import com.jvmausa.algafood.domain.repository.RestauranteRepository;
 import com.jvmausa.algafood.domain.service.CadastroRestauranteService;
@@ -100,6 +101,30 @@ public class RestauranteController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void inativar(@PathVariable Long id) {
 		cadastroRestaurante.inativar(id);
+		
+	}
+	
+	@PutMapping("/ativacoes")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void ativarMultiplos(@RequestBody List<Long> restauranteIds) {
+		
+		try {
+			cadastroRestaurante.ativarEmMassa(restauranteIds);
+		} catch (RestauranteNaoEncontradoException e) {
+			throw new NegocioException(e.getMessage(),e);
+		}
+		
+	}
+	
+	@DeleteMapping("/inativacoes")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void inativarMultiplos(@RequestBody List<Long> restauranteIds) {
+		
+		try {
+			cadastroRestaurante.inativarEmMassa(restauranteIds);
+		} catch (RestauranteNaoEncontradoException e) {
+			throw new NegocioException(e.getMessage(),e);
+		}
 		
 	}
 	

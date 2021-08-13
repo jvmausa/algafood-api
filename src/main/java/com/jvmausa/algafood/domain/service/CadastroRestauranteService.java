@@ -1,5 +1,7 @@
 package com.jvmausa.algafood.domain.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -62,6 +64,18 @@ public class CadastroRestauranteService {
 		Restaurante restauranteAtual = buscarOuFalhar(id);
 
 		restauranteAtual.inativar();
+	}
+	
+	@Transactional
+	public void ativarEmMassa(List<Long> restauranteIds) {
+		restauranteIds.forEach(this::ativar);
+		
+	}
+	
+	@Transactional
+	public void inativarEmMassa(List<Long> restauranteIds) {
+		restauranteIds.forEach(this::inativar);
+		
 	}
 
 	public Restaurante buscarOuFalhar(Long id) {
