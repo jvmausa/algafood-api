@@ -16,6 +16,7 @@ public class CadastroUsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
 
 	/*
 	 * método salvar(void) também funciona no caso de ATUALIZAR desde que com a
@@ -58,4 +59,6 @@ public class CadastroUsuarioService {
 	public Usuario buscarOuFalhar(Long usuarioId) {
 		return usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNaoEncontradoException(usuarioId));
 	}
+	
+	
 }

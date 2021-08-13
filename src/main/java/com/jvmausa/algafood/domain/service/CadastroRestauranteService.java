@@ -10,6 +10,7 @@ import com.jvmausa.algafood.domain.model.Cidade;
 import com.jvmausa.algafood.domain.model.Cozinha;
 import com.jvmausa.algafood.domain.model.FormaPagamento;
 import com.jvmausa.algafood.domain.model.Restaurante;
+import com.jvmausa.algafood.domain.model.Usuario;
 import com.jvmausa.algafood.domain.repository.CozinhaRepository;
 import com.jvmausa.algafood.domain.repository.RestauranteRepository;
 
@@ -30,6 +31,9 @@ public class CadastroRestauranteService {
 	
 	@Autowired
 	CadastroFormaPagamentoService cadastroFormaPagamento;
+	
+	@Autowired
+	private CadastroUsuarioService cadastroUsuario;
 
 	@Transactional
 	public Restaurante salvar(Restaurante restaurante) {
@@ -90,4 +94,34 @@ public class CadastroRestauranteService {
 		restaurante.adicionarFormaPagamento(formaPagamento);
 	}
 
+	@Transactional
+	public void abrir(Long id) {
+	    Restaurante restauranteAtual = buscarOuFalhar(id);
+	    
+	    restauranteAtual.abrir();
+	}
+
+	@Transactional
+	public void fechar(Long id) {
+	    Restaurante restauranteAtual = buscarOuFalhar(id);
+	    
+	    restauranteAtual.fechar();
+	}  
+	
+	@Transactional
+	public void desassociarResponsavel(Long restauranteId, Long usuarioId) {
+	    Restaurante restaurante = buscarOuFalhar(restauranteId);
+	    Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
+	    
+	    restaurante.removerResponsavel(usuario);
+	}
+
+	@Transactional
+	public void associarResponsavel(Long restauranteId, Long usuarioId) {
+	    Restaurante restaurante = buscarOuFalhar(restauranteId);
+	    Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
+	    
+	    restaurante.adicionarResponsavel(usuario);
+	}
+	
 }
