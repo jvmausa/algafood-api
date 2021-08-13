@@ -1,4 +1,4 @@
-package com.jvmausa.algafood.api.model.input;
+package com.jvmausa.algafood.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
