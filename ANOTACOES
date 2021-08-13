@@ -1,0 +1,21 @@
+
+{Isolar Domani Model(entidades) do Representation Model (Model) com padrão DTO}:
+Classes Input:
+	classes usadas pelos métodos que irão inserir dados ao banco de dados. Anotações de validação (ex: @NotNull/Blank) são
+	transferidas da classe de entidade para a classe Input.
+
+Classes ModelAssembler
+	classe responsável fazer a  conversão da classe de entidade para a classe de Representação da entidade. Faz uso do ModelMapper.
+
+Classes InputDisassembler
+	classe responsável por fazer a conversão de Representation Model para entidade(domain model) 	
+
+
+@Transactional:
+	faz com que, antes do JPA fazer o commit da persistência pro banco de dados, toda a transação seja validada. Se uma das 
+	delas der erro, é dado rollback. Evita que seja feito commit de uma parte, e o resto não.
+		exemplo1: ativar lista de restaurantes -> Se um ID da lista de restaurante não for achado, não é feito commit, 
+		retorna exception e dá rollback.
+		exemplo2: se existe mais de uma validação para salvar uma entidade no banco de dados e a primeira der erro, 
+					não é feito o salvamento(commit) para o DB e dá rollback.
+					
