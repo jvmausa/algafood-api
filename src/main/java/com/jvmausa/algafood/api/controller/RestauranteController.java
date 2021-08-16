@@ -59,13 +59,6 @@ public class RestauranteController {
 
 	}
 
-	/*
-	 * @GetMapping("/{id}") public RestauranteModel buscar(@PathVariable Long id) {
-	 * Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(id);
-	 * 
-	 * return restauranteModelAssembler.toModel(restaurante); }
-	 */
-
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public RestauranteModel adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
