@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jvmausa.algafood.domain.service.FluxoPedidoService;
 
 @RestController
-@RequestMapping(value = "/pedidos/{id}")
+@RequestMapping(value = "/pedidos/{codigoPedido}")
 public class FluxoPedidoController {
 
 	
@@ -20,22 +20,22 @@ public class FluxoPedidoController {
 	
 	@PutMapping("/confirmacao")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void confirmar(@PathVariable Long id) {
-		fluxoPedido.confirmar(id);
+	public void confirmar(@PathVariable String codigoPedido) {
+		fluxoPedido.confirmar(codigoPedido);
 		
 	}
 	
 	@PutMapping("/cancelamento")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void cancelar(@PathVariable Long id) {
-		fluxoPedido.cancelar(id);
+	public void cancelar(@PathVariable String codigoPedido) {
+		fluxoPedido.cancelar(codigoPedido);
 		
 	}
 	
 	@PutMapping("/entrega")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void entrega(@PathVariable Long id) {
-		fluxoPedido.entregar(id);
+	public void entrega(@PathVariable String codigoPedido) {
+		fluxoPedido.entregar(codigoPedido);
 		
 	}
 	

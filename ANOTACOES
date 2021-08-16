@@ -19,3 +19,6 @@ Classes InputDisassembler
 		exemplo2: se existe mais de uma validação para salvar uma entidade no banco de dados e a primeira der erro, 
 					não é feito o salvamento(commit) para o DB e dá rollback.
 					
+					
+@PrePersist
+	Anotação na classe Pedido para ANTES de persistir um novo dado, JPA vai chamar esse método para criar os UUIDs				
