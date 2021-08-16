@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.jvmausa.algafood.api.assembler.RestauranteInputDisassembler;
 import com.jvmausa.algafood.api.assembler.RestauranteModelAssembler;
 import com.jvmausa.algafood.api.model.RestauranteModel;
 import com.jvmausa.algafood.api.model.input.RestauranteInput;
+import com.jvmausa.algafood.api.model.view.RestauranteView;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.exception.RestauranteNaoEncontradoException;
@@ -43,18 +45,26 @@ public class RestauranteController {
 	@Autowired
 	private RestauranteInputDisassembler restauranteInputDisasembler;
 
-	@GetMapping
+	
+	@GetMapping(params = "projecao=completo")
 	public List<RestauranteModel> listar() {
-		return restauranteModelAssembler.toColletionModel(restauranteRepository.findAll());
+		return restauranteModelAssembler.
+				toColletionModel(restauranteRepository.findAll());
+	}
+	
+	@JsonView(RestauranteView.Resumo.class)
+	@GetMapping
+	public List<RestauranteModel> listarResumido() {
+		return listar();
 
 	}
 
-	@GetMapping("/{id}")
-	public RestauranteModel buscar(@PathVariable Long id) {
-		Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(id);
-
-		return restauranteModelAssembler.toModel(restaurante);
-	}
+	/*
+	 * @GetMapping("/{id}") public RestauranteModel buscar(@PathVariable Long id) {
+	 * Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(id);
+	 * 
+	 * return restauranteModelAssembler.toModel(restaurante); }
+	 */
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

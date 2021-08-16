@@ -2,6 +2,9 @@ package com.jvmausa.algafood.api.model;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.jvmausa.algafood.api.model.view.RestauranteView;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,13 +15,24 @@ public class RestauranteModel {
 	/*
 	 * classe do que é mostrado na representação no endpoint
 	 */
+	@JsonView(RestauranteView.Resumo.class)
 	private Long id;
+	
+	@JsonView(RestauranteView.Resumo.class)
 	private String nome;
+	
+	@JsonView(RestauranteView.Resumo.class)
 	private BigDecimal taxaFrete;
-	private Boolean ativo;
-	private Boolean aberto;
+	
+	@JsonView(RestauranteView.Resumo.class)
 	private CozinhaModel cozinha;
+	
+	
+	private Boolean ativo;
+	private Boolean aberto;	
 	private EnderecoModel endereco;
+	
+	
 	
 
 }
