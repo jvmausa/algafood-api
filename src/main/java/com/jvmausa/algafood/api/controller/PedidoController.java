@@ -25,7 +25,9 @@ import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.Pedido;
 import com.jvmausa.algafood.domain.model.Usuario;
 import com.jvmausa.algafood.domain.repository.PedidoRepository;
+import com.jvmausa.algafood.domain.repository.filter.PedidoFilter;
 import com.jvmausa.algafood.domain.service.EmissaoPedidoService;
+import com.jvmausa.algafood.infrastructure.repository.spec.PedidoSpecs;
 
 @RestController
 @RequestMapping(value = "/pedidos")
@@ -48,8 +50,8 @@ public class PedidoController {
     
     
     @GetMapping
-    public List<PedidoResumoModel> listar() {
-        List<Pedido> todosPedidos = pedidoRepository.findAll();
+    public List<PedidoResumoModel> pesquisar(PedidoFilter filter) {
+        List<Pedido> todosPedidos = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filter));
         
         return pedidoResumoModelAssembler.toCollectionModel(todosPedidos);
     }
