@@ -28,10 +28,10 @@ import com.jvmausa.algafood.api.model.input.PedidoInput;
 import com.jvmausa.algafood.core.data.PageableTranslator;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
+import com.jvmausa.algafood.domain.filter.PedidoFilter;
 import com.jvmausa.algafood.domain.model.Pedido;
 import com.jvmausa.algafood.domain.model.Usuario;
 import com.jvmausa.algafood.domain.repository.PedidoRepository;
-import com.jvmausa.algafood.domain.repository.filter.PedidoFilter;
 import com.jvmausa.algafood.domain.service.EmissaoPedidoService;
 import com.jvmausa.algafood.infrastructure.repository.spec.PedidoSpecs;
 
