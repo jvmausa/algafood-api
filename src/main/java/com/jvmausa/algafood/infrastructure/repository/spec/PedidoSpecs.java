@@ -13,8 +13,15 @@ public class PedidoSpecs {
 
 	public static Specification<Pedido> usandoFiltro(PedidoFilter filtro) {
 		return (root, query, builder) -> {
-			root.fetch("restaurante").fetch("cozinha");
-			root.fetch("cliente");
+			
+			/*
+			 * adicinado if() para evitar que fosso feito fetch com o count do SQL ao adicionar pageble
+			 * 
+			 * */
+				if (Pedido.class.equals(query.getResultType())) {
+					root.fetch("restaurante").fetch("cozinha");
+					root.fetch("cliente");
+			    }
 
 			var predicates = new ArrayList<Predicate>();
 			
