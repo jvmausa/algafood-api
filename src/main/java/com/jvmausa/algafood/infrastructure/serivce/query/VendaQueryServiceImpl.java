@@ -1,4 +1,4 @@
-package com.jvmausa.algafood.infrastructure.serivce;
+package com.jvmausa.algafood.infrastructure.serivce.query;
 
 import java.util.ArrayList;
 import java.util.Date;
