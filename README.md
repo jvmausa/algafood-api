@@ -12,3 +12,4 @@ Desenvolvimento de uma API RESTful similar ao IFood com o intuito de aprendizado
 - Hibernate (JPA)
 - Flyway
 - MySQL
+- JasperReports
