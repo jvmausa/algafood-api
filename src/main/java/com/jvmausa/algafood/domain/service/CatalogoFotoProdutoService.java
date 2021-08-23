@@ -1,5 +1,6 @@
 package com.jvmausa.algafood.domain.service;
 
+import java.io.InputStream;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.jvmausa.algafood.domain.model.FotoProduto;
 import com.jvmausa.algafood.domain.repository.ProdutoRepository;
+import com.jvmausa.algafood.domain.service.FotoStorageService.NovaFoto;
 
 @Service
 public class CatalogoFotoProdutoService {
@@ -16,18 +18,31 @@ public class CatalogoFotoProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
+	@Autowired
+	private FotoStorageService fotoStorage;
+
 	@Transactional
-	public FotoProduto salvar(FotoProduto foto) {
+	public FotoProduto salvar(FotoProduto foto, InputStream dadosArquivo) {
 		Long restauranteId = foto.getRestauranteId();
 		Long produtoId = foto.getProduto().getId();
+		String novoNomeArquivo = fotoStorage.gerarNomeArquivo(foto.getNomeArquivo());
 		
 		Optional<FotoProduto> fotoExistente = produtoRepository.findFotoById(restauranteId, produtoId);
-		
-		if(fotoExistente.isPresent()) {
+
+		if (fotoExistente.isPresent()) {
 			produtoRepository.delete(fotoExistente.get());
 		}
-		
-		return produtoRepository.save(foto);
+		foto.setNomeArquivo(novoNomeArquivo);
+		foto = produtoRepository.save(foto);
+		produtoRepository.flush();
+
+		NovaFoto novaFoto = NovaFoto.builder()
+				.nomeArquivo(foto.getNomeArquivo())
+				.inputStream(dadosArquivo).build();
+
+		fotoStorage.armazenar(novaFoto);
+
+		return foto;
 
 	}
 
