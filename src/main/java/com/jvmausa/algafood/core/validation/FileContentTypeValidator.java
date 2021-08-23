@@ -10,18 +10,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileContentTypeValidator implements ConstraintValidator<FileContentType, MultipartFile>{
 
-	private List<String> allowedContentType;;
-	
+private List<String> allowedContentTypes;
 	
 	@Override
-	public void initialize(FileContentType constraintAnnotation) {
-		this.allowedContentType = Arrays.asList(constraintAnnotation.allowed());
+	public void initialize(FileContentType constraint) {
+		this.allowedContentTypes = Arrays.asList(constraint.allowed());
 	}
 	
-	
 	@Override
-	public boolean isValid(MultipartFile multiPartFile, ConstraintValidatorContext context) {
-		return multiPartFile == null || this.allowedContentType.contains(multiPartFile.getContentType());
+	public boolean isValid(MultipartFile multipartFile, ConstraintValidatorContext context) {
+		return multipartFile == null 
+				|| this.allowedContentTypes.contains(multipartFile.getContentType());
 	}
 	
 }
