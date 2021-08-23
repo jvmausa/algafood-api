@@ -29,3 +29,6 @@ EM ADIÇÃO DE FILTROS explicando pra entender melhor
 			predicates.add(builder.greaterThanOrEqualTo(root.get("dataCriacao"), filtro.getDataCriacaoInicio()));
 	root = classe de onde o JPA vai se basear para dar o resultado do filtro
 				no caso, pega propriedade "dataCriacao" que está dentro da classe root, e atribui ao getDataCriacaoInicio do filtro de VendaDiaria
+
+Deserialização:
+	de json para objeto java
