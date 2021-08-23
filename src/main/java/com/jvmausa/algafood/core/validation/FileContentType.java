@@ -16,15 +16,15 @@ import javax.validation.Payload;
 
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = { FileContentTypeValidator.class })
-public @interface FileSize {
-	
-	String message() default "Tamanho do arquivo inválido";
+@Constraint(validatedBy = { FileSizeValidator.class })
+public @interface FileContentType {
+
+	String message() default "Tipo de arquivo não suportado";
 
 	Class<?>[] groups() default { };
 
 	Class<? extends Payload>[] payload() default { };
 	
-	String max();
+	String[] allowed();
 	
 }
