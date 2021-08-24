@@ -13,3 +13,4 @@ Desenvolvimento de uma API RESTful similar ao IFood com o intuito de aprendizado
 - Flyway
 - MySQL
 - JasperReports
+- AWS S3
