@@ -53,6 +53,7 @@ public class CatalogoFotoProdutoService {
 	            .orElseThrow(() -> new FotoProdutoNaoEncontradaException(restauranteId, produtoId));
 	}   
 
+	@Transactional
 	public void excluir(Long restauranteId, Long produtoId) {
 		
 		FotoProduto foto = buscarOuFalhar(restauranteId, produtoId);
