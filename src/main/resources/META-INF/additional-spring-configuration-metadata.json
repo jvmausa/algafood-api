@@ -38,5 +38,15 @@
     "name": "algafood.storage.s3.tipo",
     "type": "java.lang.String",
     "description": "A description for 'algafood.storage.s3.tipo'"
+  },
+  {
+    "name": "algafood.email.remetente",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.email.remetente'"
+  },
+  {
+    "name": "algafood.storage.s3.chave-acesso-secreta",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.s3.chave-acesso-secreta'"
   }
 ]}
