@@ -28,5 +28,15 @@
     "name": "algafood.storage.s3.bucket",
     "type": "java.lang.String",
     "description": "A description for 'algafood.storage.s3.bucket'"
+  },
+  {
+    "name": "algafood.storage.tipo",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.tipo'"
+  },
+  {
+    "name": "algafood.storage.s3.tipo",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.s3.tipo'"
   }
 ]}

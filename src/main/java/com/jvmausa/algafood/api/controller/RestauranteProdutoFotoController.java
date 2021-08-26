@@ -95,18 +95,14 @@ public class RestauranteProdutoFotoController {
 			FotoRecuperada fotoRecuperada = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
 
 			if (fotoRecuperada.temUrl()) {
-				
-				
 				return ResponseEntity
 						.status(HttpStatus.FOUND)
 						.header(HttpHeaders.LOCATION, fotoRecuperada.getUrl())
 						.build();
 			}else {
-				System.out.println("NAO CAIU NO TEM URL");
 				return ResponseEntity.ok()
 						.contentType(mediaTypeFoto)
 						.body(new InputStreamResource(fotoRecuperada.getInputStream()));
-
 			}
 
 		}catch (EntidadeNaoEncontradaException e) {
