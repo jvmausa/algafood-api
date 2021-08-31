@@ -29,6 +29,7 @@ import com.jvmausa.algafood.domain.model.Restaurante;
 import com.jvmausa.algafood.domain.repository.RestauranteRepository;
 import com.jvmausa.algafood.domain.service.CadastroRestauranteService;
 
+/*@CrossOrigin(origins = "http://localhost:8000" /*, "http://www.outrosite.local/porta")*/
 @RestController
 @RequestMapping("/restaurantes")
 public class RestauranteController {
