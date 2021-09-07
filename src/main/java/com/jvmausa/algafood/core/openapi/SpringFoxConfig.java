@@ -36,16 +36,82 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 					.build()
 				.useDefaultResponseMessages(false)
 				.globalResponseMessage(RequestMethod.GET, globalGetResponseMessages())
+				.globalResponseMessage(RequestMethod.POST, globalPostResponseMessages())
+				.globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
+				.globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
 				.apiInfo(apiInfo())
 				.tags(new Tag("Cidades", "Gerencia Cidades"));
 	}
-	
+
+	private List<ResponseMessage> globalDeleteResponseMessages() {
+		return Arrays.asList(
+				new ResponseMessageBuilder()
+				.code(400)
+				.message("Requisição inválida (erro do cliente)")
+				.build(),
+				
+				new ResponseMessageBuilder()
+				.code(500)
+				.message("Erro Interno do servidor")
+				.build()
+				);
+	}
+
+	private List<ResponseMessage> globalPutResponseMessages() {
+		return Arrays.asList(
+				new ResponseMessageBuilder()
+				.code(400)
+				.message("Requisição inválida (erro do cliente)")
+				.build(),
+				
+				new ResponseMessageBuilder()
+				.code(500)
+				.message("Erro Interno do servidor")
+				.build(),
+				
+				new ResponseMessageBuilder()
+				.code(406)
+				.message("Recurso não possui representação que poderia ser aceita pelo consumidor")
+				.build(),
+				
+				new ResponseMessageBuilder()
+				.code(415)
+				.message("Requisição recusada porque o corpo está em um formato não suportado")
+				.build()
+				);
+	}
+
+	private List<ResponseMessage> globalPostResponseMessages() {
+		return Arrays.asList(
+				new ResponseMessageBuilder()
+				.code(400)
+				.message("Requisição inválida (erro do cliente)")
+				.build(),
+				
+				new ResponseMessageBuilder()
+				.code(500)
+				.message("Erro Interno do servidor")
+				.build(),
+				
+				new ResponseMessageBuilder()
+				.code(406)
+				.message("Recurso não possui representação que poderia ser aceita pelo consumidor")
+				.build(),
+				
+				new ResponseMessageBuilder()
+				.code(415)
+				.message("Requisição recusada porque o corpo está em um formato não suportado")
+				.build()
+				);
+	}
+
 	private List<ResponseMessage> globalGetResponseMessages() {
 		return Arrays.asList(
 				new ResponseMessageBuilder()
 				.code(500)
 				.message("Erro Interno do servidor.")
 				.build(),
+				
 				new ResponseMessageBuilder()
 				.code(406)
 				.message("Recurso não possui representado que poderia ser aceita pelo consumidor.")
@@ -60,7 +126,6 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				.contact(new Contact("Joao", null, "jvmausa@gmail.com"))
 				.build();
 	}	
-	
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
