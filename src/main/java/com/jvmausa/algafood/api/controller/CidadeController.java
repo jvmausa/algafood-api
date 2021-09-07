@@ -27,6 +27,7 @@ import com.jvmausa.algafood.domain.repository.CidadeRepository;
 import com.jvmausa.algafood.domain.service.CadastroCidadeService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Cidades")
 @RestController
@@ -45,18 +46,21 @@ public class CidadeController {
 	@Autowired
 	private CidadeInputDisassembler cidadeInputDisassembler;
 
+	@ApiOperation("Lista cidades")
 	@GetMapping
 	public List<CidadeModel> listar() {
 		return cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
 
 	}
 
+	@ApiOperation("Busca cidade por ID")
 	@GetMapping("/{id}")
 	public CidadeModel buscar(@PathVariable Long id) {
 		Cidade cidade = cadastroCidade.buscarOuFalhar(id);
 		return cidadeModelAssembler.toModel(cidade);
 	}
 
+	@ApiOperation("Adiciona uma nova cidade")
 	@PostMapping
 	public CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
 
@@ -71,7 +75,7 @@ public class CidadeController {
 		}
 
 	}
-
+	@ApiOperation("Atualiza uma cidade por ID")
 	@PutMapping("/{id}")
 	public CidadeModel atualizar(@PathVariable Long id, @RequestBody @Valid CidadeInput cidadeInput) {
 			
@@ -86,7 +90,8 @@ public class CidadeController {
 		}
 
 	}
-
+	
+	@ApiOperation("Deleta uma cidade por ID")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	private void remover(@PathVariable Long id) {
