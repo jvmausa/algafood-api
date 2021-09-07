@@ -18,8 +18,9 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 	public Docket apiDocket(){
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.jvmausa.algafood.api"))
-				.build();
+					.apis(RequestHandlerSelectors.basePackage("com.jvmausa.algafood.api"))
+//					.paths(PathSelectors.ant("/restaurantes/*"))
+					.build();
 	}
 	
 	@Override
