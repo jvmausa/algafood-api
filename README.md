@@ -14,3 +14,4 @@ Desenvolvimento de uma API RESTful similar ao IFood com o intuito de aprendizado
 - MySQL
 - JasperReports
 - AWS S3
+- Swagger UI
