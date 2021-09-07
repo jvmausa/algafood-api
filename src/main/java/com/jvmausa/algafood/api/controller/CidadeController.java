@@ -28,6 +28,7 @@ import com.jvmausa.algafood.domain.service.CadastroCidadeService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @Api(tags = "Cidades")
 @RestController
@@ -55,14 +56,14 @@ public class CidadeController {
 
 	@ApiOperation("Busca cidade por ID")
 	@GetMapping("/{id}")
-	public CidadeModel buscar(@PathVariable Long id) {
+	public CidadeModel buscar(@ApiParam(value = "ID de uma Cidade", example = "1") @PathVariable Long id) {
 		Cidade cidade = cadastroCidade.buscarOuFalhar(id);
 		return cidadeModelAssembler.toModel(cidade);
 	}
 
 	@ApiOperation("Adiciona uma nova cidade")
 	@PostMapping
-	public CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
+	public CidadeModel adicionar(@ApiParam(name = "corpo", value = "Representação de uma nova cidade") @RequestBody @Valid CidadeInput cidadeInput) {
 
 		Cidade cidade = cidadeInputDisassembler.toDomainObject(cidadeInput);
 
@@ -77,7 +78,9 @@ public class CidadeController {
 	}
 	@ApiOperation("Atualiza uma cidade por ID")
 	@PutMapping("/{id}")
-	public CidadeModel atualizar(@PathVariable Long id, @RequestBody @Valid CidadeInput cidadeInput) {
+	public CidadeModel atualizar(@ApiParam(value = "IDde uma Cidade") @PathVariable Long id, 
+			@ApiParam(name = "corpo", value = "Representação de uma cidade com novos dados") 
+			@RequestBody @Valid CidadeInput cidadeInput) {
 			
 		Cidade cidadeAtual = cadastroCidade.buscarOuFalhar(id);
 		cidadeInputDisassembler.copyToDomainObject(cidadeInput, cidadeAtual);
@@ -94,7 +97,7 @@ public class CidadeController {
 	@ApiOperation("Deleta uma cidade por ID")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	private void remover(@PathVariable Long id) {
+	private void remover(@ApiParam(value = "ID de uma Cidade") @PathVariable Long id) {
 		cadastroCidade.excluir(id);
 	}
 
