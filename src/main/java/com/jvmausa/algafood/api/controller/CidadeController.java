@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.assembler.CidadeInputDisassembler;
 import com.jvmausa.algafood.api.assembler.CidadeModelAssembler;
+import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.CidadeModel;
 import com.jvmausa.algafood.api.model.input.CidadeInput;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
@@ -29,6 +30,8 @@ import com.jvmausa.algafood.domain.service.CadastroCidadeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @Api(tags = "Cidades")
 @RestController
@@ -55,6 +58,10 @@ public class CidadeController {
 	}
 
 	@ApiOperation("Busca cidade por ID")
+	@ApiResponses({
+		@ApiResponse(code = 400, message = "ID da cidade Inválido", response = Problem.class),
+		@ApiResponse(code = 404, message = "Cidade não encontrada", response = Problem.class)
+	})
 	@GetMapping("/{id}")
 	public CidadeModel buscar(@ApiParam(value = "ID de uma Cidade", example = "1") @PathVariable Long id) {
 		Cidade cidade = cadastroCidade.buscarOuFalhar(id);
@@ -62,6 +69,9 @@ public class CidadeController {
 	}
 
 	@ApiOperation("Adiciona uma nova cidade")
+	@ApiResponses({
+		@ApiResponse(code = 201, message = "Cidade cadastrada")
+	})
 	@PostMapping
 	public CidadeModel adicionar(@ApiParam(name = "corpo", value = "Representação de uma nova cidade") @RequestBody @Valid CidadeInput cidadeInput) {
 
@@ -77,6 +87,9 @@ public class CidadeController {
 
 	}
 	@ApiOperation("Atualiza uma cidade por ID")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "Cidade atualizada")
+	})
 	@PutMapping("/{id}")
 	public CidadeModel atualizar(@ApiParam(value = "IDde uma Cidade") @PathVariable Long id, 
 			@ApiParam(name = "corpo", value = "Representação de uma cidade com novos dados") 
