@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.fasterxml.classmate.TypeResolver;
+import com.jvmausa.algafood.api.exceptionhandler.Problem;
+
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.ResponseMessage;
@@ -27,8 +31,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SpringFoxConfig implements WebMvcConfigurer{
 
+	
 	@Bean
 	public Docket apiDocket(){
+		
+		var typeResolver = new TypeResolver();
+		
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
 					.apis(RequestHandlerSelectors.basePackage("com.jvmausa.algafood.api"))
@@ -39,6 +47,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				.globalResponseMessage(RequestMethod.POST, globalPostResponseMessages())
 				.globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
 				.globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
+				.additionalModels(typeResolver.resolve(Problem.class))
 				.apiInfo(apiInfo())
 				.tags(new Tag("Cidades", "Gerencia Cidades"));
 	}
@@ -48,11 +57,13 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				new ResponseMessageBuilder()
 				.code(400)
 				.message("Requisição inválida (erro do cliente)")
+				.responseModel(new ModelRef("Problema"))
 				.build(),
 				
 				new ResponseMessageBuilder()
 				.code(500)
 				.message("Erro Interno do servidor")
+				.responseModel(new ModelRef("Problema"))
 				.build()
 				);
 	}
@@ -62,6 +73,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				new ResponseMessageBuilder()
 				.code(400)
 				.message("Requisição inválida (erro do cliente)")
+				.responseModel(new ModelRef("Problema"))
 				.build(),
 				
 				new ResponseMessageBuilder()
@@ -86,11 +98,13 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				new ResponseMessageBuilder()
 				.code(400)
 				.message("Requisição inválida (erro do cliente)")
+				.responseModel(new ModelRef("Problema"))
 				.build(),
 				
 				new ResponseMessageBuilder()
 				.code(500)
 				.message("Erro Interno do servidor")
+				.responseModel(new ModelRef("Problema"))
 				.build(),
 				
 				new ResponseMessageBuilder()
