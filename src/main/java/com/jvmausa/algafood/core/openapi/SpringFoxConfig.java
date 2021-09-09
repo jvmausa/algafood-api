@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.fasterxml.classmate.TypeResolver;
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
-import com.jvmausa.algafood.core.openapi.model.PageableModelOpenApi;
+import com.jvmausa.algafood.api.openapi.model.PageableModelOpenApi;
 
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;

@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.assembler.GrupoInputDisassembler;
 import com.jvmausa.algafood.api.assembler.GrupoModelAssembler;
-import com.jvmausa.algafood.api.controller.openapi.GrupoControllerOpenApi;
 import com.jvmausa.algafood.api.model.GrupoModel;
 import com.jvmausa.algafood.api.model.input.GrupoInput;
+import com.jvmausa.algafood.api.openapi.controller.GrupoControllerOpenApi;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.Grupo;
