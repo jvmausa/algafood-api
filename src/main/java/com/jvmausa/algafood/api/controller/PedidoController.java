@@ -25,6 +25,7 @@ import com.jvmausa.algafood.api.assembler.PedidoResumoModelAssembler;
 import com.jvmausa.algafood.api.model.PedidoModel;
 import com.jvmausa.algafood.api.model.PedidoResumoModel;
 import com.jvmausa.algafood.api.model.input.PedidoInput;
+import com.jvmausa.algafood.api.openapi.controller.PedidoControllerOpenApi;
 import com.jvmausa.algafood.core.data.PageableTranslator;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
@@ -40,7 +41,7 @@ import io.swagger.annotations.ApiImplicitParams;
 
 @RestController
 @RequestMapping(value = "/pedidos")
-public class PedidoController {
+public class PedidoController implements PedidoControllerOpenApi {
 
     @Autowired
     private PedidoRepository pedidoRepository;
@@ -57,7 +58,8 @@ public class PedidoController {
     @Autowired
     private PedidoInputDisassembler pedidoInputDisassembler;
     
-    @ApiImplicitParams({
+    @Override
+	@ApiImplicitParams({
     	@ApiImplicitParam(value = "Nome das propriesdades para filtras na resposta separados por vírgula",
     						name = "campos", paramType = "query", type = "string")
     })
@@ -77,7 +79,8 @@ public class PedidoController {
     }
     
     
-    @ApiImplicitParams({
+    @Override
+	@ApiImplicitParams({
     	@ApiImplicitParam(value = "Nome das propriesdades para filtras na resposta separados por vírgula",
     						name = "campos", paramType = "query", type = "string")
     })
@@ -88,7 +91,8 @@ public class PedidoController {
         return pedidoModelAssembler.toModel(pedido);
     }            
     
-    @PostMapping
+    @Override
+	@PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PedidoModel adicionar(@Valid @RequestBody PedidoInput pedidoInput) {
         try {
