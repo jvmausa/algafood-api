@@ -21,6 +21,7 @@ import com.jvmausa.algafood.api.openapi.model.PageableModelOpenApi;
 
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.AlternateTypeRules;
@@ -54,6 +55,14 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				.globalResponseMessage(RequestMethod.POST, globalPostResponseMessages())
 				.globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
 				.globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
+				.globalOperationParameters(Arrays.asList((
+						new ParameterBuilder()
+						.name("campos")
+						.description("Nome das propriesdades para filtras na resposta separados por vírgula")
+						.parameterType("query")
+						.modelRef(new ModelRef("string"))
+						.build()
+						)))
 				.additionalModels(typeResolver.resolve(Problem.class))
 				.ignoredParameterTypes(ServletWebRequest.class)
 				.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
