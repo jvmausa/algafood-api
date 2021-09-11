@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import com.jvmausa.algafood.api.assembler.FormaPagamentoInputDisassembler;
 import com.jvmausa.algafood.api.assembler.FormaPagamentoModelAssembler;
 import com.jvmausa.algafood.api.model.FormaPagamentoModel;
 import com.jvmausa.algafood.api.model.input.FormaPagamentoInput;
+import com.jvmausa.algafood.api.openapi.controller.FormaPagamentoControllerOpenApi;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.FormaPagamento;
@@ -33,8 +35,8 @@ import com.jvmausa.algafood.domain.repository.FormaPagamentoRepository;
 import com.jvmausa.algafood.domain.service.CadastroFormaPagamentoService;
 
 @RestController
-@RequestMapping("/formas-pagamento")
-public class FormaPagamentoController {
+@RequestMapping(path = "/formas-pagamento", produces = MediaType.APPLICATION_JSON_VALUE)
+public class FormaPagamentoController implements FormaPagamentoControllerOpenApi {
 
 	@Autowired
 	private FormaPagamentoRepository formaPagamentoRepository;
@@ -49,6 +51,7 @@ public class FormaPagamentoController {
 	private FormaPagamentoInputDisassembler formaPagamentoInputDisasembler;
 
 	
+	@Override
 	@GetMapping
 	public ResponseEntity<List<FormaPagamentoModel>> listar(ServletWebRequest request) {
 		ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
@@ -75,6 +78,7 @@ public class FormaPagamentoController {
 				.body(formasPagamentoModel);
 	}
 	
+	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long id) {
 		FormaPagamento formaPagamento = cadastroFormaPagamento.buscarOuFalhar(id);
@@ -88,6 +92,7 @@ public class FormaPagamentoController {
 
 	}
 
+	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public FormaPagamentoModel adicionar(@RequestBody @Valid FormaPagamentoInput formaPagantoInput) {
@@ -101,6 +106,7 @@ public class FormaPagamentoController {
 
 	}
 
+	@Override
 	@PutMapping("/{id}")
 	public FormaPagamentoModel atualizar(@PathVariable Long id,
 			@RequestBody @Valid FormaPagamentoInput formaPagantoInput) {
@@ -117,6 +123,7 @@ public class FormaPagamentoController {
 
 	}
 
+	@Override
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {
