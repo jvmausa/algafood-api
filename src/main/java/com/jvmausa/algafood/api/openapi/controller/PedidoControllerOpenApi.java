@@ -36,13 +36,13 @@ public interface PedidoControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 404, message = "ID do pedido não encontrado", response = Problem.class)
 	})
-	PedidoModel buscar(@ApiParam(value = "Código de um pedido", example = "023caf9a-cb96-4010-bb3d-8409cb13f228") 
+	PedidoModel buscar(@ApiParam(value = "Código de um pedido", example = "023caf9a-cb96-4010-bb3d-8409cb13f228", required = true) 
 						String codigoPedido);
 
 	@ApiOperation("Cadastrar um novo pedido")
 	@ApiResponses({
 			@ApiResponse(code = 201, message = "Novo pedido cadastrado")
 	})
-	PedidoModel adicionar(@ApiParam(name = "corpo", value = "Representação de um novo pedido") PedidoInput pedidoInput);
+	PedidoModel adicionar(@ApiParam(name = "corpo", value = "Representação de um novo pedido", required = true) PedidoInput pedidoInput);
 
 }
