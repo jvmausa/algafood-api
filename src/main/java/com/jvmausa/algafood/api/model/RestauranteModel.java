@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.jvmausa.algafood.api.model.view.RestauranteView;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,12 +16,16 @@ public class RestauranteModel {
 	/*
 	 * classe do que é mostrado na representação no endpoint
 	 */
+	
+	@ApiModelProperty(example = "5")
 	@JsonView(RestauranteView.Resumo.class)
 	private Long id;
 	
+	@ApiModelProperty(example = "Lanchonete do Tio Sam")
 	@JsonView(RestauranteView.Resumo.class)
 	private String nome;
 	
+	@ApiModelProperty(example = "11")
 	@JsonView(RestauranteView.Resumo.class)
 	private BigDecimal taxaFrete;
 	

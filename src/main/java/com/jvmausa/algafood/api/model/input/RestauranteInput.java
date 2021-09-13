@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,12 +19,15 @@ public class RestauranteInput {
 	 * classe do que é necessário pra ser inserido ao adicionar novo dado no endpoint
 	 * */
 	
+	@ApiModelProperty(example = "Cozinha Mineira")
 	@NotBlank
 	private String nome;
 	
+	@ApiModelProperty(example = "10")
 	@NotNull
 	@PositiveOrZero
 	private BigDecimal taxaFrete;
+	
 	
 	@Valid
 	@NotNull
