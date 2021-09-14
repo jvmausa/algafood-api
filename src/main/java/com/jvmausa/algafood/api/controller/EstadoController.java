@@ -20,13 +20,14 @@ import com.jvmausa.algafood.api.assembler.EstadoInputDisassembler;
 import com.jvmausa.algafood.api.assembler.EstadoModelAssembler;
 import com.jvmausa.algafood.api.model.EstadoModel;
 import com.jvmausa.algafood.api.model.input.EstadoInput;
+import com.jvmausa.algafood.api.openapi.controller.EstadoControllerOpenApi;
 import com.jvmausa.algafood.domain.model.Estado;
 import com.jvmausa.algafood.domain.repository.EstadoRepository;
 import com.jvmausa.algafood.domain.service.CadastroEstadoService;
 
 @RestController
 @RequestMapping("/estados")
-public class EstadoController {
+public class EstadoController implements EstadoControllerOpenApi {
 
 	@Autowired
 	private EstadoRepository estadoRepository;
@@ -40,11 +41,13 @@ public class EstadoController {
 	@Autowired
 	private EstadoInputDisassembler estadoInputDisassembler;
 
+	@Override
 	@GetMapping()
 	public List<EstadoModel> listar() {
 		return estadoModelAssembler.toColletionModel(estadoRepository.findAll());
 	}
 
+	@Override
 	@GetMapping("/{id}")
 	public EstadoModel buscar(@PathVariable Long id) {
 		Estado estado = cadastroEstado.buscarOuFalhar(id);
@@ -52,6 +55,7 @@ public class EstadoController {
 
 	}
 
+	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
@@ -61,6 +65,7 @@ public class EstadoController {
 
 	}
 
+	@Override
 	@PutMapping("/{id}")
 	public EstadoModel atualizar(@PathVariable Long id, @RequestBody @Valid EstadoInput estadoInput) {
 
@@ -71,6 +76,7 @@ public class EstadoController {
 		return estadoModelAssembler.toModel(cadastroEstado.salvar(estadoAtual));
 	}
 
+	@Override
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {
