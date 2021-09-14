@@ -20,6 +20,7 @@ import com.jvmausa.algafood.api.model.PedidoResumoModel;
 import com.jvmausa.algafood.api.openapi.model.CozinhasModelOpenApi;
 import com.jvmausa.algafood.api.openapi.model.PageableModelOpenApi;
 import com.jvmausa.algafood.api.openapi.model.PedidosResumoModelOpenApi;
+import com.jvmausa.algafood.api.openapi.model.exception.Problem500OpenApi;
 
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -56,7 +57,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				.globalResponseMessage(RequestMethod.POST, globalPostResponseMessages())
 				.globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
 				.globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
-				.additionalModels(typeResolver.resolve(Problem.class))
+				.additionalModels(typeResolver.resolve(Problem.class), typeResolver.resolve(Problem500OpenApi.class))
 				.ignoredParameterTypes(ServletWebRequest.class)
 				.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
 				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Page.class, CozinhaModel.class), 
@@ -69,7 +70,8 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				        new Tag("Cozinhas", "Gerencia as cozinhas"),
 				        new Tag("Formas de Pagamento", "Gerencia as formas de pagamento"),
 				        new Tag("Pedidos", "Gerencia os pedidos"),
-				        new Tag("Restaurantes", "Gerencia os restaurantes"));
+				        new Tag("Restaurantes", "Gerencia os restaurantes"),
+				        new Tag("Estado", "Gerencia os estados"));
 	}
 
 	private List<ResponseMessage> globalDeleteResponseMessages() {
@@ -83,7 +85,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				new ResponseMessageBuilder()
 				.code(500)
 				.message("Erro Interno do servidor")
-				.responseModel(new ModelRef("Problema"))
+				.responseModel(new ModelRef("Problema500"))
 				.build()
 				);
 	}
@@ -99,6 +101,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				new ResponseMessageBuilder()
 				.code(500)
 				.message("Erro Interno do servidor")
+				.responseModel(new ModelRef("Problema500"))
 				.build(),
 				
 				new ResponseMessageBuilder()
@@ -124,7 +127,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				new ResponseMessageBuilder()
 				.code(500)
 				.message("Erro Interno do servidor")
-				.responseModel(new ModelRef("Problema"))
+				.responseModel(new ModelRef("Problema500"))
 				.build(),
 				
 				new ResponseMessageBuilder()
@@ -144,6 +147,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				new ResponseMessageBuilder()
 				.code(500)
 				.message("Erro Interno do servidor.")
+				.responseModel(new ModelRef("Problema500"))
 				.build(),
 				
 				new ResponseMessageBuilder()
