@@ -5,6 +5,7 @@ import java.util.List;
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.CidadeModel;
 import com.jvmausa.algafood.api.model.input.CidadeInput;
+import com.jvmausa.algafood.api.openapi.model.exception.Problem404OpenApi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +22,7 @@ public interface CidadeControllerOpenApi {
 	@ApiOperation("Busca cidade por ID")
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "ID da cidade Inválido", response = Problem.class),
-		@ApiResponse(code = 404, message = "Cidade não encontrada", response = Problem.class)
+		@ApiResponse(code = 404, message = "Cidade não encontrada", response = Problem404OpenApi.class)
 	})
 	CidadeModel buscar(@ApiParam(value = "ID de uma Cidade", example = "1", required = true) Long id);
 
