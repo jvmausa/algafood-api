@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +22,14 @@ import com.jvmausa.algafood.api.model.UsuarioModel;
 import com.jvmausa.algafood.api.model.input.SenhaInput;
 import com.jvmausa.algafood.api.model.input.UsuarioComSenhaInput;
 import com.jvmausa.algafood.api.model.input.UsuarioInput;
+import com.jvmausa.algafood.api.openapi.controller.UsuarioControllerOpenApi;
 import com.jvmausa.algafood.domain.model.Usuario;
 import com.jvmausa.algafood.domain.repository.UsuarioRepository;
 import com.jvmausa.algafood.domain.service.CadastroUsuarioService;
 
 @RestController
-@RequestMapping(value = "/usuarios")
-public class UsuarioController {
+@RequestMapping(path = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
+public class UsuarioController implements UsuarioControllerOpenApi {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -41,11 +43,13 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 
+	@Override
 	@GetMapping
 	public List<UsuarioModel> listar() {
 		return usuarioModelAssembler.toCollectionModel(usuarioRepository.findAll());
 	}
 
+	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public UsuarioModel adicionar(@RequestBody @Valid UsuarioComSenhaInput usuarioInput) {
@@ -56,6 +60,7 @@ public class UsuarioController {
 
 	}
 	
+	@Override
 	@GetMapping("/{id}")
     public UsuarioModel buscar(@PathVariable Long id) {
         Usuario usuario = cadastroUsuario.buscarOuFalhar(id);
@@ -64,6 +69,7 @@ public class UsuarioController {
     }
 	
 
+	@Override
 	@PutMapping("/{id}")
 	public UsuarioModel atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioInput usuarioInput) {
 		Usuario usuarioAtual = cadastroUsuario.buscarOuFalhar(id);
@@ -73,6 +79,7 @@ public class UsuarioController {
 		return usuarioModelAssembler.toModel(usuarioAtual);
 	}
 
+	@Override
 	@PutMapping("/{id}/senha")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void alterarSenha(@PathVariable Long id, @RequestBody @Valid SenhaInput senha) {
