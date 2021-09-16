@@ -56,4 +56,12 @@ public class Usuario {
 	    return !senhaCoincideCom(senha);
 	}
 	
+	public boolean removerGrupo(Grupo grupo) {
+		return getGrupos().remove(grupo);
+	}
+	
+	public boolean adicionarGrupo(Grupo grupo) {
+		return getGrupos().add(grupo);
+	}
+	
 }
