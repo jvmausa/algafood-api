@@ -12,19 +12,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jvmausa.algafood.api.assembler.FotoProdutoModelAssembler;
 import com.jvmausa.algafood.api.model.FotoProdutoModel;
 import com.jvmausa.algafood.api.model.input.FotoProdutoInput;
+import com.jvmausa.algafood.api.openapi.controller.RestauranteProdutoFotoControllerOpenApi;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.model.FotoProduto;
 import com.jvmausa.algafood.domain.model.Produto;
@@ -34,8 +33,8 @@ import com.jvmausa.algafood.domain.service.FotoStorageService;
 import com.jvmausa.algafood.domain.service.FotoStorageService.FotoRecuperada;
 
 @RestController
-@RequestMapping("/restaurantes/{restauranteId}/produtos/{produtoId}/foto")
-public class RestauranteProdutoFotoController {
+@RequestMapping(path = "/restaurantes/{restauranteId}/produtos/{produtoId}/foto", produces = MediaType.APPLICATION_JSON_VALUE)
+public class RestauranteProdutoFotoController implements RestauranteProdutoFotoControllerOpenApi {
 
 	@Autowired
 	private CadastroProdutoService cadastroProduto;
@@ -49,6 +48,7 @@ public class RestauranteProdutoFotoController {
 	@Autowired
 	private FotoStorageService fotoStorage;
 
+	@Override
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
 			@Valid FotoProdutoInput fotoProdutoInput) throws IOException {
@@ -70,7 +70,8 @@ public class RestauranteProdutoFotoController {
 
 	}
 	
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@Override
+	@GetMapping
 	public FotoProdutoModel buscar(@PathVariable Long restauranteId,@PathVariable Long produtoId) {
  
 		FotoProduto fotoProduto = catalogoFotoProduto.buscarOuFalhar(restauranteId, produtoId);
@@ -79,7 +80,8 @@ public class RestauranteProdutoFotoController {
 		
 	}
 	
-	@GetMapping
+	@Override
+	@GetMapping(produces = MediaType.ALL_VALUE)
 	public ResponseEntity<?> servirFoto(@PathVariable Long restauranteId, 
 			@PathVariable Long produtoId, @RequestHeader(name = "accept") String acceptHeader) 
 					throws HttpMediaTypeNotAcceptableException {
@@ -111,12 +113,13 @@ public class RestauranteProdutoFotoController {
 		
 	}
 	
-	@DeleteMapping
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void excluir(@PathVariable Long restauranteId, 
-			@PathVariable Long produtoId) {
-		catalogoFotoProduto.excluir(restauranteId, produtoId);
-	}
+//	@Override
+//	@DeleteMapping
+//	@ResponseStatus(HttpStatus.NO_CONTENT)
+//	public void excluir(@PathVariable Long restauranteId, 
+//			@PathVariable Long produtoId) {
+//		catalogoFotoProduto.excluir(restauranteId, produtoId);
+//	}
 
 	private void verificarCompatibilidadeMediaType(MediaType mediaTypeFoto,
 			List<MediaType> mediatypesAceitas) throws HttpMediaTypeNotAcceptableException {
