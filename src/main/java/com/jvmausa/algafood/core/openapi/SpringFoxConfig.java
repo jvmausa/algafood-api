@@ -1,6 +1,7 @@
 package com.jvmausa.algafood.core.openapi;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLStreamHandler;
 import java.util.Arrays;
@@ -63,7 +64,8 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				.globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
 				.globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
 				.additionalModels(typeResolver.resolve(Problem.class), typeResolver.resolve(Problem500OpenApi.class))
-				.ignoredParameterTypes(ServletWebRequest.class, URL.class,Uri.class, URLStreamHandler.class, Resource.class, File.class) 
+				.ignoredParameterTypes(ServletWebRequest.class, URL.class,Uri.class, 
+										URLStreamHandler.class, Resource.class, File.class, InputStream.class) 
 				.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
 				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Page.class, CozinhaModel.class), 
 						CozinhasModelOpenApi.class))
