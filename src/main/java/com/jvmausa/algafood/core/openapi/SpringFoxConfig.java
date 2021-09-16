@@ -1,5 +1,8 @@
 package com.jvmausa.algafood.core.openapi;
 
+import java.io.File;
+import java.net.URL;
+import java.net.URLStreamHandler;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,6 +16,8 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.amazonaws.auth.policy.Resource;
+import com.ctc.wstx.shaded.msv_core.util.Uri;
 import com.fasterxml.classmate.TypeResolver;
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.CozinhaModel;
@@ -58,7 +63,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				.globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
 				.globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
 				.additionalModels(typeResolver.resolve(Problem.class), typeResolver.resolve(Problem500OpenApi.class))
-				.ignoredParameterTypes(ServletWebRequest.class)
+				.ignoredParameterTypes(ServletWebRequest.class, URL.class,Uri.class, URLStreamHandler.class, Resource.class, File.class) 
 				.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
 				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Page.class, CozinhaModel.class), 
 						CozinhasModelOpenApi.class))
