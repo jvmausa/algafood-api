@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.assembler.FormaPagamentoModelAssembler;
 import com.jvmausa.algafood.api.model.FormaPagamentoModel;
-import com.jvmausa.algafood.api.openapi.controller.RestauranteFormaPagamentoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.RestauranteFormaPagamentoControllerOpenApi;
 import com.jvmausa.algafood.domain.model.Restaurante;
 import com.jvmausa.algafood.domain.service.CadastroRestauranteService;
 

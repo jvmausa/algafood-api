@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.jvmausa.algafood.api.assembler.GrupoModelAssembler;
 import com.jvmausa.algafood.api.model.GrupoModel;
-import com.jvmausa.algafood.api.openapi.controller.UsuarioGrupoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.UsuarioGrupoControllerOpenApi;
 import com.jvmausa.algafood.domain.model.Usuario;
 import com.jvmausa.algafood.domain.service.CadastroUsuarioService;
 

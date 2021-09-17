@@ -24,7 +24,7 @@ import com.jvmausa.algafood.api.assembler.CozinhaInputDisassembler;
 import com.jvmausa.algafood.api.assembler.CozinhaModelAssembler;
 import com.jvmausa.algafood.api.model.CozinhaModel;
 import com.jvmausa.algafood.api.model.input.CozinhaInput;
-import com.jvmausa.algafood.api.openapi.controller.CozinhaControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.CozinhaControllerOpenApi;
 import com.jvmausa.algafood.domain.model.Cozinha;
 import com.jvmausa.algafood.domain.repository.CozinhaRepository;
 import com.jvmausa.algafood.domain.service.CadastroCozinhaService;

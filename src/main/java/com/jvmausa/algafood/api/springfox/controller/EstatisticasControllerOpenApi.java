@@ -1,4 +1,4 @@
-package com.jvmausa.algafood.api.openapi.controller;
+package com.jvmausa.algafood.api.springfox.controller;
 
 import java.util.List;
 

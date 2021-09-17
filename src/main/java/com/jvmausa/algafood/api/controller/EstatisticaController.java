@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jvmausa.algafood.api.openapi.controller.EstatisticasControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.EstatisticasControllerOpenApi;
 import com.jvmausa.algafood.domain.filter.VendaDiariaFilter;
 import com.jvmausa.algafood.domain.model.dto.VendaDiaria;
 import com.jvmausa.algafood.domain.service.VendaQueryService;

@@ -25,7 +25,7 @@ import com.jvmausa.algafood.api.assembler.PedidoResumoModelAssembler;
 import com.jvmausa.algafood.api.model.PedidoModel;
 import com.jvmausa.algafood.api.model.PedidoResumoModel;
 import com.jvmausa.algafood.api.model.input.PedidoInput;
-import com.jvmausa.algafood.api.openapi.controller.PedidoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.PedidoControllerOpenApi;
 import com.jvmausa.algafood.core.data.PageableTranslator;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;

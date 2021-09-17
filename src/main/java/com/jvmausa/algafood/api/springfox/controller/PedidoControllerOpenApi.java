@@ -1,4 +1,4 @@
-package com.jvmausa.algafood.api.openapi.controller;
+package com.jvmausa.algafood.api.springfox.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

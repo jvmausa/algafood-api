@@ -1,4 +1,4 @@
-package com.jvmausa.algafood.api.openapi.controller;
+package com.jvmausa.algafood.api.springfox.controller;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.FotoProdutoModel;
 import com.jvmausa.algafood.api.model.input.FotoProdutoInput;
-import com.jvmausa.algafood.api.openapi.model.exception.Problem404OpenApi;
+import com.jvmausa.algafood.api.springfox.model.exception.Problem404OpenApi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

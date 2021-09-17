@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.assembler.PermissaoModel;
 import com.jvmausa.algafood.api.assembler.PermissaoModelAssembler;
-import com.jvmausa.algafood.api.openapi.controller.GrupoPermissaoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.GrupoPermissaoControllerOpenApi;
 import com.jvmausa.algafood.domain.model.Grupo;
 import com.jvmausa.algafood.domain.service.CadastroGrupoService;
 

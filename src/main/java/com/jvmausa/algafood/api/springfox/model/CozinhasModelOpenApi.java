@@ -1,4 +1,4 @@
-package com.jvmausa.algafood.api.openapi.model;
+package com.jvmausa.algafood.api.springfox.model;
 
 import com.jvmausa.algafood.api.model.CozinhaModel;
 

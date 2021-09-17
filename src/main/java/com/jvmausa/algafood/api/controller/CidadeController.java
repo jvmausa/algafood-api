@@ -22,7 +22,7 @@ import com.jvmausa.algafood.api.assembler.CidadeInputDisassembler;
 import com.jvmausa.algafood.api.assembler.CidadeModelAssembler;
 import com.jvmausa.algafood.api.model.CidadeModel;
 import com.jvmausa.algafood.api.model.input.CidadeInput;
-import com.jvmausa.algafood.api.openapi.controller.CidadeControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.CidadeControllerOpenApi;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.Cidade;

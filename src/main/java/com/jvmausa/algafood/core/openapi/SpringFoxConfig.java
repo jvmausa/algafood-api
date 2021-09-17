@@ -23,10 +23,10 @@ import com.fasterxml.classmate.TypeResolver;
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.CozinhaModel;
 import com.jvmausa.algafood.api.model.PedidoResumoModel;
-import com.jvmausa.algafood.api.openapi.model.CozinhasModelOpenApi;
-import com.jvmausa.algafood.api.openapi.model.PageableModelOpenApi;
-import com.jvmausa.algafood.api.openapi.model.PedidosResumoModelOpenApi;
-import com.jvmausa.algafood.api.openapi.model.exception.Problem500OpenApi;
+import com.jvmausa.algafood.api.springfox.model.CozinhasModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.PageableModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.PedidosResumoModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.exception.Problem500OpenApi;
 
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;

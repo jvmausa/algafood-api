@@ -1,4 +1,4 @@
-package com.jvmausa.algafood.api.openapi.model.exception;
+package com.jvmausa.algafood.api.springfox.model.exception;
 
 import java.time.OffsetDateTime;
 

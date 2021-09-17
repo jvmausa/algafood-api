@@ -27,7 +27,7 @@ import com.jvmausa.algafood.api.assembler.FormaPagamentoInputDisassembler;
 import com.jvmausa.algafood.api.assembler.FormaPagamentoModelAssembler;
 import com.jvmausa.algafood.api.model.FormaPagamentoModel;
 import com.jvmausa.algafood.api.model.input.FormaPagamentoInput;
-import com.jvmausa.algafood.api.openapi.controller.FormaPagamentoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.FormaPagamentoControllerOpenApi;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.FormaPagamento;

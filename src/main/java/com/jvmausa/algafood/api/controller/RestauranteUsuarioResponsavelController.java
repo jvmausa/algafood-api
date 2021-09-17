@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.assembler.UsuarioModelAssembler;
 import com.jvmausa.algafood.api.model.UsuarioModel;
-import com.jvmausa.algafood.api.openapi.controller.RestauranteUsuarioResponsavelControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.RestauranteUsuarioResponsavelControllerOpenApi;
 import com.jvmausa.algafood.domain.model.Restaurante;
 import com.jvmausa.algafood.domain.service.CadastroRestauranteService;
 

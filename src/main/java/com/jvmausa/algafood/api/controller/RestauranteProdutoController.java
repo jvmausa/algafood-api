@@ -21,7 +21,7 @@ import com.jvmausa.algafood.api.assembler.ProdutoInputDisassembler;
 import com.jvmausa.algafood.api.assembler.ProdutoModelAssembler;
 import com.jvmausa.algafood.api.model.ProdutoModel;
 import com.jvmausa.algafood.api.model.input.ProdutoInput;
-import com.jvmausa.algafood.api.openapi.controller.RestauranteProdutoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.RestauranteProdutoControllerOpenApi;
 import com.jvmausa.algafood.domain.model.Produto;
 import com.jvmausa.algafood.domain.model.Restaurante;
 import com.jvmausa.algafood.domain.repository.ProdutoRepository;

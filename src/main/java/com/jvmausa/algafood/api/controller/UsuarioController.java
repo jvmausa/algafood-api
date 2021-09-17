@@ -22,7 +22,7 @@ import com.jvmausa.algafood.api.model.UsuarioModel;
 import com.jvmausa.algafood.api.model.input.SenhaInput;
 import com.jvmausa.algafood.api.model.input.UsuarioComSenhaInput;
 import com.jvmausa.algafood.api.model.input.UsuarioInput;
-import com.jvmausa.algafood.api.openapi.controller.UsuarioControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.UsuarioControllerOpenApi;
 import com.jvmausa.algafood.domain.model.Usuario;
 import com.jvmausa.algafood.domain.repository.UsuarioRepository;
 import com.jvmausa.algafood.domain.service.CadastroUsuarioService;

@@ -20,7 +20,7 @@ import com.jvmausa.algafood.api.assembler.EstadoInputDisassembler;
 import com.jvmausa.algafood.api.assembler.EstadoModelAssembler;
 import com.jvmausa.algafood.api.model.EstadoModel;
 import com.jvmausa.algafood.api.model.input.EstadoInput;
-import com.jvmausa.algafood.api.openapi.controller.EstadoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.EstadoControllerOpenApi;
 import com.jvmausa.algafood.domain.model.Estado;
 import com.jvmausa.algafood.domain.repository.EstadoRepository;
 import com.jvmausa.algafood.domain.service.CadastroEstadoService;

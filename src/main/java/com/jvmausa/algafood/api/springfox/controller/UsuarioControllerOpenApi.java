@@ -1,4 +1,4 @@
-package com.jvmausa.algafood.api.openapi.controller;
+package com.jvmausa.algafood.api.springfox.controller;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import com.jvmausa.algafood.api.model.UsuarioModel;
 import com.jvmausa.algafood.api.model.input.SenhaInput;
 import com.jvmausa.algafood.api.model.input.UsuarioComSenhaInput;
 import com.jvmausa.algafood.api.model.input.UsuarioInput;
-import com.jvmausa.algafood.api.openapi.model.exception.Problem404OpenApi;
+import com.jvmausa.algafood.api.springfox.model.exception.Problem404OpenApi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

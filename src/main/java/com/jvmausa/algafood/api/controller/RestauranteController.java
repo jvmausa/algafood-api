@@ -22,7 +22,7 @@ import com.jvmausa.algafood.api.assembler.RestauranteModelAssembler;
 import com.jvmausa.algafood.api.model.RestauranteModel;
 import com.jvmausa.algafood.api.model.input.RestauranteInput;
 import com.jvmausa.algafood.api.model.view.RestauranteView;
-import com.jvmausa.algafood.api.openapi.controller.RestauranteControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.RestauranteControllerOpenApi;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.exception.RestauranteNaoEncontradoException;
