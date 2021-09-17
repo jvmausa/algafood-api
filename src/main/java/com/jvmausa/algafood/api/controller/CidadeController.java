@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jvmausa.algafood.api.ResourceUriHelper;
 import com.jvmausa.algafood.api.assembler.CidadeInputDisassembler;
 import com.jvmausa.algafood.api.assembler.CidadeModelAssembler;
 import com.jvmausa.algafood.api.model.CidadeModel;
@@ -63,10 +64,15 @@ public class CidadeController implements CidadeControllerOpenApi {
 	@PostMapping
 	public CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
 		Cidade cidade = cidadeInputDisassembler.toDomainObject(cidadeInput);
-
+		
+		 cidade = cadastroCidade.salvar(cidade);
+		
 		try {
-			return cidadeModelAssembler.toModel(cadastroCidade.salvar(cidade));
-
+			CidadeModel cidadeModel = cidadeModelAssembler.toModel(cidade);
+			
+			ResourceUriHelper.addUriInResponseHeader(cidadeModel.getId());
+			
+			return cidadeModel;
 		} catch (EntidadeNaoEncontradaException e) {
 			throw new NegocioException(e.getMessage(), e); // exception para http 409 bad request
 		}
