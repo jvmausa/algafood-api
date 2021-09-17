@@ -7,14 +7,14 @@ import com.jvmausa.algafood.api.model.ProdutoModel;
 import com.jvmausa.algafood.api.model.input.ProdutoInput;
 import com.jvmausa.algafood.api.springfox.model.exception.Problem404OpenApi;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@Api(tags = "Produtos")
 public interface RestauranteProdutoControllerOpenApi {
-
-
 
     @ApiOperation("Lista os produtos de um restaurante")
     @ApiResponses({
