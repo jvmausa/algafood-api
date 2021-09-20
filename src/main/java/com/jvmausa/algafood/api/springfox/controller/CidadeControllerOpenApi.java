@@ -1,6 +1,6 @@
 package com.jvmausa.algafood.api.springfox.controller;
 
-import java.util.List;
+import org.springframework.hateoas.CollectionModel;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.CidadeModel;
@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiResponses;
 public interface CidadeControllerOpenApi {
 
 	@ApiOperation("Lista cidades")
-	List<CidadeModel> listar();
+	CollectionModel<CidadeModel> listar();
 
 	@ApiOperation("Busca cidade por ID")
 	@ApiResponses({
