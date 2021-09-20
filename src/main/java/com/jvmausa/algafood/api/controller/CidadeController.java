@@ -1,10 +1,5 @@
 package com.jvmausa.algafood.api.controller;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,17 +49,8 @@ public class CidadeController implements CidadeControllerOpenApi {
 	@GetMapping
 	public CollectionModel<CidadeModel> listar() {
 		
-		List<CidadeModel> cidadesModel = cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
-
-		cidadesModel.forEach(cidadeModel -> {
-			cidadeModel.add(linkTo(methodOn(CidadeController.class).buscar(cidadeModel.getId())).withSelfRel());
-		});
+		return cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
 		
-		CollectionModel<CidadeModel> cidadesCollectionModel = CollectionModel.of(cidadesModel);
-		
-		cidadesCollectionModel.add(linkTo(CidadeController.class).withSelfRel());
-		
-		return cidadesCollectionModel;
 	}
 
 	@Override
@@ -72,14 +58,6 @@ public class CidadeController implements CidadeControllerOpenApi {
 	public CidadeModel buscar(@PathVariable Long id) {
 		Cidade cidade = cadastroCidade.buscarOuFalhar(id);
 		CidadeModel cidadeModel = cidadeModelAssembler.toModel(cidade);
-		
-		cidadeModel.add(linkTo(methodOn(CidadeController.class).buscar(cidadeModel.getId())).withSelfRel());
-		
-		cidadeModel.add(linkTo(methodOn(CidadeController.class).listar()).withRel("cidades"));
-		
-		cidadeModel.getEstado().add(
-					linkTo(methodOn(EstadoController.class)
-							.buscar(cidadeModel.getEstado().getId())).withSelfRel());
 		
 		return cidadeModel;
 	}
