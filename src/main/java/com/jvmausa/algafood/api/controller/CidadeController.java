@@ -1,6 +1,7 @@
 package com.jvmausa.algafood.api.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 
@@ -61,15 +62,13 @@ public class CidadeController implements CidadeControllerOpenApi {
 		Cidade cidade = cadastroCidade.buscarOuFalhar(id);
 		CidadeModel cidadeModel = cidadeModelAssembler.toModel(cidade);
 		
-		cidadeModel.add(linkTo(CidadeController.class)
-						.slash(cidadeModel.getId())
-						.withSelfRel());
+		cidadeModel.add(linkTo(methodOn(CidadeController.class).buscar(cidadeModel.getId())).withSelfRel());
 		
-		cidadeModel.add(linkTo(CidadeController.class).withRel("cidades"));
+		cidadeModel.add(linkTo(methodOn(CidadeController.class).listar()).withRel("cidades"));
 		
-		cidadeModel.add(linkTo(EstadoController.class)
-				.slash(cidadeModel.getEstado().getId())
-				.withRel("estado"));
+		cidadeModel.getEstado().add(
+					linkTo(methodOn(EstadoController.class)
+							.buscar(cidadeModel.getEstado().getId())).withSelfRel());
 		
 		return cidadeModel;
 	}
