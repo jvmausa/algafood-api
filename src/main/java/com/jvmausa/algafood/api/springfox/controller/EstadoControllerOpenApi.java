@@ -1,6 +1,6 @@
 package com.jvmausa.algafood.api.springfox.controller;
 
-import java.util.List;
+import org.springframework.hateoas.CollectionModel;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.EstadoModel;
@@ -19,7 +19,7 @@ public interface EstadoControllerOpenApi {
 
 	
 	@ApiOperation(value = "Lista os estados")
-	List<EstadoModel> listar();
+	CollectionModel<EstadoModel> listar();
 
 	
 	@ApiOperation(value = "Busca estado por ID")

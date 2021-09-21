@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.assembler.GrupoModelAssembler;
 import com.jvmausa.algafood.api.model.GrupoModel;
@@ -16,6 +19,10 @@ import com.jvmausa.algafood.api.springfox.controller.UsuarioGrupoControllerOpenA
 import com.jvmausa.algafood.domain.model.Usuario;
 import com.jvmausa.algafood.domain.service.CadastroUsuarioService;
 
+
+@RestController
+@RequestMapping(path = "/usuarios/{usuarioId}/grupos", 
+	produces = MediaType.APPLICATION_JSON_VALUE)
 public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi{
 
 	@Autowired

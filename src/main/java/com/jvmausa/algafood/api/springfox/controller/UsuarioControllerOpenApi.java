@@ -1,6 +1,6 @@
 package com.jvmausa.algafood.api.springfox.controller;
 
-import java.util.List;
+import org.springframework.hateoas.CollectionModel;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.UsuarioModel;
@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiResponses;
 public interface UsuarioControllerOpenApi {
 
 	@ApiOperation("Lista os usuários")
-    List<UsuarioModel> listar();
+	CollectionModel<UsuarioModel> listar();
 
     @ApiOperation("Busca um usuário por ID")
     @ApiResponses({
