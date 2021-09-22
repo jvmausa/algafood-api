@@ -26,6 +26,7 @@ import com.jvmausa.algafood.api.model.PedidoModel;
 import com.jvmausa.algafood.api.model.PedidoResumoModel;
 import com.jvmausa.algafood.api.model.input.PedidoInput;
 import com.jvmausa.algafood.api.springfox.controller.PedidoControllerOpenApi;
+import com.jvmausa.algafood.core.data.PageWrapper;
 import com.jvmausa.algafood.core.data.PageableTranslator;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
@@ -61,10 +62,14 @@ public class PedidoController implements PedidoControllerOpenApi {
 	@Override
 	@GetMapping
 	public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro, @PageableDefault(size = 10) Pageable pageable) {
-		pageable = traduzirPageable(pageable);
+		Pageable pageableTraduzido = traduzirPageable(pageable);
 
-		Page<Pedido> pedidosPage = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filtro), pageable);
+		// primeiro faz o findAll com os filtros e traduçoes
+		Page<Pedido> pedidosPage = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filtro), pageableTraduzido);
 
+		pedidosPage = new PageWrapper<>(pedidosPage, pageable);
+		
+		//agora passa pro Model sem as traduções, com o original recebido no parâmetro
 		return pagedResourcesAssembler.toModel(pedidosPage, pedidoResumoModelAssembler);
 	}
 
@@ -102,7 +107,7 @@ public class PedidoController implements PedidoControllerOpenApi {
 				"taxaFrete", "taxaFrete",
 				"valorTotal", "valorTotal",
 				"dataCriacao", "dataCriacao",
-				"restaurante.nome", "restaurante.nome",
+				"nomerestaurante", "restaurante.nome",
 				"restaurante.id", "restaurante.id",
 				"cliente.id", "cliente.id",
 				"cliente.nome", "cliente.nome"
