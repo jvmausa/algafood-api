@@ -62,6 +62,13 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 
 	}
 
+	@Override
+	@GetMapping("/{restauranteId}")
+	public RestauranteModel buscar(@PathVariable Long restauranteId) {
+		Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
+		
+		return restauranteModelAssembler.toModel(restaurante);
+	}
 	
 	@Override
 	@PostMapping
