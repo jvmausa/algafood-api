@@ -105,8 +105,6 @@ public class Pedido extends AbstractAggregateRoot<Pedido>{
 		registerEvent(new PedidoCanceladoEvent(this));
 	}
 	
-	
-	
 	private void setStatus(StatusPedido novoStatus) {
 
 		if (getStatus().naoPodeAlterarPara(novoStatus)) {
@@ -115,6 +113,21 @@ public class Pedido extends AbstractAggregateRoot<Pedido>{
 		}
 		this.status = novoStatus;
 
+	}
+	
+	public boolean podeSerConfirmado() {
+		return getStatus().podeAlterarPara(StatusPedido.CONFIRMADO);
+		
+	}
+	
+	public boolean podeSerCancelado() {
+		return getStatus().podeAlterarPara(StatusPedido.CANCELADO);
+		
+	}
+	
+	public boolean podeSerEntregue() {
+		return getStatus().podeAlterarPara(StatusPedido.ENTREGUE);
+		
 	}
 	
 	@PrePersist
