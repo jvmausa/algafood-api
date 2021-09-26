@@ -25,6 +25,7 @@ public class FormaPagamentoModelAssembler
 	@Autowired
 	private AlgaLinks algaLinks;
 
+	@Override
 	public FormaPagamentoModel toModel(FormaPagamento formaPagamento) {
 
 		FormaPagamentoModel formaPagamentoModel = createModelWithId(formaPagamento.getId(), formaPagamento);
@@ -36,7 +37,7 @@ public class FormaPagamentoModelAssembler
 		return formaPagamentoModel;
 
 	}
-
+	@Override
 	public CollectionModel<FormaPagamentoModel> toCollectionModel(Iterable<? extends FormaPagamento> entities) {
 		return super.toCollectionModel(entities).add(algaLinks.linkToFormasPagamento());
 

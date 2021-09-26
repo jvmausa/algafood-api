@@ -1,7 +1,6 @@
 package com.jvmausa.algafood.api.springfox.controller;
 
-import java.util.List;
-
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -20,7 +19,7 @@ import io.swagger.annotations.ApiResponses;
 public interface FormaPagamentoControllerOpenApi {
 
 	@ApiOperation("Listar as formas de pagamento")
-	ResponseEntity<List<FormaPagamentoModel>> listar(ServletWebRequest request);
+	ResponseEntity<CollectionModel<FormaPagamentoModel>> listar(ServletWebRequest request);
 
 	
 	 @ApiOperation("Busca uma forma de pagamento por ID")
@@ -28,7 +27,7 @@ public interface FormaPagamentoControllerOpenApi {
 	        @ApiResponse(code = 400, message = "ID da forma de pagamento inválido", response = Problem.class),
 	        @ApiResponse(code = 404, message = "Forma de pagamento não encontrada", response = Problem.class)
 	    })
-	ResponseEntity<FormaPagamentoModel> buscar(
+	 ResponseEntity<FormaPagamentoModel> buscar(
 			@ApiParam(value = "ID de uma forma de pagamento", example = "1", required = true) Long id);
 
 	 

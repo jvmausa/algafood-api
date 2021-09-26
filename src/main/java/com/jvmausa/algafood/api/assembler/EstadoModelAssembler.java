@@ -25,6 +25,7 @@ public class EstadoModelAssembler extends RepresentationModelAssemblerSupport<Es
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	@Override
 	public EstadoModel toModel(Estado estado) {
 		
 		EstadoModel estadoModel = createModelWithId(estado.getId(), estado);
@@ -35,8 +36,9 @@ public class EstadoModelAssembler extends RepresentationModelAssemblerSupport<Es
 		
 		return estadoModel;
 	}
-
-	public CollectionModel<EstadoModel> toColletionModel(Iterable<? extends Estado> entities) {
+	
+	@Override
+	public CollectionModel<EstadoModel> toCollectionModel(Iterable<? extends Estado> entities) {
 		return super.toCollectionModel(entities).add(algaLinks.linkToEstados());
 	}
 

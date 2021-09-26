@@ -1,6 +1,6 @@
 package com.jvmausa.algafood.api.springfox.controller;
 
-import java.util.List;
+import org.springframework.hateoas.CollectionModel;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.FormaPagamentoModel;
@@ -21,7 +21,7 @@ public interface RestauranteFormaPagamentoControllerOpenApi {
 		@ApiResponse(code = 400, message = "ID de restaurante inválido", response = Problem.class),
 		@ApiResponse(code = 404, message = "ID de restaurante inexistente", response = Problem404OpenApi.class)
 	})
-	List<FormaPagamentoModel> listar(@ApiParam(value = "ID de um restaurante", example = "1", required = true) 
+	CollectionModel<FormaPagamentoModel> listar(@ApiParam(value = "ID de um restaurante", example = "1", required = true) 
 										Long restauranteId);
 
 	@ApiOperation("Desassocia uma forma de pagamento a um restaurante")

@@ -1,14 +1,18 @@
 package com.jvmausa.algafood.api.model;
 
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
+
 import com.jvmausa.algafood.domain.model.CidadeResumoModel;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+@Relation(collectionRelation = "endereco")
 @Getter
 @Setter
-public class EnderecoModel {
+public class EnderecoModel extends RepresentationModel<EnderecoModel> {
 
 	@ApiModelProperty(example = "38400-000")
 	private String cep;

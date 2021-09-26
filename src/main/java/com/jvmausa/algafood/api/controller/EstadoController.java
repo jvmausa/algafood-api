@@ -43,7 +43,7 @@ public class EstadoController implements EstadoControllerOpenApi {
 	@Override
 	@GetMapping()
 	public CollectionModel<EstadoModel> listar() {
-		return estadoModelAssembler.toColletionModel(estadoRepository.findAll());
+		return estadoModelAssembler.toCollectionModel(estadoRepository.findAll());
 	}
 
 	@Override
