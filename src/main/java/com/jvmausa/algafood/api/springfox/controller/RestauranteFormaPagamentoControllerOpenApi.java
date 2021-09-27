@@ -1,6 +1,7 @@
 package com.jvmausa.algafood.api.springfox.controller;
 
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.ResponseEntity;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.FormaPagamentoModel;
@@ -29,7 +30,7 @@ public interface RestauranteFormaPagamentoControllerOpenApi {
 		@ApiResponse(code = 404, message = "ID inválido", response = Problem404OpenApi.class),
 		@ApiResponse(code = 204, message = "Desassociação realizada com sucesso")
 	})
-	void desassociar(@ApiParam(value = "ID de um restaurante", example = "1", required = true)
+	ResponseEntity<Void> desassociar(@ApiParam(value = "ID de um restaurante", example = "1", required = true)
 								Long restauranteId, 
 					@ApiParam(value = "ID de uma forma de pagamento", example = "1", required = true)
 								Long formaPagamentoId);
@@ -39,7 +40,7 @@ public interface RestauranteFormaPagamentoControllerOpenApi {
 		@ApiResponse(code = 404, message = "ID inválido", response = Problem404OpenApi.class),
 		@ApiResponse(code = 204, message = "Associação realizada com sucesso")
 	})
-	void associar(@ApiParam(value = "ID de um restaurante", example = "1", required = true)
+	ResponseEntity<Void> associar(@ApiParam(value = "ID de um restaurante", example = "1", required = true)
 							Long restauranteId, 
 							@ApiParam(value = "ID de uma forma de pagamento", example = "1", required = true)
 							Long formaPagamentoId);
