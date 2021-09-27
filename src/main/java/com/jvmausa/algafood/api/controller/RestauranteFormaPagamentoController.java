@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jvmausa.algafood.api.AlgaLinks;
 import com.jvmausa.algafood.api.assembler.FormaPagamentoModelAssembler;
 import com.jvmausa.algafood.api.model.FormaPagamentoModel;
 import com.jvmausa.algafood.api.springfox.controller.RestauranteFormaPagamentoControllerOpenApi;
@@ -29,12 +30,17 @@ public class RestauranteFormaPagamentoController implements RestauranteFormaPaga
 	@Autowired
 	private FormaPagamentoModelAssembler formaPagamentoModelAssembler;
 
+	@Autowired
+	private AlgaLinks algaLinks;
+	
 	@Override
 	@GetMapping
 	public CollectionModel<FormaPagamentoModel> listar(@PathVariable Long restauranteId) {
 		Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
 
-		return formaPagamentoModelAssembler.toCollectionModel(restaurante.getFormasPagamento());
+		return formaPagamentoModelAssembler.toCollectionModel(restaurante.getFormasPagamento())
+				.removeLinks()
+				.add(algaLinks.linkToRestauranteFormasPagamento(restauranteId));
 
 	}
 	

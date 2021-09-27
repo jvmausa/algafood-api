@@ -171,6 +171,10 @@ public class AlgaLinks {
 		return linkTo(methodOn(RestauranteFormaPagamentoController.class).listar(restauranteId)).withRel(rel);
 	}
 
+	public Link linkToRestaurantesFormasPagamento(Long restauranteId) {
+		return linkToRestauranteFormasPagamento(restauranteId, IanaLinkRelations.SELF.value());
+	}
+	
 	public Link linkToCozinha(Long cozinhaId, String rel) {
 		return linkTo(methodOn(CozinhaController.class).buscar(cozinhaId)).withRel(rel);
 	}
