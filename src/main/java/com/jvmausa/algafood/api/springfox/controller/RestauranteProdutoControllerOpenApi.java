@@ -1,6 +1,6 @@
 package com.jvmausa.algafood.api.springfox.controller;
 
-import java.util.List;
+import org.springframework.hateoas.CollectionModel;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.ProdutoModel;
@@ -21,7 +21,7 @@ public interface RestauranteProdutoControllerOpenApi {
         @ApiResponse(code = 400, message = "ID do restaurante inválido", response = Problem.class),
         @ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problem404OpenApi.class)
     })
-    List<ProdutoModel> listar(
+    CollectionModel<ProdutoModel> listar(
             @ApiParam(value = "ID do restaurante", example = "1", required = true)
             Long restauranteId,
             

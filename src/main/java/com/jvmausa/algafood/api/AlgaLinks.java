@@ -20,6 +20,7 @@ import com.jvmausa.algafood.api.controller.PedidoController;
 import com.jvmausa.algafood.api.controller.RestauranteController;
 import com.jvmausa.algafood.api.controller.RestauranteFormaPagamentoController;
 import com.jvmausa.algafood.api.controller.RestauranteProdutoController;
+import com.jvmausa.algafood.api.controller.RestauranteProdutoFotoController;
 import com.jvmausa.algafood.api.controller.RestauranteUsuarioResponsavelController;
 import com.jvmausa.algafood.api.controller.UsuarioController;
 import com.jvmausa.algafood.api.controller.UsuarioGrupoController;
@@ -153,6 +154,14 @@ public class AlgaLinks {
 
 	public Link linkToProdutos(Long restauranteId, String rel) {
 		return linkTo(methodOn(RestauranteProdutoController.class).listar(restauranteId, null)).withRel(rel);
+	}
+	
+	public Link linkToProdutoFoto(Long restauranteId, Long produtoId, String rel) {
+		return linkTo(methodOn(RestauranteProdutoFotoController.class).buscar(restauranteId, produtoId)).withRel(rel);
+	}
+	
+	public Link linkToFotoProduto(Long restauranteId, Long produtoId) {
+	    return linkToProdutoFoto(restauranteId, produtoId, IanaLinkRelations.SELF.value());
 	}
 	
 	public Link linkToCozinhas(String rel) {

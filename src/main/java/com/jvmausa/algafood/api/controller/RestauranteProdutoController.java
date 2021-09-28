@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
     private ProdutoInputDisassembler produtoInputDisassembler;
     
     @GetMapping
-    public List<ProdutoModel> listar(@PathVariable Long restauranteId, 
+    public CollectionModel<ProdutoModel> listar(@PathVariable Long restauranteId, 
     		@RequestParam(required = false, defaultValue = "false") Boolean incluirInativos) {
         Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
         
