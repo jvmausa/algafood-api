@@ -1,30 +1,45 @@
 package com.jvmausa.algafood.api.assembler;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
+import com.jvmausa.algafood.api.AlgaLinks;
+import com.jvmausa.algafood.api.controller.GrupoController;
 import com.jvmausa.algafood.api.model.GrupoModel;
 import com.jvmausa.algafood.domain.model.Grupo;
 
 @Component
-public class GrupoModelAssembler {
+public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Grupo, GrupoModel>{
+
+	public GrupoModelAssembler() {
+		super(GrupoController.class, GrupoModel.class);
+	}
 
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@Autowired
+	AlgaLinks algaLinks;
+	
+	@Override
 	public GrupoModel toModel(Grupo grupo) {
-		return modelMapper.map(grupo, GrupoModel.class);
+		
+		GrupoModel grupoModel = createModelWithId(grupo.getId(), grupo);
+		
+		modelMapper.map(grupo, grupoModel);
 
+		grupoModel.add(algaLinks.linkToGrupos("grupos"));
+		grupoModel.add(algaLinks.linkToGrupoPermissoes(grupo.getId(), "grupo-permissoes"));
+		
+		return grupoModel;
 	}
 	
-	public List<GrupoModel> toCollectionModel(List<Grupo> grupos){
-		return grupos.stream()
-				.map(grupo -> toModel(grupo))
-				.collect(Collectors.toList());
+	@Override
+	public CollectionModel<GrupoModel> toCollectionModel(Iterable<? extends Grupo> entities){
+		return super.toCollectionModel(entities).add(algaLinks.linkToGrupos());
 		
 	}
 

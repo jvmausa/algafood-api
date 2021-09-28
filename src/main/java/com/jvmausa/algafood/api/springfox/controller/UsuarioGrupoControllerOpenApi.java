@@ -1,6 +1,6 @@
 package com.jvmausa.algafood.api.springfox.controller;
 
-import java.util.List;
+import org.springframework.hateoas.CollectionModel;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.GrupoModel;
@@ -20,7 +20,7 @@ public interface UsuarioGrupoControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 404, message = "Usuário não encontrado", response = Problem404OpenApi.class)
 	})
-	List<GrupoModel> listar(
+	CollectionModel<GrupoModel> listar(
 			@ApiParam(value = "ID do usuário", example = "1", required = true)
 			Long usuarioId);
 
