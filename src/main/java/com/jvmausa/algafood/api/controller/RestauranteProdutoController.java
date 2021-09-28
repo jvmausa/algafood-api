@@ -50,7 +50,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
     
     @GetMapping
     public List<ProdutoModel> listar(@PathVariable Long restauranteId, 
-    		@RequestParam(required = false) boolean incluirInativos) {
+    		@RequestParam(required = false, defaultValue = "false") Boolean incluirInativos) {
         Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
         
         List<Produto> todosProdutos = null;

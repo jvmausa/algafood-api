@@ -36,6 +36,10 @@ public class AlgaLinks {
 			new TemplateVariable("projecao", VariableType.REQUEST_PARAM)
 			);
 	
+	public static final TemplateVariable INCLUIR_INATIVOS_PRODUTOS = new TemplateVariable(
+			"incluirInativos", VariableType.REQUEST_PARAM
+			);
+	
 	public Link linkToPedidos(String rel) {
 
 		TemplateVariables filtroVariables = new TemplateVariables(
@@ -147,6 +151,10 @@ public class AlgaLinks {
 		return linkToProduto(restauranteId, produtoId, IanaLinkRelations.SELF.value());
 	}
 
+	public Link linkToProdutos(Long restauranteId, String rel) {
+		return linkTo(methodOn(RestauranteProdutoController.class).listar(restauranteId, null)).withRel(rel);
+	}
+	
 	public Link linkToCozinhas(String rel) {
 		return linkTo(CozinhaController.class).withRel(rel);
 	}

@@ -27,7 +27,7 @@ public interface RestauranteProdutoControllerOpenApi {
             
             @ApiParam(value = "Indica se deve ou não incluir produtos inativos no resultado da listagem", 
                 example = "false", defaultValue = "false")
-            boolean incluirInativos);
+            Boolean incluirInativos);
 
     @ApiOperation("Busca um produto de um restaurante")
     @ApiResponses({
