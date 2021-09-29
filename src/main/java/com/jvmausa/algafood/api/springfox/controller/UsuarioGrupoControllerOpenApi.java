@@ -1,6 +1,7 @@
 package com.jvmausa.algafood.api.springfox.controller;
 
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.ResponseEntity;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.GrupoModel;
@@ -30,7 +31,7 @@ public interface UsuarioGrupoControllerOpenApi {
 		@ApiResponse(code = 404, message = "Usuário ou grupo não encontrado", 
 			response = Problem.class)
 	})
-	void desassociar(
+	ResponseEntity<Void> desassociar(
 			@ApiParam(value = "ID do usuário", example = "1", required = true)
 			Long usuarioId,
 			
@@ -43,7 +44,7 @@ public interface UsuarioGrupoControllerOpenApi {
 		@ApiResponse(code = 404, message = "Usuário ou grupo não encontrado", 
 			response = Problem.class)
 	})
-	void associar(
+	ResponseEntity<Void> associar(
 			@ApiParam(value = "ID do usuário", example = "1", required = true)
 			Long usuarioId,
 			
