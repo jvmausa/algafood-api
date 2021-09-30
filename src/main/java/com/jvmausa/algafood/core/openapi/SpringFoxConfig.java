@@ -10,8 +10,10 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Links;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -21,9 +23,14 @@ import com.amazonaws.auth.policy.Resource;
 import com.ctc.wstx.shaded.msv_core.util.Uri;
 import com.fasterxml.classmate.TypeResolver;
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
+import com.jvmausa.algafood.api.model.CidadeModel;
 import com.jvmausa.algafood.api.model.CozinhaModel;
+import com.jvmausa.algafood.api.model.EstadoModel;
 import com.jvmausa.algafood.api.model.PedidoResumoModel;
+import com.jvmausa.algafood.api.springfox.model.CidadesModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.CozinhasModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.EstadosModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.LinksModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.PageableModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.PedidosResumoModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.exception.Problem500OpenApi;
@@ -67,10 +74,15 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				.ignoredParameterTypes(ServletWebRequest.class, URL.class,Uri.class, 
 										URLStreamHandler.class, Resource.class, File.class, InputStream.class) 
 				.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
-				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Page.class, CozinhaModel.class), 
+				.directModelSubstitute(Links.class, LinksModelOpenApi.class)
+				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(PagedModel.class, CozinhaModel.class), 
 						CozinhasModelOpenApi.class))
-				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Page.class, PedidoResumoModel.class), 
+				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(PagedModel.class, PedidoResumoModel.class), 
 						PedidosResumoModelOpenApi.class))
+				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, CidadeModel.class), 
+						CidadesModelOpenApi.class))
+				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, EstadoModel.class), 
+						EstadosModelOpenApi.class))
 				.apiInfo(apiInfo())
 				.tags(new Tag("Cidades", "Gerencia as cidades"),
 				        new Tag("Grupos", "Gerencia os grupos de usuários"),
