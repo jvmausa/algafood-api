@@ -26,10 +26,12 @@ import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.CidadeModel;
 import com.jvmausa.algafood.api.model.CozinhaModel;
 import com.jvmausa.algafood.api.model.EstadoModel;
+import com.jvmausa.algafood.api.model.FormaPagamentoModel;
 import com.jvmausa.algafood.api.model.PedidoResumoModel;
 import com.jvmausa.algafood.api.springfox.model.CidadesModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.CozinhasModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.EstadosModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.FormasPagamentoModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.LinksModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.PageableModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.PedidosResumoModelOpenApi;
@@ -83,6 +85,8 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 						CidadesModelOpenApi.class))
 				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, EstadoModel.class), 
 						EstadosModelOpenApi.class))
+				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, FormaPagamentoModel.class), 
+						FormasPagamentoModelOpenApi.class))
 				.apiInfo(apiInfo())
 				.tags(new Tag("Cidades", "Gerencia as cidades"),
 				        new Tag("Grupos", "Gerencia os grupos de usuários"),

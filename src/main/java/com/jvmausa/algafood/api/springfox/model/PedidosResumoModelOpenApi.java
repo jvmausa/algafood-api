@@ -11,4 +11,7 @@ import lombok.Setter;
 @Setter
 public class PedidosResumoModelOpenApi extends PageModelOpenApi<PedidoModel> {
 
+	
+	
+	//TODO criar/arrumar nova classe pra arruamnr a documentação antes de deletar essa classe
 }
