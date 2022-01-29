@@ -22,19 +22,29 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.amazonaws.auth.policy.Resource;
 import com.ctc.wstx.shaded.msv_core.util.Uri;
 import com.fasterxml.classmate.TypeResolver;
+import com.jvmausa.algafood.api.assembler.PermissaoModel;
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.model.CidadeModel;
 import com.jvmausa.algafood.api.model.CozinhaModel;
 import com.jvmausa.algafood.api.model.EstadoModel;
 import com.jvmausa.algafood.api.model.FormaPagamentoModel;
+import com.jvmausa.algafood.api.model.GrupoModel;
 import com.jvmausa.algafood.api.model.PedidoResumoModel;
+import com.jvmausa.algafood.api.model.ProdutoModel;
+import com.jvmausa.algafood.api.model.RestauranteModel;
+import com.jvmausa.algafood.api.model.UsuarioModel;
 import com.jvmausa.algafood.api.springfox.model.CidadesModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.CozinhasModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.EstadosModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.FormasPagamentoModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.GruposModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.LinksModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.PageableModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.PedidosResumoModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.PermissoesModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.ProdutosModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.RestaurantesModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.UsuariosModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.exception.Problem500OpenApi;
 
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
@@ -87,6 +97,16 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 						EstadosModelOpenApi.class))
 				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, FormaPagamentoModel.class), 
 						FormasPagamentoModelOpenApi.class))
+				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, GrupoModel.class), 
+						GruposModelOpenApi.class))
+				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, PermissaoModel.class), 
+						PermissoesModelOpenApi.class))
+				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, ProdutoModel.class), 
+						ProdutosModelOpenApi.class))
+				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, RestauranteModel.class), 
+						RestaurantesModelOpenApi.class))
+				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, UsuarioModel.class), 
+						UsuariosModelOpenApi.class))
 				.apiInfo(apiInfo())
 				.tags(new Tag("Cidades", "Gerencia as cidades"),
 				        new Tag("Grupos", "Gerencia os grupos de usuários"),

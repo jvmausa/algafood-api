@@ -1,17 +1,30 @@
 package com.jvmausa.algafood.api.springfox.model;
 
-import com.jvmausa.algafood.api.model.PedidoModel;
+import java.util.List;
+
+import org.springframework.hateoas.Links;
+
+import com.jvmausa.algafood.api.model.PedidoResumoModel;
 
 import io.swagger.annotations.ApiModel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @ApiModel("PedidosResumoModel")
 @Getter
 @Setter
-public class PedidosResumoModelOpenApi extends PageModelOpenApi<PedidoModel> {
+public class PedidosResumoModelOpenApi {
 
-	
-	
-	//TODO criar/arrumar nova classe pra arruamnr a documentação antes de deletar essa classe
+	private PedidosResumoEmbeddedModelOpenApi _embedded;
+	private Links _links;
+	private PageModelOpenApi page;
+
+	@ApiModel("PedidosResumoEmbeddedModel")
+	@Data
+	public class PedidosResumoEmbeddedModelOpenApi {
+
+		private List<PedidoResumoModel> pedidos;
+
+	}
 }
