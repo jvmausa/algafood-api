@@ -23,6 +23,8 @@ public class RestauranteInput {
 	@NotBlank
 	private String nome;
 	
+	
+	//@ApiModelProperty(hidden = true) caso a propriedade não seja mais obrigatória, não quebra compatibilidade dos clientes
 	@ApiModelProperty(example = "10")
 	@NotNull
 	@PositiveOrZero
