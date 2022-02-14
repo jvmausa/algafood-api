@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.jvmausa.algafood.api.v1.model.EnderecoModel;
 import com.jvmausa.algafood.api.v1.model.input.ItemPedidoInput;
+import com.jvmausa.algafood.api.v2.model.input.CidadeInputV2;
+import com.jvmausa.algafood.domain.model.Cidade;
 import com.jvmausa.algafood.domain.model.Endereco;
 import com.jvmausa.algafood.domain.model.ItemPedido;
 
@@ -19,6 +21,10 @@ public class ModelMapperConfig {
 	@Bean
 	public ModelMapper modelMapper() {
 		var modelMapper = new ModelMapper();
+		
+		//quando estiver convertendo de cidadeInputV2 para Cidade.class, pode ignorar(skip) no Cidade.setId()
+		modelMapper.createTypeMap(CidadeInputV2.class, Cidade.class)
+	    .addMappings(mapper -> mapper.skip(Cidade::setId));  
 		
 		/*
 		 * exemplo quando o nome dos atributos são diferentes
