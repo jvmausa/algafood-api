@@ -12,7 +12,8 @@ public class AlgaHalConfiguration {
 	public HalConfiguration globalPolicy() {
 		return new HalConfiguration()
 				.withMediaType(MediaType.APPLICATION_JSON)
-				.withMediaType(AlgaMediaTypes.V1_APPLICATIN_JSON);
+				.withMediaType(AlgaMediaTypes.V1_APPLICATIN_JSON)
+				.withMediaType(AlgaMediaTypes.V2_APPLICATIN_JSON);
 	}
     
 	

@@ -42,6 +42,4 @@ public interface CidadeControllerOpenApi {
 	CidadeModel atualizar(@ApiParam(value = "IDde uma Cidade", required = true) Long id, 
 			@ApiParam(name = "corpo", value = "Representação de uma cidade com novos dados", required = true) CidadeInput cidadeInput);
 
-	@ApiOperation("Deleta uma cidade por ID")
-	void remover(@ApiParam(value = "ID de uma Cidade", required = true) Long id);
 }
