@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.hateoas.Links;
 
-import com.jvmausa.algafood.api.model.UsuarioModel;
+import com.jvmausa.algafood.api.v1.model.UsuarioModel;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;

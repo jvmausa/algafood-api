@@ -6,9 +6,9 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
-import com.jvmausa.algafood.api.model.RestauranteModel;
-import com.jvmausa.algafood.api.model.RestauranteResumoModel;
-import com.jvmausa.algafood.api.model.input.RestauranteInput;
+import com.jvmausa.algafood.api.v1.model.RestauranteModel;
+import com.jvmausa.algafood.api.v1.model.RestauranteResumoModel;
+import com.jvmausa.algafood.api.v1.model.input.RestauranteInput;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

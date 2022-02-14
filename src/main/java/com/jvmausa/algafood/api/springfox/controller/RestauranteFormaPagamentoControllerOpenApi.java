@@ -4,8 +4,8 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
-import com.jvmausa.algafood.api.model.FormaPagamentoModel;
 import com.jvmausa.algafood.api.springfox.model.exception.Problem404OpenApi;
+import com.jvmausa.algafood.api.v1.model.FormaPagamentoModel;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

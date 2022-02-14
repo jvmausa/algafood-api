@@ -3,9 +3,9 @@ package com.jvmausa.algafood.api.springfox.controller;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 
-import com.jvmausa.algafood.api.assembler.PermissaoModel;
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.springfox.model.exception.Problem404OpenApi;
+import com.jvmausa.algafood.api.v1.assembler.PermissaoModel;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

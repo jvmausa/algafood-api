@@ -7,9 +7,9 @@ import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
-import com.jvmausa.algafood.api.model.FotoProdutoModel;
-import com.jvmausa.algafood.api.model.input.FotoProdutoInput;
 import com.jvmausa.algafood.api.springfox.model.exception.Problem404OpenApi;
+import com.jvmausa.algafood.api.v1.model.FotoProdutoModel;
+import com.jvmausa.algafood.api.v1.model.input.FotoProdutoInput;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.jvmausa.algafood.api.controller.EstatisticasController.EstatisticasModel;
+import com.jvmausa.algafood.api.v1.controller.EstatisticasController.EstatisticasModel;
 import com.jvmausa.algafood.domain.filter.VendaDiariaFilter;
 import com.jvmausa.algafood.domain.model.dto.VendaDiaria;
 

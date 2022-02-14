@@ -5,9 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
-import com.jvmausa.algafood.api.model.FormaPagamentoModel;
-import com.jvmausa.algafood.api.model.input.FormaPagamentoInput;
 import com.jvmausa.algafood.api.springfox.model.FormasPagamentoModelOpenApi;
+import com.jvmausa.algafood.api.v1.model.FormaPagamentoModel;
+import com.jvmausa.algafood.api.v1.model.input.FormaPagamentoInput;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
