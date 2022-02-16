@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,6 @@ import com.jvmausa.algafood.api.v1.assembler.CidadeInputDisassembler;
 import com.jvmausa.algafood.api.v1.assembler.CidadeModelAssembler;
 import com.jvmausa.algafood.api.v1.model.CidadeModel;
 import com.jvmausa.algafood.api.v1.model.input.CidadeInput;
-import com.jvmausa.algafood.core.web.AlgaMediaTypes;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.Cidade;
@@ -30,7 +30,7 @@ import com.jvmausa.algafood.domain.service.CadastroCidadeService;
 
 
 @RestController
-@RequestMapping(path = "/cidades", produces = AlgaMediaTypes.V1_APPLICATIN_JSON_VALUE)
+@RequestMapping(path = "/cidades", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CidadeController implements CidadeControllerOpenApi {
 
 	@Autowired
