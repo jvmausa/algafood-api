@@ -25,7 +25,7 @@ import com.jvmausa.algafood.domain.repository.EstadoRepository;
 import com.jvmausa.algafood.domain.service.CadastroEstadoService;
 
 @RestController
-@RequestMapping("/estados")
+@RequestMapping("/v1/estados")
 public class EstadoController implements EstadoControllerOpenApi {
 
 	@Autowired

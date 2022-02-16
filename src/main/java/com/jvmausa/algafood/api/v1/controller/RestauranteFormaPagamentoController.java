@@ -21,7 +21,7 @@ import com.jvmausa.algafood.domain.model.Restaurante;
 import com.jvmausa.algafood.domain.service.CadastroRestauranteService;
 
 @RestController
-@RequestMapping(path = "/restaurantes/{restauranteId}/formas-pagamento",
+@RequestMapping(path = "/v1/restaurantes/{restauranteId}/formas-pagamento",
 produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestauranteFormaPagamentoController implements RestauranteFormaPagamentoControllerOpenApi {
 

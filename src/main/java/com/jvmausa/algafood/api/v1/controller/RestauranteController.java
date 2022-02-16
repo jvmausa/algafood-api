@@ -33,7 +33,7 @@ import com.jvmausa.algafood.domain.repository.RestauranteRepository;
 import com.jvmausa.algafood.domain.service.CadastroRestauranteService;
 
 @RestController
-@RequestMapping("/restaurantes")
+@RequestMapping("/v1/restaurantes")
 public class RestauranteController implements RestauranteControllerOpenApi {
 
 	@Autowired

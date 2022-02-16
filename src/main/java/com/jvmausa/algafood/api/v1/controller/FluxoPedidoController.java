@@ -14,7 +14,7 @@ import com.jvmausa.algafood.api.springfox.controller.FluxoPedidoControllerOpenAp
 import com.jvmausa.algafood.domain.service.FluxoPedidoService;
 
 @RestController
-@RequestMapping(value = "/pedidos/{codigoPedido}", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/v1/pedidos/{codigoPedido}", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FluxoPedidoController implements FluxoPedidoControllerOpenApi {
 
 	@Autowired

@@ -27,7 +27,7 @@ import com.jvmausa.algafood.domain.repository.UsuarioRepository;
 import com.jvmausa.algafood.domain.service.CadastroUsuarioService;
 
 @RestController
-@RequestMapping(path = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/v1/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UsuarioController implements UsuarioControllerOpenApi {
 
 	@Autowired

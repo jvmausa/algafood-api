@@ -38,7 +38,7 @@ import com.jvmausa.algafood.domain.service.EmissaoPedidoService;
 import com.jvmausa.algafood.infrastructure.repository.spec.PedidoSpecs;
 
 @RestController
-@RequestMapping(value = "/pedidos")
+@RequestMapping(value = "/v1/pedidos")
 public class PedidoController implements PedidoControllerOpenApi {
 
 	@Autowired
