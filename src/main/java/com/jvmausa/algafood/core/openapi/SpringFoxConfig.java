@@ -24,19 +24,21 @@ import com.amazonaws.auth.policy.Resource;
 import com.ctc.wstx.shaded.msv_core.util.Uri;
 import com.fasterxml.classmate.TypeResolver;
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
-import com.jvmausa.algafood.api.springfox.model.CidadesModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.CozinhasModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.EstadosModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.FormasPagamentoModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.GruposModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.LinksModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.PageableModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.PedidosResumoModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.PermissoesModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.ProdutosModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.RestaurantesModelOpenApi;
-import com.jvmausa.algafood.api.springfox.model.UsuariosModelOpenApi;
 import com.jvmausa.algafood.api.springfox.model.exception.Problem500OpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.CidadesModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.CozinhasModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.EstadosModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.FormasPagamentoModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.GruposModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.LinksModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.PageableModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.PedidosResumoModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.PermissoesModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.ProdutosModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.RestaurantesModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v1.UsuariosModelOpenApi;
+import com.jvmausa.algafood.api.springfox.model.v2.CidadesModelV2OpenApi;
+import com.jvmausa.algafood.api.springfox.model.v2.CozinhasModelV2OpenApi;
 import com.jvmausa.algafood.api.v1.assembler.PermissaoModel;
 import com.jvmausa.algafood.api.v1.model.CidadeModel;
 import com.jvmausa.algafood.api.v1.model.CozinhaModel;
@@ -47,6 +49,8 @@ import com.jvmausa.algafood.api.v1.model.PedidoResumoModel;
 import com.jvmausa.algafood.api.v1.model.ProdutoModel;
 import com.jvmausa.algafood.api.v1.model.RestauranteModel;
 import com.jvmausa.algafood.api.v1.model.UsuarioModel;
+import com.jvmausa.algafood.api.v2.model.CidadeModelV2;
+import com.jvmausa.algafood.api.v2.model.CozinhaModelV2;
 
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -78,7 +82,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				.groupName("V1")
 				.select()
 					.apis(RequestHandlerSelectors.basePackage("com.jvmausa.algafood.api"))
-					.paths(PathSelectors.ant("v1/**"))
+					.paths(PathSelectors.ant("/v1/**"))
 					.build()
 				.useDefaultResponseMessages(false)
 				.globalResponseMessage(RequestMethod.GET, globalGetResponseMessages())
@@ -139,14 +143,21 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				.globalResponseMessage(RequestMethod.POST, globalPostResponseMessages())
 				.globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
 				.globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
-				.additionalModels(typeResolver.resolve(Problem.class))
+				.additionalModels(typeResolver.resolve(Problem.class), typeResolver.resolve(Problem500OpenApi.class))
 				.ignoredParameterTypes(ServletWebRequest.class,
 						URL.class, URI.class, URLStreamHandler.class, Resource.class,
 						File.class, InputStream.class)
 				.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
 				.directModelSubstitute(Links.class, LinksModelOpenApi.class)
-				.apiInfo(apiInfoV2());
-				
+				.alternateTypeRules(AlternateTypeRules.newRule(
+					    typeResolver.resolve(PagedModel.class, CozinhaModelV2.class),
+					    CozinhasModelV2OpenApi.class))
+					.alternateTypeRules(AlternateTypeRules.newRule(
+					        typeResolver.resolve(CollectionModel.class, CidadeModelV2.class),
+					        CidadesModelV2OpenApi.class))
+				.apiInfo(apiInfoV2())
+				.tags(new Tag("Cidades", "Gerencia as cidades"),
+						new Tag("Cozinhas", "Gerencia as cozinhas"));
 	}
 
 	private List<ResponseMessage> globalDeleteResponseMessages() {
@@ -233,7 +244,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 	}	
 	private ApiInfo apiInfoV1() {
 		return new ApiInfoBuilder()
-				.title("Alga Food API")
+				.title("Alga Food API V1 (Deprecated)")
 				.description("API aberta para cliente")
 				.version("1")
 				.contact(new Contact("Joao", null, "jvmausa@gmail.com"))
@@ -242,7 +253,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 	
 	private ApiInfo apiInfoV2() {
 		return new ApiInfoBuilder()
-				.title("Alga Food API")
+				.title("Alga Food API V2")
 				.description("API aberta para cliente")
 				.version("2")
 				.contact(new Contact("Joao", null, "jvmausa@gmail.com"))

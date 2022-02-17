@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jvmausa.algafood.api.springfox.controller.CozinhaControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.v1.CozinhaControllerOpenApi;
 import com.jvmausa.algafood.api.v1.assembler.CozinhaInputDisassembler;
 import com.jvmausa.algafood.api.v1.assembler.CozinhaModelAssembler;
 import com.jvmausa.algafood.api.v1.model.CozinhaModel;

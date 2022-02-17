@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jvmausa.algafood.api.springfox.controller.PermissaoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.v1.PermissaoControllerOpenApi;
 import com.jvmausa.algafood.api.v1.assembler.PermissaoModel;
 import com.jvmausa.algafood.api.v1.assembler.PermissaoModelAssembler;
 import com.jvmausa.algafood.domain.model.Permissao;

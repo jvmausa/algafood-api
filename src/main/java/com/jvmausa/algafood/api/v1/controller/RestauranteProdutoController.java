@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jvmausa.algafood.api.springfox.controller.RestauranteProdutoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.v1.RestauranteProdutoControllerOpenApi;
 import com.jvmausa.algafood.api.v1.assembler.ProdutoInputDisassembler;
 import com.jvmausa.algafood.api.v1.assembler.ProdutoModelAssembler;
 import com.jvmausa.algafood.api.v1.model.ProdutoModel;

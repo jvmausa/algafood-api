@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jvmausa.algafood.api.springfox.controller.GrupoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.v1.GrupoControllerOpenApi;
 import com.jvmausa.algafood.api.v1.assembler.GrupoInputDisassembler;
 import com.jvmausa.algafood.api.v1.assembler.GrupoModelAssembler;
 import com.jvmausa.algafood.api.v1.model.GrupoModel;

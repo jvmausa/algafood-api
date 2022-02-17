@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jvmausa.algafood.api.springfox.controller.RestauranteProdutoFotoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.v1.RestauranteProdutoFotoControllerOpenApi;
 import com.jvmausa.algafood.api.v1.assembler.FotoProdutoModelAssembler;
 import com.jvmausa.algafood.api.v1.model.FotoProdutoModel;
 import com.jvmausa.algafood.api.v1.model.input.FotoProdutoInput;

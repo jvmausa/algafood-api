@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jvmausa.algafood.api.springfox.controller.UsuarioControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.v1.UsuarioControllerOpenApi;
 import com.jvmausa.algafood.api.v1.assembler.UsuarioInputDisassembler;
 import com.jvmausa.algafood.api.v1.assembler.UsuarioModelAssembler;
 import com.jvmausa.algafood.api.v1.model.UsuarioModel;

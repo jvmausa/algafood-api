@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.v1.AlgaLinks;
 
+import io.swagger.annotations.ApiModel;
+
 @RestController
-@RequestMapping(path = "/v1/" ,produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/v1/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RootEntryPointController {
 
 	@Autowired
@@ -33,7 +35,7 @@ public class RootEntryPointController {
 
 		return rootEntryPointModel;
 	}
-
+	@ApiModel("RootEntryPoint")
 	private static class RootEntryPointModel extends RepresentationModel<RootEntryPointModel> {
 
 	}

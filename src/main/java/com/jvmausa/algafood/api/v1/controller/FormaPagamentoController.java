@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
-import com.jvmausa.algafood.api.springfox.controller.FormaPagamentoControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.v1.FormaPagamentoControllerOpenApi;
 import com.jvmausa.algafood.api.v1.assembler.FormaPagamentoInputDisassembler;
 import com.jvmausa.algafood.api.v1.assembler.FormaPagamentoModelAssembler;
 import com.jvmausa.algafood.api.v1.model.FormaPagamentoModel;

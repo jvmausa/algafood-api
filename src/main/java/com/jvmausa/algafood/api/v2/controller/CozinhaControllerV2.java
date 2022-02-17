@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jvmausa.algafood.api.springfox.controller.v2.CozinhaControllerV2OpenApi;
 import com.jvmausa.algafood.api.v2.assembler.CozinhaInputDisassemblerV2;
 import com.jvmausa.algafood.api.v2.assembler.CozinhaModelAssemblerV2;
 import com.jvmausa.algafood.api.v2.model.CozinhaModelV2;
@@ -29,7 +30,7 @@ import com.jvmausa.algafood.domain.service.CadastroCozinhaService;
 
 @RestController
 @RequestMapping("/v2/cozinhas")
-public class CozinhaControllerV2 {
+public class CozinhaControllerV2 implements CozinhaControllerV2OpenApi {
 
 	@Autowired
 	private CadastroCozinhaService cadastroCozinha;

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.ResourceUriHelper;
-import com.jvmausa.algafood.api.springfox.controller.CidadeControllerOpenApi;
+import com.jvmausa.algafood.api.springfox.controller.v1.CidadeControllerOpenApi;
 import com.jvmausa.algafood.api.v1.assembler.CidadeInputDisassembler;
 import com.jvmausa.algafood.api.v1.assembler.CidadeModelAssembler;
 import com.jvmausa.algafood.api.v1.model.CidadeModel;
@@ -53,6 +53,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 		
 	}
 
+	@Deprecated
 	@Override
 	@GetMapping("/{id}")
 	public CidadeModel buscar(@PathVariable Long id) {

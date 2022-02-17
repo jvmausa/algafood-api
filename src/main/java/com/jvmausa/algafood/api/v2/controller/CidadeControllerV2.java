@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jvmausa.algafood.api.ResourceUriHelper;
+import com.jvmausa.algafood.api.springfox.controller.v2.CidadeControllerV2OpenApi;
 import com.jvmausa.algafood.api.v2.assembler.CidadeInputDisassemblerV2;
 import com.jvmausa.algafood.api.v2.assembler.CidadeModelAssemblerV2;
 import com.jvmausa.algafood.api.v2.model.CidadeModelV2;
@@ -26,7 +27,7 @@ import com.jvmausa.algafood.domain.service.CadastroCidadeService;
 
 @RestController
 @RequestMapping(path = "/v2/cidades", produces = MediaType.APPLICATION_JSON_VALUE)
-public class CidadeControllerV2 {
+public class CidadeControllerV2 implements CidadeControllerV2OpenApi{
 
 	@Autowired
 	CidadeRepository cidadeRepository;
@@ -40,6 +41,7 @@ public class CidadeControllerV2 {
 	@Autowired
 	private CidadeInputDisassemblerV2 cidadeInputDisassembler;
 
+	@Override
 	@GetMapping
 	public CollectionModel<CidadeModelV2> listar() {
 
@@ -47,6 +49,7 @@ public class CidadeControllerV2 {
 
 	}
 
+	@Override
 	@GetMapping("/{id}")
 	public CidadeModelV2 buscar(@PathVariable Long id) {
 		Cidade cidade = cadastroCidade.buscarOuFalhar(id);
