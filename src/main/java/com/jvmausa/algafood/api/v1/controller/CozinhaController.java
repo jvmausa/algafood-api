@@ -28,6 +28,9 @@ import com.jvmausa.algafood.domain.model.Cozinha;
 import com.jvmausa.algafood.domain.repository.CozinhaRepository;
 import com.jvmausa.algafood.domain.service.CadastroCozinhaService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/v1/cozinhas")
 public class CozinhaController implements CozinhaControllerOpenApi {
@@ -40,38 +43,40 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 
 	@Autowired
 	private CozinhaModelAssembler cozinhaModelAssembler;
-	
+
 	@Autowired
 	private CozinhaInputDisassembler cozinhaInputDisassembler;
-	
+
 	@Autowired
 	private PagedResourcesAssembler<Cozinha> pagedResourceAssembler;
-	
+
 	@GetMapping
-	public PagedModel<CozinhaModel> listar(@PageableDefault(size = 2)Pageable pageable) {
+	public PagedModel<CozinhaModel> listar(@PageableDefault(size = 2) Pageable pageable) {
+		log.info("Consultando Cozinhas com páginas de {} registros", pageable.getPageSize());
+
 		Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
-		
-		PagedModel<CozinhaModel> cozinhasPagedModel = pagedResourceAssembler
-												.toModel(cozinhasPage, cozinhaModelAssembler);
-		
+
+		PagedModel<CozinhaModel> cozinhasPagedModel = pagedResourceAssembler.toModel(cozinhasPage,
+				cozinhaModelAssembler);
+
 		return cozinhasPagedModel;
 	}
 
 	@GetMapping("/{id}")
 	public CozinhaModel buscar(@PathVariable Long id) {
 		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(id);
-		
+
 		return cozinhaModelAssembler.toModel(cozinha);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
-		
+
 		Cozinha cozinha = cozinhaInputDisassembler.toDomainObject(cozinhaInput);
-		
+
 		return cozinhaModelAssembler.toModel(cadastroCozinha.salvar(cozinha));
-				
+
 	}
 
 	@PutMapping("/{id}")
@@ -79,7 +84,7 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 		Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(id);
 
 		cozinhaInputDisassembler.copyToDomainObject(cozinhaInput, cozinhaAtual);
-		
+
 		return cozinhaModelAssembler.toModel(cadastroCozinha.salvar(cozinhaAtual));
 	}
 
