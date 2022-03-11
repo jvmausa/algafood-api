@@ -17,6 +17,7 @@ import com.jvmausa.algafood.api.springfox.controller.v1.RestauranteUsuarioRespon
 import com.jvmausa.algafood.api.v1.AlgaLinks;
 import com.jvmausa.algafood.api.v1.assembler.UsuarioModelAssembler;
 import com.jvmausa.algafood.api.v1.model.UsuarioModel;
+import com.jvmausa.algafood.core.security.CheckSecurity;
 import com.jvmausa.algafood.domain.model.Restaurante;
 import com.jvmausa.algafood.domain.service.CadastroRestauranteService;
 
@@ -33,6 +34,7 @@ public class RestauranteUsuarioResponsavelController implements RestauranteUsuar
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	@CheckSecurity.Restaurantes.PodeConsultar
 	@Override
 	@GetMapping
 	public CollectionModel<UsuarioModel> listar(@PathVariable Long restauranteId) {

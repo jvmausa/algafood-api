@@ -25,6 +25,7 @@ import com.jvmausa.algafood.api.springfox.controller.v1.RestauranteProdutoFotoCo
 import com.jvmausa.algafood.api.v1.assembler.FotoProdutoModelAssembler;
 import com.jvmausa.algafood.api.v1.model.FotoProdutoModel;
 import com.jvmausa.algafood.api.v1.model.input.FotoProdutoInput;
+import com.jvmausa.algafood.core.security.CheckSecurity;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.model.FotoProduto;
 import com.jvmausa.algafood.domain.model.Produto;
@@ -49,6 +50,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 	@Autowired
 	private FotoStorageService fotoStorage;
 
+	@CheckSecurity.Restaurantes.PodeEditar
 	@Override
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
@@ -113,14 +115,6 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 		}
 		
 	}
-	
-//	@Override
-//	@DeleteMapping
-//	@ResponseStatus(HttpStatus.NO_CONTENT)
-//	public void excluir(@PathVariable Long restauranteId, 
-//			@PathVariable Long produtoId) {
-//		catalogoFotoProduto.excluir(restauranteId, produtoId);
-//	}
 
 	private void verificarCompatibilidadeMediaType(MediaType mediaTypeFoto,
 			List<MediaType> mediatypesAceitas) throws HttpMediaTypeNotAcceptableException {
