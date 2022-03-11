@@ -14,19 +14,15 @@ public @interface CheckSecurity {
 
 	public @interface Cozinhas {
 		
-		@PreAuthorize("hasAuthority('EDITAR_COZINHAS')")
+		@PreAuthorize("hasAuthority('SCOPE_write') and hasAuthority('EDITAR_COZINHAS')")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeEditar {
+		public @interface PodeEditar {}
 
-		}
-
-		@PreAuthorize("isAuthenticated()")
+		@PreAuthorize("haAuthority('SCOPE_read') and isAuthenticated()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeConsultar {
-
-		}
+		public @interface PodeConsultar {}
 
 	}
 
