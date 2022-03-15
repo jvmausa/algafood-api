@@ -120,7 +120,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 	@PutMapping("/{id}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> ativar(@PathVariable Long restauranteId) {
-		cadastroRestaurante.ativar(id);
+		cadastroRestaurante.ativar(restauranteId);
 		
 		return ResponseEntity.noContent().build();
 	}
@@ -130,7 +130,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 	@DeleteMapping("/{id}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> inativar(@PathVariable Long restauranteId) {
-		cadastroRestaurante.inativar(id);
+		cadastroRestaurante.inativar(restauranteId);
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -169,7 +169,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 	@PutMapping("/{id}/abertura")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> abrir(@PathVariable Long restauranteId) {
-	    cadastroRestaurante.abrir(id);
+	    cadastroRestaurante.abrir(restauranteId);
 	    return ResponseEntity.noContent().build();
 	}
 
@@ -178,7 +178,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 	@PutMapping("/{id}/fechamento")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> fechar(@PathVariable Long restauranteId) {
-	    cadastroRestaurante.fechar(id);
+	    cadastroRestaurante.fechar(restauranteId);
 	    return ResponseEntity.noContent().build();
 	}  
 	
