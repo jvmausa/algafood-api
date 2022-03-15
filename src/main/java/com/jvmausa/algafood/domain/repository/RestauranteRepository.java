@@ -30,5 +30,12 @@ public interface RestauranteRepository extends CustomJpaRepository<Restaurante, 
 	
 	int countByCozinhaId(Long cozinha); //conta quantos restaurantes existem com tal cozinha
 	
+	
+	@Query("select case when count(1) > 0 then true else false end"
+			+ "	from Restaurante rest"
+			+ "	join rest.responsaveis resp"
+			+ "	where rest.id = :restauranteId"
+			+ "	and resp.id = :usuarioId")
+	boolean existsResponsavel(Long restauranteId, Long usuarioId); // verifica se o usuarioId é responsável pelo restauranteId
 
 }

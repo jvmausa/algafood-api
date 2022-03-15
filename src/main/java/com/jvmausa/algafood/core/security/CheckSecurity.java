@@ -19,7 +19,7 @@ public @interface CheckSecurity {
 		@Target(METHOD)
 		public @interface PodeEditar {}
 
-		@PreAuthorize("haAuthority('SCOPE_read') and isAuthenticated()")
+		@PreAuthorize("hasAuthority('SCOPE_read') and isAuthenticated()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeConsultar {}
@@ -28,12 +28,19 @@ public @interface CheckSecurity {
 
 	public @interface Restaurantes {
 
-	    @PreAuthorize("hasAuthority('SCOPE_WRITE') and hasAuthority('EDITAR_RESTAURANTES')")
+	    @PreAuthorize("hasAuthority('SCOPE_write') and hasAuthority('EDITAR_RESTAURANTES')")
 	    @Retention(RUNTIME)
 	    @Target(METHOD)
-	    public @interface PodeEditar { }
+	    public @interface PodeGerenciarCadastro { }
+	    
+	    @PreAuthorize("hasAuthority('SCOPE_write') and "
+	    		+ "(hasAuthority('EDITAR_RESTAURANTES') or "
+	    		+ "@algaSecurity.gerenciaRestaurante(#restauranteId))") //variavel #id é viariável no Controller
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeGerenciarFuncionamento { }
 
-	    @PreAuthorize("hasAuthority('SCOPE_READ') and isAuthenticated()")
+	    @PreAuthorize("hasAuthority('SCOPE_read') and isAuthenticated()")
 	    @Retention(RUNTIME)
 	    @Target(METHOD)
 	    public @interface PodeConsultar { }
