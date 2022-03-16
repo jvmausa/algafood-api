@@ -14,7 +14,6 @@ public class AlgaSecurity {
 	@Autowired
 	private RestauranteRepository restauranteRepository;
 
-
 	public Authentication getAuthentication() {
 		return SecurityContextHolder.getContext().getAuthentication();
 
@@ -27,8 +26,12 @@ public class AlgaSecurity {
 	}
 
 	public boolean gerenciaRestaurante(Long restauranteId) {
+
+		if (restauranteId == null) {
+			return false;
+		}
+
 		return restauranteRepository.existsResponsavel(restauranteId, getUsuarioId());
 	}
-
 
 }
