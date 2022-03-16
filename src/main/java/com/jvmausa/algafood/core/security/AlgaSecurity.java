@@ -10,10 +10,10 @@ import com.jvmausa.algafood.domain.repository.RestauranteRepository;
 
 @Component
 public class AlgaSecurity {
-	
+
 	@Autowired
 	private RestauranteRepository restauranteRepository;
-	
+
 
 	public Authentication getAuthentication() {
 		return SecurityContextHolder.getContext().getAuthentication();
@@ -29,5 +29,6 @@ public class AlgaSecurity {
 	public boolean gerenciaRestaurante(Long restauranteId) {
 		return restauranteRepository.existsResponsavel(restauranteId, getUsuarioId());
 	}
+
 
 }

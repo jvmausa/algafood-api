@@ -29,6 +29,7 @@ import com.jvmausa.algafood.api.v1.model.input.PedidoInput;
 import com.jvmausa.algafood.core.data.PageWrapper;
 import com.jvmausa.algafood.core.data.PageableTranslator;
 import com.jvmausa.algafood.core.security.AlgaSecurity;
+import com.jvmausa.algafood.core.security.CheckSecurity;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.filter.PedidoFilter;
@@ -77,6 +78,7 @@ public class PedidoController implements PedidoControllerOpenApi {
 		return pagedResourcesAssembler.toModel(pedidosPage, pedidoResumoModelAssembler);
 	}
 
+	@CheckSecurity.Pedidos.PodeBuscar
 	@Override
 	@GetMapping("/{codigoPedido}")
 	public PedidoModel buscar(@PathVariable String codigoPedido) {

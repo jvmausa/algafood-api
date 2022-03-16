@@ -6,6 +6,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 @Retention(RUNTIME)
@@ -44,6 +45,30 @@ public @interface CheckSecurity {
 	    @Retention(RUNTIME)
 	    @Target(METHOD)
 	    public @interface PodeConsultar { }
+	    
+	}
+	
+	public @interface Pedidos {
+
+	    @PreAuthorize("hasAuthority('SCOPE_write') and hasAuthority('EDITAR_RESTAURANTES')")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeGerenciar { }
+	    
+	    @PreAuthorize("hasAuthority('SCOPE_write') and "
+	    		+ "(hasAuthority('EDITAR_RESTAURANTES') or "
+	    		+ "@algaSecurity.gerenciaRestaurante(#restauranteId))") //variavel #restauranteId é viariável no Controller
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeGerenciarFuncionamento { }
+
+	    @PreAuthorize("hasAuthority('SCOPE_read') and isAuthenticated()")
+	    @PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or"
+	    		+ "@algaSecurity.getUsuarioId() == returnObject.cliente.id or" //se usuário autenticado na requisição for o mesmo cliente do pedido, autoriza
+	    		+ "@algaSecurity.gerenciaRestaurante(returnObject.restaurante.id)") 
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeBuscar { }
 	    
 	}
 	
