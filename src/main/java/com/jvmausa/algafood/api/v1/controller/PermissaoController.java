@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jvmausa.algafood.api.springfox.controller.v1.PermissaoControllerOpenApi;
 import com.jvmausa.algafood.api.v1.assembler.PermissaoModel;
 import com.jvmausa.algafood.api.v1.assembler.PermissaoModelAssembler;
+import com.jvmausa.algafood.core.security.CheckSecurity;
 import com.jvmausa.algafood.domain.model.Permissao;
 import com.jvmausa.algafood.domain.repository.PermissaoRepository;
 
@@ -25,6 +26,7 @@ public class PermissaoController implements PermissaoControllerOpenApi {
 	@Autowired
 	private PermissaoModelAssembler permissaoModelAssembler;
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@Override
 	@GetMapping
 	public CollectionModel<PermissaoModel> listar() {

@@ -78,7 +78,7 @@ public @interface CheckSecurity {
 	    
 	}
 	
-	public @interface FormaPagamento {
+	public @interface FormaPagamentos {
 		
 		@PreAuthorize("hasAuthority('SCOPE_read') and isAuthenticated()")
 		@Retention(RUNTIME)
@@ -90,8 +90,77 @@ public @interface CheckSecurity {
 	    @Target(METHOD)
 		public @interface PodeEditar { }
 		
-		
 	}
 		
+	public @interface Cidades {
+		
+		@PreAuthorize("hasAuthority('SCOPE_read') and isAuthenticated()")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeConsultar { } 
+		
+		
+		@PreAuthorize("hasAuthority('SCOPE_write') and hasAuthority('EDITAR_CIDADES')")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeEditar { }
+		
+	}
+	
+	public @interface Estados {
+		
+		@PreAuthorize("hasAuthority('SCOPE_read') and isAuthenticated()")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeConsultar { } 
+		
+		
+		@PreAuthorize("hasAuthority('SCOPE_write') and hasAuthority('EDITAR_ESTADOS')")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeEditar { }
+		
+	}
+	
+	public @interface UsuariosGruposPermissoes {
+		
+		@PreAuthorize("hasAuthority('SCOPE_read') and hasAuthority('CONSULTAR_USUARIOS_GRUPOS_PERMISSOES')")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeConsultar { } 
+		
+		
+		@PreAuthorize("hasAuthority('SCOPE_write') and hasAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES')")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeEditar { }
+		
+		
+		@PreAuthorize("hasAuthority('SCOPE_write') and "
+					+ "(hasAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES') or "
+					+ "@algaSecurity.getUsuarioId() == #id)")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeAlterarUsuarioGrupoPermissoes { }
+		
+		
+		@PreAuthorize("hasAuthority('SCOPE_write') and "
+					+ "@algaSecurity.getUsuarioId() == #id")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeAlterarPropriaSenha { }
+		
+	}
+	
+	
+public @interface Estatisticas {
+		
+		@PreAuthorize("hasAuthority('SCOPE_read') and hasAuthority('GERAR_RELATORIOS')")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeConsultar { } 
+		
+	}
+	
 	
 }

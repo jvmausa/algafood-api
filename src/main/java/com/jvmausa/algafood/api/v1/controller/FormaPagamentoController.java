@@ -52,7 +52,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 	private FormaPagamentoInputDisassembler formaPagamentoInputDisasembler;
 
 	
-	@CheckSecurity.FormaPagamento.PodeConsultar
+	@CheckSecurity.FormaPagamentos.PodeConsultar
 	@Override
 	@GetMapping
 	public ResponseEntity<CollectionModel<FormaPagamentoModel>> listar(ServletWebRequest request) {
@@ -80,7 +80,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 				.body(formasPagamentoModel);
 	}
 	
-	@CheckSecurity.FormaPagamento.PodeConsultar
+	@CheckSecurity.FormaPagamentos.PodeConsultar
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long id) {
@@ -96,7 +96,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 	}
 
 	
-	@CheckSecurity.FormaPagamento.PodeEditar
+	@CheckSecurity.FormaPagamentos.PodeEditar
 	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -112,7 +112,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 	}
 
 	
-	@CheckSecurity.FormaPagamento.PodeEditar
+	@CheckSecurity.FormaPagamentos.PodeEditar
 	@Override
 	@PutMapping("/{id}")
 	public FormaPagamentoModel atualizar(@PathVariable Long id,
@@ -131,7 +131,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 	}
 
 	
-	@CheckSecurity.FormaPagamento.PodeEditar
+	@CheckSecurity.FormaPagamentos.PodeEditar
 	@Override
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

@@ -21,6 +21,7 @@ import com.jvmausa.algafood.api.v1.assembler.GrupoInputDisassembler;
 import com.jvmausa.algafood.api.v1.assembler.GrupoModelAssembler;
 import com.jvmausa.algafood.api.v1.model.GrupoModel;
 import com.jvmausa.algafood.api.v1.model.input.GrupoInput;
+import com.jvmausa.algafood.core.security.CheckSecurity;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.Grupo;
@@ -45,6 +46,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 	private GrupoInputDisassembler grupoInputDisassembler;
 	
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@Override
 	@GetMapping
 	public CollectionModel<GrupoModel> listar(){
@@ -52,6 +54,8 @@ public class GrupoController implements GrupoControllerOpenApi {
 		
 	}
 	
+	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@Override
 	@GetMapping("/{id}")
 	public GrupoModel buscar(@PathVariable Long id) {
@@ -60,6 +64,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 		
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarUsuarioGrupoPermissoes
 	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -75,6 +80,8 @@ public class GrupoController implements GrupoControllerOpenApi {
 		
 	}
 	
+	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
 	@Override
 	@PutMapping("/{id}")
 	public GrupoModel atualizar(@PathVariable Long id, @RequestBody @Valid GrupoInput grupoInput) {
@@ -92,6 +99,8 @@ public class GrupoController implements GrupoControllerOpenApi {
 		
 	}
 	
+	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
 	@Override
 	@DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -22,6 +22,7 @@ import com.jvmausa.algafood.api.v1.model.UsuarioModel;
 import com.jvmausa.algafood.api.v1.model.input.SenhaInput;
 import com.jvmausa.algafood.api.v1.model.input.UsuarioComSenhaInput;
 import com.jvmausa.algafood.api.v1.model.input.UsuarioInput;
+import com.jvmausa.algafood.core.security.CheckSecurity;
 import com.jvmausa.algafood.domain.model.Usuario;
 import com.jvmausa.algafood.domain.repository.UsuarioRepository;
 import com.jvmausa.algafood.domain.service.CadastroUsuarioService;
@@ -42,12 +43,26 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	@Autowired
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 
+	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@Override
 	@GetMapping
 	public CollectionModel<UsuarioModel> listar() {
 		return usuarioModelAssembler.toCollectionModel(usuarioRepository.findAll());
 	}
+	
+	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+	@Override
+	@GetMapping("/{id}")
+	public UsuarioModel buscar(@PathVariable Long id) {
+		Usuario usuario = cadastroUsuario.buscarOuFalhar(id);
+		
+		return usuarioModelAssembler.toModel(usuario);
+	}
 
+	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
 	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -59,15 +74,8 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 
 	}
 	
-	@Override
-	@GetMapping("/{id}")
-    public UsuarioModel buscar(@PathVariable Long id) {
-        Usuario usuario = cadastroUsuario.buscarOuFalhar(id);
-        
-        return usuarioModelAssembler.toModel(usuario);
-    }
 	
-
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarUsuarioGrupoPermissoes
 	@Override
 	@PutMapping("/{id}")
 	public UsuarioModel atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioInput usuarioInput) {
@@ -77,7 +85,8 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 
 		return usuarioModelAssembler.toModel(usuarioAtual);
 	}
-
+	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
 	@Override
 	@PutMapping("/{id}/senha")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

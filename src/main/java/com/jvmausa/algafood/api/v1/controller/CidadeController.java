@@ -22,6 +22,7 @@ import com.jvmausa.algafood.api.v1.assembler.CidadeInputDisassembler;
 import com.jvmausa.algafood.api.v1.assembler.CidadeModelAssembler;
 import com.jvmausa.algafood.api.v1.model.CidadeModel;
 import com.jvmausa.algafood.api.v1.model.input.CidadeInput;
+import com.jvmausa.algafood.core.security.CheckSecurity;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.Cidade;
@@ -45,6 +46,8 @@ public class CidadeController implements CidadeControllerOpenApi {
 	@Autowired
 	private CidadeInputDisassembler cidadeInputDisassembler;
 
+	
+	@CheckSecurity.Cidades.PodeConsultar
 	@Override
 	@GetMapping
 	public CollectionModel<CidadeModel> listar() {
@@ -53,7 +56,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 		
 	}
 
-	@Deprecated
+	@CheckSecurity.Cidades.PodeConsultar
 	@Override
 	@GetMapping("/{id}")
 	public CidadeModel buscar(@PathVariable Long id) {
@@ -63,6 +66,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 		return cidadeModel;
 	}
 
+	@CheckSecurity.Cidades.PodeEditar
 	@Override
 	@PostMapping
 	public CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
@@ -80,6 +84,8 @@ public class CidadeController implements CidadeControllerOpenApi {
 			throw new NegocioException(e.getMessage(), e); // exception para http 400 bad request
 		}
 	}
+	
+	@CheckSecurity.Cidades.PodeEditar
 	@Override
 	@PutMapping("/{id}")
 	public CidadeModel atualizar(@PathVariable Long id, @RequestBody @Valid CidadeInput cidadeInput) {
@@ -96,6 +102,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 
 	}
 	
+	@CheckSecurity.Cidades.PodeEditar
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {

@@ -23,6 +23,8 @@ public class AlgaSecurity {
 
 	}
 
+	
+	//pega ID usuário autenticado
 	public Long getUsuarioId() {
 		Jwt jwt = (Jwt) getAuthentication().getPrincipal();
 
