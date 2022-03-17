@@ -28,6 +28,7 @@ import com.jvmausa.algafood.api.v1.assembler.FormaPagamentoInputDisassembler;
 import com.jvmausa.algafood.api.v1.assembler.FormaPagamentoModelAssembler;
 import com.jvmausa.algafood.api.v1.model.FormaPagamentoModel;
 import com.jvmausa.algafood.api.v1.model.input.FormaPagamentoInput;
+import com.jvmausa.algafood.core.security.CheckSecurity;
 import com.jvmausa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.jvmausa.algafood.domain.exception.NegocioException;
 import com.jvmausa.algafood.domain.model.FormaPagamento;
@@ -51,6 +52,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 	private FormaPagamentoInputDisassembler formaPagamentoInputDisasembler;
 
 	
+	@CheckSecurity.FormaPagamento.PodeConsultar
 	@Override
 	@GetMapping
 	public ResponseEntity<CollectionModel<FormaPagamentoModel>> listar(ServletWebRequest request) {
@@ -78,6 +80,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 				.body(formasPagamentoModel);
 	}
 	
+	@CheckSecurity.FormaPagamento.PodeConsultar
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long id) {
@@ -92,6 +95,8 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 
 	}
 
+	
+	@CheckSecurity.FormaPagamento.PodeEditar
 	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -106,6 +111,8 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 
 	}
 
+	
+	@CheckSecurity.FormaPagamento.PodeEditar
 	@Override
 	@PutMapping("/{id}")
 	public FormaPagamentoModel atualizar(@PathVariable Long id,
@@ -123,6 +130,8 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 
 	}
 
+	
+	@CheckSecurity.FormaPagamento.PodeEditar
 	@Override
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

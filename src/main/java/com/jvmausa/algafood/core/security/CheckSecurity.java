@@ -50,18 +50,6 @@ public @interface CheckSecurity {
 	
 	public @interface Pedidos {
 
-	    @PreAuthorize("hasAuthority('SCOPE_write') and hasAuthority('EDITAR_RESTAURANTES')")
-	    @Retention(RUNTIME)
-	    @Target(METHOD)
-	    public @interface PodeGerenciar { }
-	    
-	    @PreAuthorize("hasAuthority('SCOPE_write') and "
-	    		+ "(hasAuthority('EDITAR_RESTAURANTES') or "
-	    		+ "@algaSecurity.gerenciaRestaurante(#restauranteId))") //variavel #restauranteId é viariável no Controller
-	    @Retention(RUNTIME)
-	    @Target(METHOD)
-	    public @interface PodeGerenciarFuncionamento { }
-
 	    @PreAuthorize("hasAuthority('SCOPE_read') and isAuthenticated()")
 	    @PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or"
 	    		+ "@algaSecurity.getUsuarioId() == returnObject.cliente.id or" //se usuário autenticado na requisição for o mesmo cliente do pedido, autoriza
@@ -77,8 +65,33 @@ public @interface CheckSecurity {
 	    @Target(METHOD)
 	    public @interface PodePesquisar { }
 	    
+	    @PreAuthorize("hasAuthority('SCOPE_write') and isAuthenticated()")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeCriar { }
+	    
+	    @PreAuthorize("hasAuthority('SCOPE_read') and (hasAuthority('GERENCIAR_PEDIDOS') or "
+	    		+ "@algaSecurity.gerenciaRestauranteDoPedido(#codigoPedido))")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeGerenciarPedidos { }
+	    
 	}
 	
+	public @interface FormaPagamento {
+		
+		@PreAuthorize("hasAuthority('SCOPE_read') and isAuthenticated()")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeConsultar { }
+		
+		@PreAuthorize("hasAuthority('SCOPE_write') and hasAuthority('EDITAR_FORMAS_PAGAMENTO')")
+		@Retention(RUNTIME)
+	    @Target(METHOD)
+		public @interface PodeEditar { }
+		
+		
+	}
 		
 	
 }
