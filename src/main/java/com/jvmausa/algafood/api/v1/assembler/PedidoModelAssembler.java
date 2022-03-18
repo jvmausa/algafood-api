@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.jvmausa.algafood.api.v1.AlgaLinks;
 import com.jvmausa.algafood.api.v1.controller.PedidoController;
 import com.jvmausa.algafood.api.v1.model.PedidoModel;
+import com.jvmausa.algafood.core.security.AlgaSecurity;
 import com.jvmausa.algafood.domain.model.Pedido;
 
 @Component
@@ -24,6 +25,9 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@Autowired
+	private AlgaSecurity algaSecurity;
+
 	@Override
 	public PedidoModel toModel(Pedido pedido) {
 		PedidoModel pedidoModel = createModelWithId(pedido.getCodigo(), pedido);
@@ -38,19 +42,23 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 		pedidoModel.getEnderecoEntrega().getCidade()
 				.add(algaLinks.linkToCidade(pedido.getEnderecoEntrega().getCidade().getId()));
 
-		if (pedido.podeSerConfirmado()) {
-			pedidoModel.add(algaLinks.linkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));
+		if (algaSecurity.podeGerenciarPedidos(pedido.getCodigo())) {
 
-		} else if (pedido.podeSerCancelado()) {
-			pedidoModel.add(algaLinks.linkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));
+			if (pedido.podeSerConfirmado()) {
+				pedidoModel.add(algaLinks.linkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));
 
-		} else if (pedido.podeSerEntregue()) {
-			pedidoModel.add(algaLinks.linkToEntregarPedido(pedido.getCodigo(), "entregar"));
+			} else if (pedido.podeSerCancelado()) {
+				pedidoModel.add(algaLinks.linkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));
+
+			} else if (pedido.podeSerEntregue()) {
+				pedidoModel.add(algaLinks.linkToEntregarPedido(pedido.getCodigo(), "entregar"));
+			}
+
+			pedidoModel.getItens().forEach(item -> {
+				item.add(algaLinks.linkToProduto(pedidoModel.getRestaurante().getId(), item.getProdutoId(), "produto"));
+			});
+
 		}
-
-		pedidoModel.getItens().forEach(item -> {
-			item.add(algaLinks.linkToProduto(pedidoModel.getRestaurante().getId(), item.getProdutoId(), "produto"));
-		});
 
 		return pedidoModel;
 	}
