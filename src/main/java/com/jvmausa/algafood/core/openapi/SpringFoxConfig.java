@@ -21,7 +21,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.amazonaws.auth.policy.Resource;
-import com.ctc.wstx.shaded.msv_core.util.Uri;
 import com.fasterxml.classmate.TypeResolver;
 import com.jvmausa.algafood.api.exceptionhandler.Problem;
 import com.jvmausa.algafood.api.springfox.model.exception.Problem500OpenApi;
@@ -90,7 +89,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				.globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
 				.globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
 				.additionalModels(typeResolver.resolve(Problem.class), typeResolver.resolve(Problem500OpenApi.class))
-				.ignoredParameterTypes(ServletWebRequest.class, URL.class,Uri.class, 
+				.ignoredParameterTypes(ServletWebRequest.class, URL.class, URI.class, 
 										URLStreamHandler.class, Resource.class, File.class, InputStream.class) 
 				.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
 				.directModelSubstitute(Links.class, LinksModelOpenApi.class)
