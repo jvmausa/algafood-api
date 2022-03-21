@@ -17,6 +17,7 @@ import com.jvmausa.algafood.api.springfox.controller.v1.UsuarioGrupoControllerOp
 import com.jvmausa.algafood.api.v1.AlgaLinks;
 import com.jvmausa.algafood.api.v1.assembler.GrupoModelAssembler;
 import com.jvmausa.algafood.api.v1.model.GrupoModel;
+import com.jvmausa.algafood.core.security.AlgaSecurity;
 import com.jvmausa.algafood.core.security.CheckSecurity;
 import com.jvmausa.algafood.domain.model.Usuario;
 import com.jvmausa.algafood.domain.service.CadastroUsuarioService;
@@ -36,6 +37,9 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi{
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	@Autowired
+	private AlgaSecurity algaSecurity;    
+	
 	
 	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@Override
@@ -45,13 +49,14 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi{
 		
 		CollectionModel<GrupoModel> gruposModel = grupoModelAssembler.
 							toCollectionModel(usuario.getGrupos())
-							.removeLinks()
-							.add(algaLinks.linkToUsuarioGrupoAssociar(usuarioId, null, "associar"));
+							.removeLinks();
 		
-		gruposModel.forEach(grupoModel -> {
-			grupoModel.add(algaLinks.linkToUsuarioGrupoDesassociar(usuarioId, grupoModel.getId(), "desassociar"));
-		});
-		
+		if (algaSecurity.podeEditarUsuariosGruposPermissoes()) {
+			gruposModel.add(algaLinks.linkToUsuarioGrupoAssociar(usuarioId, null, "associar"));
+			gruposModel.forEach(grupoModel -> {
+				grupoModel.add(algaLinks.linkToUsuarioGrupoDesassociar(usuarioId, grupoModel.getId(), "desassociar"));
+			});
+		}
 		return gruposModel;
 	}
 	

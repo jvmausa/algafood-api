@@ -17,6 +17,7 @@ import com.jvmausa.algafood.api.springfox.controller.v1.RestauranteUsuarioRespon
 import com.jvmausa.algafood.api.v1.AlgaLinks;
 import com.jvmausa.algafood.api.v1.assembler.UsuarioModelAssembler;
 import com.jvmausa.algafood.api.v1.model.UsuarioModel;
+import com.jvmausa.algafood.core.security.AlgaSecurity;
 import com.jvmausa.algafood.core.security.CheckSecurity;
 import com.jvmausa.algafood.domain.model.Restaurante;
 import com.jvmausa.algafood.domain.service.CadastroRestauranteService;
@@ -34,6 +35,9 @@ public class RestauranteUsuarioResponsavelController implements RestauranteUsuar
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	@Autowired
+	private AlgaSecurity algaSecurity;   
+	
 	@CheckSecurity.Restaurantes.PodeConsultar
 	@Override
 	@GetMapping
@@ -41,15 +45,17 @@ public class RestauranteUsuarioResponsavelController implements RestauranteUsuar
 		Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
 
 		CollectionModel<UsuarioModel> usuariosResponsaveis = usuarioModelAssembler
-				.toCollectionModel(restaurante.getResponsaveis()).removeLinks()
-				.add(algaLinks.linkToResponsaveisRestaurante(restauranteId))
-				.add(algaLinks.linkToResponsaveisRestauranteAssociar(restauranteId, "associar"));
+				.toCollectionModel(restaurante.getResponsaveis())
+				.removeLinks();
 		
-		usuariosResponsaveis.getContent().forEach(usuarioResponsavel -> {
-			usuarioResponsavel.add(algaLinks
-					.linkToResponsaveisRestauranteDesassociar(restauranteId, usuarioResponsavel.getId(), "desassociar"));
-		} );
-		
+		if (algaSecurity.podeGerenciarCadastroRestaurantes()) {
+			usuariosResponsaveis.add(algaLinks.linkToResponsaveisRestaurante(restauranteId));
+			usuariosResponsaveis.add(algaLinks.linkToResponsaveisRestauranteAssociar(restauranteId, "associar"));
+			usuariosResponsaveis.getContent().forEach(usuarioResponsavel -> {
+				usuarioResponsavel.add(algaLinks.linkToResponsaveisRestauranteDesassociar(restauranteId,
+						usuarioResponsavel.getId(), "desassociar"));
+			});
+		}
 		return usuariosResponsaveis;
 		
 	}

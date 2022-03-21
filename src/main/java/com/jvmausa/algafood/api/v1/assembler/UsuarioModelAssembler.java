@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.jvmausa.algafood.api.v1.AlgaLinks;
 import com.jvmausa.algafood.api.v1.controller.UsuarioController;
 import com.jvmausa.algafood.api.v1.model.UsuarioModel;
+import com.jvmausa.algafood.core.security.AlgaSecurity;
 import com.jvmausa.algafood.domain.model.Usuario;
 
 @Component
@@ -24,6 +25,9 @@ public class UsuarioModelAssembler extends RepresentationModelAssemblerSupport<U
 	
 	@Autowired
 	private AlgaLinks algaLinks;
+	
+	@Autowired
+	private AlgaSecurity algaSecurity;    
 
 	@Override
 	public UsuarioModel toModel(Usuario usuario) {
@@ -32,10 +36,11 @@ public class UsuarioModelAssembler extends RepresentationModelAssemblerSupport<U
 		
 		modelMapper.map(usuario, usuarioModel);
 		
-		usuarioModel.add(algaLinks.linkToUsuarios("usuarios"));
-		
-		usuarioModel.add(algaLinks.linkToGruposUsuario(usuario.getId(), "grupos-usuario"));
-		
+		if (algaSecurity.podeConsultarUsuariosGruposPermissoes()) {
+			
+			usuarioModel.add(algaLinks.linkToUsuarios("usuarios"));
+			usuarioModel.add(algaLinks.linkToGruposUsuario(usuario.getId(), "grupos-usuario"));
+		}
 		return usuarioModel;
 	}
 

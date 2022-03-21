@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.jvmausa.algafood.api.v1.AlgaLinks;
 import com.jvmausa.algafood.api.v1.controller.EstadoController;
 import com.jvmausa.algafood.api.v1.model.EstadoModel;
+import com.jvmausa.algafood.core.security.AlgaSecurity;
 import com.jvmausa.algafood.domain.model.Estado;
 
 @Component
@@ -25,21 +26,30 @@ public class EstadoModelAssembler extends RepresentationModelAssemblerSupport<Es
 	@Autowired
 	private AlgaLinks algaLinks;
 	
-	@Override
-	public EstadoModel toModel(Estado estado) {
-		
-		EstadoModel estadoModel = createModelWithId(estado.getId(), estado);
-		
-		modelMapper.map(estado, estadoModel);
-
-		estadoModel.add(algaLinks.linkToEstados("estados"));
-		
-		return estadoModel;
-	}
+	@Autowired
+	private AlgaSecurity algaSecurity;
 	
 	@Override
+	public EstadoModel toModel(Estado estado) {
+	    EstadoModel estadoModel = createModelWithId(estado.getId(), estado);
+	    modelMapper.map(estado, estadoModel);
+	    
+	    if (algaSecurity.podeConsultarEstados()) {
+	        estadoModel.add(algaLinks.linkToEstados("estados"));
+	    }
+	    
+	    return estadoModel;
+	}
+
+	@Override
 	public CollectionModel<EstadoModel> toCollectionModel(Iterable<? extends Estado> entities) {
-		return super.toCollectionModel(entities).add(algaLinks.linkToEstados());
+	    CollectionModel<EstadoModel> collectionModel = super.toCollectionModel(entities);
+	    
+	    if (algaSecurity.podeConsultarEstados()) {
+	        collectionModel.add(algaLinks.linkToEstados());
+	    }
+	    
+	    return collectionModel;
 	}
 
 }

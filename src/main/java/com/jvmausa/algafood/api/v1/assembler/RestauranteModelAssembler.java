@@ -9,67 +9,94 @@ import org.springframework.stereotype.Component;
 import com.jvmausa.algafood.api.v1.AlgaLinks;
 import com.jvmausa.algafood.api.v1.controller.RestauranteController;
 import com.jvmausa.algafood.api.v1.model.RestauranteModel;
+import com.jvmausa.algafood.core.security.AlgaSecurity;
 import com.jvmausa.algafood.domain.model.Restaurante;
 
 @Component
-public class RestauranteModelAssembler extends RepresentationModelAssemblerSupport<Restaurante, RestauranteModel>{
+public class RestauranteModelAssembler extends RepresentationModelAssemblerSupport<Restaurante, RestauranteModel> {
 
-	
-	@Autowired                                                     
+	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	private AlgaLinks algaLinks;
+
+	@Autowired
+	private AlgaSecurity algaSecurity;
 
 	public RestauranteModelAssembler() {
 		super(RestauranteController.class, RestauranteModel.class);
 	}
-	
+
 	@Override
 	public RestauranteModel toModel(Restaurante restaurante) {
-		
+
 		RestauranteModel restauranteModel = createModelWithId(restaurante.getId(), restaurante);
 		modelMapper.map(restaurante, restauranteModel);
-		
-		restauranteModel.add(algaLinks.linkToRestaurantes("restaurantes"));
-		
-		restauranteModel.getCozinha().add(
-				algaLinks.linkToCozinha(restaurante.getCozinha().getId()));
-		
-		if(restauranteModel.getEndereco() != null && 
-				restauranteModel.getEndereco().getCidade() != null) {
-			restauranteModel.getEndereco().getCidade().add(algaLinks
-					.linkToCidade(restaurante.getEndereco().getCidade().getId()));
-		}
-		
-		restauranteModel.add(algaLinks.linkToRestauranteFormasPagamento(restaurante.getId(), 
-				"formas-pagamento"));
-		
-		restauranteModel.add(algaLinks.linkToRestauranteResponsaveis(restaurante.getId(), 
-				"responsaveis"));
-		
-		restauranteModel.add(algaLinks.linkToProdutos(restaurante.getId(), "produtos"));
-		
-		if (restaurante.ativacaoPermitida()) {
-			restauranteModel.add(
-					algaLinks.linkToRestauranteAtivacao(restaurante.getId(), "ativar"));
+
+		if (algaSecurity.podeConsultarRestaurantes()) {
+			restauranteModel.add(algaLinks.linkToRestaurantes("restaurantes"));
 		}
 
-		if (restaurante.inativacaoPermitida()) {
-			restauranteModel.add(
-					algaLinks.linkToRestauranteInativacao(restaurante.getId(), "inativar"));
+		if (algaSecurity.podeGerenciarCadastroRestaurantes()) {
+
+			if (restaurante.ativacaoPermitida()) {
+				restauranteModel.add(algaLinks.linkToRestauranteAtivacao(restaurante.getId(), "ativar"));
+			}
+
+			if (restaurante.inativacaoPermitida()) {
+				restauranteModel.add(algaLinks.linkToRestauranteInativacao(restaurante.getId(), "inativar"));
+			}
+
 		}
 
-		if (restaurante.aberturaPermitida()) {
-			restauranteModel.add(
-					algaLinks.linkToRestauranteAbertura(restaurante.getId(), "abrir"));
-		}
-
-		if (restaurante.fechamentoPermitido()) {
-			restauranteModel.add(
-					algaLinks.linkToRestauranteFechamento(restaurante.getId(), "fechar"));
-		}
 		
+		
+		if (algaSecurity.podeGerenciarFuncionamentoRestaurantes(restaurante.getId())) {
+
+			if (restaurante.aberturaPermitida()) {
+				restauranteModel.add(algaLinks.linkToRestauranteAbertura(restaurante.getId(), "abrir"));
+			}
+
+			if (restaurante.fechamentoPermitido()) {
+				restauranteModel.add(algaLinks.linkToRestauranteFechamento(restaurante.getId(), "fechar"));
+			}
+
+		}
+
+		
+		
+		if (algaSecurity.podeConsultarRestaurantes()) {
+			restauranteModel.add(algaLinks.linkToProdutos(restaurante.getId(), "produtos"));
+		}
+
+		
+		
+		if (algaSecurity.podeConsultarCozinhas()) {
+			restauranteModel.getCozinha().add(algaLinks.linkToCozinha(restaurante.getCozinha().getId()));
+		}
+
+		
+		
+		if (algaSecurity.podeConsultarCidades()) {
+			if (restauranteModel.getEndereco() != null && restauranteModel.getEndereco().getCidade() != null) {
+
+				restauranteModel.getEndereco().getCidade()
+						.add(algaLinks.linkToCidade(restaurante.getEndereco().getCidade().getId()));
+			}
+		}
+
+		
+		
+		if (algaSecurity.podeConsultarRestaurantes()) {
+			restauranteModel.add(algaLinks.linkToRestauranteFormasPagamento(restaurante.getId(), "formas-pagamento"));
+		}
+
+		
+		if (algaSecurity.podeGerenciarCadastroRestaurantes()) {
+			restauranteModel.add(algaLinks.linkToRestauranteResponsaveis(restaurante.getId(), "responsaveis"));
+		}
+
 		return restauranteModel;
 	}
 
