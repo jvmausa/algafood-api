@@ -1,5 +1,6 @@
-package com.jvmausa.algafood.core.web.filter;
+package com.jvmausa.algafood.core.security;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -12,15 +13,15 @@ import org.springframework.web.filter.CorsFilter;
 public class CorsConfig {
 
 	@Bean
-	public FilterRegistrationBean<CorsFilter> corsFilter() {
+	public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.setAllowedOrigins(Collections.singletonList("*"));
+		config.setAllowedOrigins(Arrays.asList("http://api.algafood.local:8080", "http://www.foodanalytics.local:8082"));
 		config.setAllowedMethods(Collections.singletonList("*"));
 		config.setAllowedHeaders(Collections.singletonList("*"));
 		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/oauth/token", config);
+		source.registerCorsConfiguration("/**", config);
 
 		FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>();
 		bean.setFilter(new CorsFilter(source));
