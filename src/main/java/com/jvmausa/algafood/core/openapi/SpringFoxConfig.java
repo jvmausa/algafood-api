@@ -53,16 +53,23 @@ import com.jvmausa.algafood.api.v2.model.CozinhaModelV2;
 
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.GrantType;
+import springfox.documentation.service.ResourceOwnerPasswordCredentialsGrant;
 import springfox.documentation.service.ResponseMessage;
+import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -113,6 +120,7 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 						RestaurantesModelOpenApi.class))
 				.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(CollectionModel.class, UsuarioModel.class), 
 						UsuariosModelOpenApi.class))
+				
 				.apiInfo(apiInfoV1())
 				.tags(new Tag("Cidades", "Gerencia as cidades"),
 				        new Tag("Grupos", "Gerencia os grupos de usuários"),
@@ -124,7 +132,41 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 				        new Tag("Produtos", "Gerencia os produtos de restaurantes"),
 				        new Tag("Usuários", "Gerencia os usuários"),
 				        new Tag("Estatísticas", "Estatísticas da AlgaFood"),
-				        new Tag("Permissões", "Gerencia as permissões"));
+				        new Tag("Permissões", "Gerencia as permissões"))
+				
+				.securitySchemes(Arrays.asList(securityScheme()))
+				.securityContexts(Arrays.asList(securityContext()));
+	}
+	
+	private SecurityScheme securityScheme() {
+		return new OAuthBuilder()
+				.name("AlgaFoodOAuth2")
+				.grantTypes(grantTypes())
+				.scopes(scopes())
+				.build();
+	}
+	
+	private SecurityContext securityContext() {
+		var securityReference = SecurityReference.builder()
+				.reference("AlgaFoodOAuth2")
+				.scopes(scopes().toArray(new AuthorizationScope[0]))
+				.build();
+		return SecurityContext.builder()
+				.securityReferences(Arrays.asList(securityReference))
+				.forPaths(PathSelectors.any())
+				.build();
+		
+	}
+	
+	private List<GrantType> grantTypes(){
+		return Arrays.asList(new ResourceOwnerPasswordCredentialsGrant("/oauth/token"));
+		
+	}
+	
+	
+	private List<AuthorizationScope> scopes(){
+		return Arrays.asList(new AuthorizationScope("READ", "Acesso de leitura"),
+				new AuthorizationScope("WRITE", "Acesso de escrita"));
 	}
 	
 	@Bean
@@ -243,10 +285,10 @@ public class SpringFoxConfig implements WebMvcConfigurer{
 	}	
 	private ApiInfo apiInfoV1() {
 		return new ApiInfoBuilder()
-				.title("Alga Food API V1 (Deprecated)")
+				.title("Alga Food API V1")
 				.description("API aberta para cliente")
 				.version("1")
-				.contact(new Contact("Joao", null, "jvmausa@gmail.com"))
+				.contact(new Contact("Joao", "www.algafood.com.br", "jvmausa@gmail.com"))
 				.build();
 	}	
 	
