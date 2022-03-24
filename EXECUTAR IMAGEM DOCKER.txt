@@ -1,0 +1,8 @@
+>>>criar conexão
+docker network create --driver bridge algafood-network
+
+>>>executar container do mysql na conexão previamente criada
+docker container run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root --network algafood-network --name algafood-mysql mysql:8.0
+
+>>>executa aplicação na mesma conexão do mysql
+docker container run --rm -p 8080:8080 -e DB_HOST=algafood-mysql --network algafood-network algafood-api
