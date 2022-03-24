@@ -2,7 +2,9 @@ FROM openjdk:19-jdk-slim
 
 WORKDIR /app
 
-COPY target/*.jar /app/alga-food-api.jar
+ARG  JAR_FILE
+
+COPY target/${JAR_FILE} /app/alga-food-api.jar
 
 EXPOSE 8080
 
