@@ -9,3 +9,8 @@ docker container run --rm -p 8080:8080 -e DB_HOST=algafood-mysql --network algaf
 
 >>>baixar e executar api baixando do docker hub
 docker container run --rm -p 8080:8080 -e DB_HOST=algafood-mysql --network algafood-network jvmausa/algafood-api
+
+>>>tagear imagem
+docker image tag algafood-api:0.0.1-SNAPSHOT jvmausa/algafood-api:latest
+
+>>>enviar imagem tageada para docker hub
