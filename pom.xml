@@ -249,7 +249,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<repository>algafood-api</repository>
+							<repository>jvmausa/algafood-api</repository>
 
 							<buildArgs>
 								<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
@@ -259,6 +259,9 @@
 				</plugins>
 			</build>
 		</profile>
+
+
+
 	</profiles>
 
 </project>

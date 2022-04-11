@@ -30,7 +30,7 @@ public class FluxoPedidoController implements FluxoPedidoControllerOpenApi {
 
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@CheckSecurity.Pedidos.PodeGerenciarPedidos
 	@Override
 	@PutMapping("/cancelamento")
